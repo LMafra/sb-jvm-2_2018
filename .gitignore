@@ -1,0 +1,7 @@
+# Pasta para experimentação local, de cada um.
+# Tamtém ignora qualquer coisa terminada em tst
+*tst
+
+# Gerem os executáveis terminados em "ig", para que assim o git
+# os ignore.
+*ig
