@@ -7,7 +7,7 @@ class field_info{};
 class method_info{};
 class attribute_info{};
 
-enum access_flag
+enum enum_access_flag
 {
 	ACC_PUBLIC = 0x0001,
 	ACC_FINAL = 0x0010,
