@@ -30,7 +30,7 @@ vec<u2> access_flag_values {
 class ClassFile {
 /// The magic item supplies the magic number identifying the class file format;
 /// it has the value 0xCAFEBABE .
-  u8 magic = 0xCAFEBABE;
+  u4 magic = 0xCAFEBABE;
 
   u2 minor_version;
 

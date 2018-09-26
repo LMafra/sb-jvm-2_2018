@@ -33,13 +33,18 @@ enum enum_access_flag {
 
 class field_info {
 	public:
-		u2 access_flag;
+		enum_access_flag access_flag;
 
 		/// \Um indice valido na constant_pool tal que
 		/// typeof constant_pool[name_index] == CONSTANT_Utf8_info
+		/// que representa um unqualified name(4.2.2)
 		u2 name_index;
 
+		/// - índice válido na contant_pool
+		/// - typeof constant_pool[descriptor_index] == CONSTANT_Utf8_info
+		/// que representa uma field descriptor válid0 (4.3.2)
 		u2 descriptor_index;
+
 
 		u2 attributes_count;
 
