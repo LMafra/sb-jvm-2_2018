@@ -22,6 +22,14 @@ void displayClass(ClassFile theclass){  // TODO encontrar this class e super cla
 	std::cout << "  fields count: " << theclass.fields_count << std::endl;
 	std::cout << "  methods count: " << theclass.methods_count << std::endl;
 	std::cout << "  attributes count: " << theclass.attributes_count << std::endl;
+	std::cout << std::endl << std::endl;
+	std::cout << "options:" << std::endl;
+	std::cout << "1- constant pool" << std::endl;
+	std::cout << "2- interfaces" << std::endl;
+	std::cout << "3- fields" << std::endl;
+	std::cout << "4- methods" << std::endl;
+	std::cout << "5- attributes" << std::endl;
+	std::cout << "0- exit" << std::endl;
 }
 
 int main(){

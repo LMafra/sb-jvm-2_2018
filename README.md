@@ -9,6 +9,7 @@ Lucas Mafra Chagas - 12/0126443
 
 Rodrigo Doria Vilaça - 14/0031111
 
+Arthur da Silveira Couto - 16/0002575
 
 ## Funcionamento
 
