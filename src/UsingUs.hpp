@@ -2,6 +2,7 @@
 /// utilização de inteiros com tamanho padronizado.
 #pragma once
 #include <cstdint>
+#include <vector>
 #define vec std::vector
 #define IS_U16 typeid(uint16_t)
 

@@ -1,6 +1,6 @@
 #ifndef __cp_info_hpp__
 #define __cp_info_hpp__
-
+#include <vector>
 class CONSTANT_Class_info {public:
   u1 tag;
   u2 name_index; 
@@ -60,7 +60,7 @@ class CONSTANT_NameAndType_info {public:
 class CONSTANT_Utf8_info {
   u1 tag;
   u2 length;
-  vector<u1> bytes; //u1 bytes[length]
+  std::vector<u1> bytes; //u1 bytes[length]
 };
 
 class CONSTANT_MethodHandle_info {public:
