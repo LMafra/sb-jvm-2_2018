@@ -110,6 +110,44 @@ void displayCONSTANT_Utf8_info(CONSTANT_Utf8_info theunistringinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
+/// \brief display para methodref info.
+///
+/// apresenta o cp info com o nome da classe que contem o metodo, e nome e tipo do metodo.
+void displayCONSTANT_Methodref_info(CONSTANT_Methodref_info themethodinfo){
+	/// imprime o indice da classe/inferface do metodo e o indice do tipo e nome.
+	///
+	std::cout << "method ref info:" << std::endl;
+	std::cout << "  class name: cp_info# " << themethodinfo.class_index << std::endl;
+	std::cout << "  name and type: cp_info# " << themethodinfo.name_and_type_index << std::endl;
+	std::cout << std::endl << std::endl;
+
+	/// imprime opcao de abrir nome da classe/interface ou nome e tipo do metodo.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "1- class name" << std::endl;
+	std::cout << "2- method name and type" << std::endl;
+	std::cout << "0- exit" << std::endl;
+}
+
+/// \brief display para methodref info.
+///
+/// apresenta o cp info com o nome da classe que contem o metodo, e nome e tipo do metodo.
+void displayCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodref_info themethodinfo){
+	/// imprime o indice da classe/inferface do metodo e o indice do tipo e nome.
+	///
+	std::cout << "method ref info:" << std::endl;
+	std::cout << "  interface name: cp_info# " << themethodinfo.class_index << std::endl;
+	std::cout << "  name and type: cp_info# " << themethodinfo.name_and_type_index << std::endl;
+	std::cout << std::endl << std::endl;
+
+	/// imprime opcao de abrir nome da classe/interface ou nome e tipo do metodo.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "1- interface name" << std::endl;
+	std::cout << "2- method name and type" << std::endl;
+	std::cout << "0- exit" << std::endl;
+}
+
 int main(){
 	ClassFile obj;
 	//CONSTANT_Utf8_info stringy;
