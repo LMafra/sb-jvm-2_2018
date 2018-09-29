@@ -27,7 +27,7 @@ void displayClassFile(ClassFile theclass){  // TODO encontrar this class e super
 	std::cout << "  attributes count: " << theclass.attributes_count << std::endl;
 	std::cout << std::endl << std::endl;
 
-	/// imprime opcoes de navegacao
+	/// imprime opcoes de navegacao.
 	///
 	std::cout << "options:" << std::endl;
 	std::cout << "1- constant pool" << std::endl;
@@ -48,7 +48,7 @@ void displayCONSTANT_Class_info(CONSTANT_Class_info theclassinfo){
 	std::cout << "  class name: cp_info# " << theclassinfo.name_index << std::endl;
 	std::cout << std::endl << std::endl;
 
-	/// imprime opcao de abrir nome
+	/// imprime opcao de abrir nome.
 	///
 	std::cout << "options:" << std::endl;
 	std::cout << "1- class name" << std::endl;
@@ -66,7 +66,7 @@ void displayCONSTANT_Fieldref_info(CONSTANT_Fieldref_info thefieldinfo){
 	std::cout << "  name and type: cp_info# " << thefieldinfo.name_and_type_index << std::endl;
 	std::cout << std::endl << std::endl;
 
-	/// imprime opcao de abrir nome da classe/interface ou nome e tipo do field
+	/// imprime opcao de abrir nome da classe/interface ou nome e tipo do field.
 	///
 	std::cout << "options:" << std::endl;
 	std::cout << "1- class/interface name" << std::endl;
@@ -74,8 +74,48 @@ void displayCONSTANT_Fieldref_info(CONSTANT_Fieldref_info thefieldinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
+/// \brief display para name and type info.
+///
+/// apresenta o cp info com o nome do metodo/field e o tipo do metodo/field.
+void displayCONSTANT_NameAndType_info(CONSTANT_NameAndType_info thenameandtypeinfo){
+	/// imprime o indice do nome do field/metodo e o indice do tipo.
+	///
+	std::cout << "name and type info:" << std::endl;
+	std::cout << "  name: cp_info# " << thenameandtypeinfo.name_index << std::endl;
+	std::cout << "  type descriptor: cp_info# " << thenameandtypeinfo.descriptor_index << std::endl;
+	std::cout << std::endl << std::endl;
+
+	/// imprime opcao de abrir nome do field/metodo ou tipo do field/metodo.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "1- name" << std::endl;
+	std::cout << "2- type descriptor" << std::endl;
+	std::cout << "0- exit" << std::endl;
+}
+
+/// \brief display para constantes utf8.
+///
+/// apresenta o cp info com o tamanho da string e a string em si.
+void displayCONSTANT_Utf8_info(CONSTANT_Utf8_info theunistringinfo){
+	/// imprime o tamanho em bytes da string e a string em si.
+	///
+	std::cout << "utf8 info:" << std::endl;
+	std::cout << "  length: " << theunistringinfo.length << std::endl;
+	std::cout << "  string: " << (char*)theunistringinfo.bytes << std::endl;
+	std::cout << std::endl << std::endl;
+
+	/// imprime opcao de voltar, ja que strings nao levam a nada.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "0- exit" << std::endl;
+}
+
 int main(){
 	ClassFile obj;
+	//CONSTANT_Utf8_info stringy;
+	//stringy.length = 14;
+	//stringy.bytes = (u1 *)"attemptstring";
 	displayClassFile(obj);
+	//displayCONSTANT_Utf8_info(stringy);
 	return 0;
 }

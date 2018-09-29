@@ -57,10 +57,11 @@ class CONSTANT_NameAndType_info {public:
   u2 descriptor_index;
 };
 
-class CONSTANT_Utf8_info {
+class CONSTANT_Utf8_info {public:
   u1 tag;
   u2 length;
-  std::vector<u1> bytes; //u1 bytes[length]
+  u1 * bytes;
+  //std::vector<u1> bytes; //u1 bytes[length]
 };
 
 class CONSTANT_MethodHandle_info {public:
