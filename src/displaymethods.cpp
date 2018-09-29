@@ -148,6 +148,39 @@ void displayCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodref_info th
 	std::cout << "0- exit" << std::endl;
 }
 
+/// \brief display para string info.
+///
+/// apresenta o cp info com o indice da string.
+void displayCONSTANT_String_info(CONSTANT_String_info thestringinfo){
+	/// imprime o indice da string.
+	///
+	std::cout << "string info:" << std::endl;
+	std::cout << "  string text: cp_info# " << thestringinfo.string_index << std::endl;
+	std::cout << std::endl << std::endl;
+
+	/// imprime opcao de abrir texto.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "1- text" << std::endl;
+	std::cout << "0- exit" << std::endl;
+}
+
+/// \brief display para int info.
+///
+/// apresenta o cp info com o numero constante.
+void displayCONSTANT_Integer_info(CONSTANT_Integer_info theintinfo){
+	/// imprime o numero.
+	///
+	std::cout << "integer info:" << std::endl;
+	std::cout << "  value: " << theintinfo.bytes << std::endl;
+	std::cout << std::endl << std::endl;
+
+	/// imprime opcao de sair, inteiros nao levam a nada.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "0- exit" << std::endl;
+}
+
 int main(){
 	ClassFile obj;
 	//CONSTANT_Utf8_info stringy;
