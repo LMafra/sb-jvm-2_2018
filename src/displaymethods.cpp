@@ -206,11 +206,11 @@ void displayCONSTANT_Float_info(CONSTANT_Float_info thefloatinfo){
 void displayCONSTANT_Long_info(CONSTANT_Long_info thelonginfo){
 	/// imprime o numero.
 	///
-	uint64_t buff;
-	std::memcpy(&buff+4, &thelonginfo.high_bytes, sizeof(thelonginfo.high_bytes));
-	std::memcpy(&buff, &thelonginfo.low_bytes, sizeof(thelonginfo.low_bytes));
+	uint32_t buff[2];
+	std::memcpy(&buff[1], &thelonginfo.high_bytes, sizeof(thelonginfo.high_bytes));
+	std::memcpy(&buff[0], &thelonginfo.low_bytes, sizeof(thelonginfo.low_bytes));
 	std::cout << "long info:" << std::endl;
-	std::cout << "  value: " << buff << std::endl;
+	std::cout << "  value: " << ((uint64_t*)buff)[0] << std::endl;
 	std::cout << std::endl << std::endl;
 
 	/// imprime opcao de sair, longs nao levam a nada.
