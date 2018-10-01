@@ -2,6 +2,7 @@
 #include "ClassFileStructures/ClassFile.cpp"
 #include "ClassFileStructures/cp_info.hpp"
 #include <iostream>
+#include <cstring>
 
 
 
@@ -181,11 +182,52 @@ void displayCONSTANT_Integer_info(CONSTANT_Integer_info theintinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
+/// \brief display para float info.
+///
+/// apresenta o cp info com o numero constante.
+void displayCONSTANT_Float_info(CONSTANT_Float_info thefloatinfo){
+	/// imprime o numero.
+	///
+	float buff;
+	std::memcpy(&buff, &thefloatinfo.bytes, sizeof(thefloatinfo.bytes));
+	std::cout << "float info:" << std::endl;
+	std::cout << "  value: " << buff << std::endl;
+	std::cout << std::endl << std::endl;
+
+	/// imprime opcao de sair, floats nao levam a nada.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "0- exit" << std::endl;
+}
+
+/// \brief display para long info.
+///
+/// apresenta o cp info com o numero constante.
+void displayCONSTANT_Long_info(CONSTANT_Long_info thelonginfo){
+	/// imprime o numero.
+	///
+	uint64_t buff;
+	std::memcpy(&buff+4, &thelonginfo.high_bytes, sizeof(thelonginfo.high_bytes));
+	std::memcpy(&buff, &thelonginfo.low_bytes, sizeof(thelonginfo.low_bytes));
+	std::cout << "long info:" << std::endl;
+	std::cout << "  value: " << buff << std::endl;
+	std::cout << std::endl << std::endl;
+
+	/// imprime opcao de sair, longs nao levam a nada.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "0- exit" << std::endl;
+}
+
 int main(){
 	ClassFile obj;
+	//CONSTANT_Float_info numft;
 	//CONSTANT_Utf8_info stringy;
+	CONSTANT_Long_info numlt;
 	//stringy.length = 14;
 	//stringy.bytes = (u1 *)"attemptstring";
+	//displayCONSTANT_Float_info(numft);
+	displayCONSTANT_Long_info(numlt);
 	displayClassFile(obj);
 	//displayCONSTANT_Utf8_info(stringy);
 	return 0;
