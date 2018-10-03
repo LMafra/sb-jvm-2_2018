@@ -1,8 +1,20 @@
+#pragma once
 #include <iostream>
 #include "../UsingUs.hpp"
+#include "../displaymethods.cpp"
 #include <vector>
 #include "cp_info.hpp"
-
+#define TO_CLASS_INFO *(CONSTANT_Class_info*)&
+#define TO_FIELDREF_INFO *(CONSTANT_Fieldref_info*)&
+#define TO_METHODREF_INFO *(CONSTANT_Methodref_info*)&
+#define TO_INTERFACEMETHODREF_INFO *(CONSTANT_InterfaceMethodref_info*)&
+#define TO_STRING_INFO *(CONSTANT_String_info*)&
+#define TO_INTEGER_INFO *(CONSTANT_Integer_info*)&
+#define TO_FLOAT_INFO *(CONSTANT_Float_info*)&
+#define TO_LONG_INFO *(CONSTANT_Long_info*)&
+#define TO_UTF8_INFO *(CONSTANT_Utf8_info*)&
+#define TO_NAMEANDTYPE_INFO *(CONSTANT_NameAndType_info*)&
+using namespace std;
 enum enum_cp_tags {
   CONSTANT_Class = 7,
   CONSTANT_Fieldref = 9,
@@ -35,18 +47,13 @@ vector<u1> cp_tags_values {
   CONSTANT_MethodHandle,
   CONSTANT_MethodType,
   CONSTANT_InvokeDynamic
-;}
-
-class cp_info
-{
-private:
-
-public:
-  u1 tag;
-  vector<u1> info;
-}
+};
 
 int main(){
-
+  cp_info v[3];
+  CONSTANT_Class_info help;
+  help.tag= 0x07;
+  std::memcpy(&v[1],&help,sizeof(help));
+  displayCONSTANT_Class_info(TO_CLASS_INFO v[1]);
   return 0;
 }
