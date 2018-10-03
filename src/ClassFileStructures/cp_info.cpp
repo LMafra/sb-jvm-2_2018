@@ -1,8 +1,9 @@
+#pragma once
 #include <iostream>
 #include "../UsingUs.hpp"
 #include <vector>
 #include "cp_info.hpp"
-
+using namespace std;
 enum enum_cp_tags {
   CONSTANT_Class = 7,
   CONSTANT_Fieldref = 9,
@@ -35,18 +36,6 @@ vector<u1> cp_tags_values {
   CONSTANT_MethodHandle,
   CONSTANT_MethodType,
   CONSTANT_InvokeDynamic
-;}
+};
 
-class cp_info
-{
-private:
-
-public:
-  u1 tag;
-  vector<u1> info;
-}
-
-int main(){
-
-  return 0;
-}
+int main(){}

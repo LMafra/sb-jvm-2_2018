@@ -81,4 +81,30 @@ class CONSTANT_InvokeDynamic_info {public:
   u2 name_and_type_index;
 };
 
+using cp_info = union {
+  CONSTANT_Class_info  Class;
+  CONSTANT_Fieldref_info  Fieldref;
+  CONSTANT_Methodref_info  Methodref;
+  CONSTANT_InterfaceMethodref_info  InterfaceMethodref;
+  CONSTANT_String_info  String;
+  CONSTANT_Integer_info  Integer;
+  CONSTANT_Float_info  Float;
+  CONSTANT_Long_info  Long;
+  CONSTANT_Double_info  Double;
+  CONSTANT_NameAndType_info  NameAndType;
+  CONSTANT_Utf8_info  Utf8;
+  CONSTANT_MethodHandle_info  MethodHandle;
+  CONSTANT_MethodType_info  MethodType;
+  CONSTANT_InvokeDynamic_info  InvokeDynamic;
+};
+
+typedef enum {
+  struct{
+    int a,b;
+  }a,
+  struct{
+    float a, b;
+  }a
+} null;
+
 #endif
