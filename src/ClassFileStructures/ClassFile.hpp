@@ -32,7 +32,7 @@ class ClassFile {
 public:
 /// The magic item supplies the magic number identifying the class file format;
 /// it has the value 0xCAFEBABE .
-  u4 magic = 0xcafebabe;
+  u4 magic;
 
   u2 minor_version;
 

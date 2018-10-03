@@ -50,11 +50,3 @@ class field_info {
 
 		attribute_info* attributes;
 };
-
-int main() {
-	auto x = field_info();
-	x.access_flag = enum_access_flag::ACC_ENUM;
-	cout << x.access_flag << endl;
-	if(x.access_flag == 0x4000)
-		cout << "Success!! \n";
-}

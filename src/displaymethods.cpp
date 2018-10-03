@@ -1,6 +1,6 @@
 #pragma once
 #include "UsingUs.hpp"
-#include "ClassFileStructures/ClassFile.cpp"
+#include "ClassFileStructures/ClassFile.hpp"
 #include "ClassFileStructures/cp_info.hpp"
 #include <iostream>
 #include <cstring>
@@ -219,16 +219,16 @@ void displayCONSTANT_Long_info(CONSTANT_Long_info thelonginfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-// int main(){
-// 	ClassFile obj(0xCAFEBABE);
-// 	//CONSTANT_Float_info numft;
-// 	//CONSTANT_Utf8_info stringy;
-// 	CONSTANT_Long_info numlt;
-// 	//stringy.length = 14;
-// 	//stringy.bytes = (u1 *)"attemptstring";
-// 	//displayCONSTANT_Float_info(numft);
-// 	displayCONSTANT_Long_info(numlt);
-// 	displayClassFile(obj);
-// 	//displayCONSTANT_Utf8_info(stringy);
-// 	return 0;
-// }
+int main(){
+	ClassFile obj;
+	//CONSTANT_Float_info numft;
+	//CONSTANT_Utf8_info stringy;
+	CONSTANT_Long_info numlt;
+	//stringy.length = 14;
+	//stringy.bytes = (u1 *)"attemptstring";
+	//displayCONSTANT_Float_info(numft);
+	displayCONSTANT_Long_info(numlt);
+	displayClassFile(obj);
+	//displayCONSTANT_Utf8_info(stringy);
+	return 0;
+}

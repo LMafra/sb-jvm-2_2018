@@ -1,6 +1,16 @@
-#ifndef __cp_info_hpp__
-#define __cp_info_hpp__
-#include <vector>
+#pragma once
+#include "../UsingUs.hpp"
+#define TO_CLASS_INFO *(CONSTANT_Class_info*)&
+#define TO_FIELDREF_INFO *(CONSTANT_Fieldref_info*)&
+#define TO_METHODREF_INFO *(CONSTANT_Methodref_info*)&
+#define TO_INTERFACEMETHODREF_INFO *(CONSTANT_InterfaceMethodref_info*)&
+#define TO_STRING_INFO *(CONSTANT_String_info*)&
+#define TO_INTEGER_INFO *(CONSTANT_Integer_info*)&
+#define TO_FLOAT_INFO *(CONSTANT_Float_info*)&
+#define TO_LONG_INFO *(CONSTANT_Long_info*)&
+#define TO_UTF8_INFO *(CONSTANT_Utf8_info*)&
+#define TO_NAMEANDTYPE_INFO *(CONSTANT_NameAndType_info*)&
+
 class CONSTANT_Class_info {public:
   u1 tag;
   u2 name_index; 
@@ -61,7 +71,6 @@ class CONSTANT_Utf8_info {public:
   u1 tag;
   u2 length;
   u1 * bytes;
-  //std::vector<u1> bytes; //u1 bytes[length]
 };
 
 class CONSTANT_MethodHandle_info {public:
@@ -99,5 +108,22 @@ union cp_info{
   CONSTANT_InvokeDynamic_info  InvokeDynamic;
 };
 
+enum enum_cp_tags {
+  CONSTANT_Class = 7,
+  CONSTANT_Fieldref = 9,
+  CONSTANT_Methodref = 10,
+  CONSTANT_InterfaceMethodref = 11,
+  CONSTANT_String = 8,
+  CONSTANT_Integer = 3,
+  CONSTANT_Float = 4,
+  CONSTANT_Long = 5,
+  CONSTANT_Double = 6,
+  CONSTANT_NameAndType = 12,
+  CONSTANT_Utf8 = 1,
+  CONSTANT_MethodHandle = 15,
+  CONSTANT_MethodType = 16,
+  CONSTANT_InvokeDynamic = 18
+};
 
-#endif
+//std::memcpy(&constant_pool[1],&Class_info,sizeof(help));
+//displayCONSTANT_Class_info(TO_CLASS_INFO constant_pool[1]);
