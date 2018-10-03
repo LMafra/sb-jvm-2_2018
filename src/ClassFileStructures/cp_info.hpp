@@ -14,80 +14,94 @@
 class CONSTANT_Class_info {public:
   u1 tag;
   u2 name_index; 
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_Fieldref_info {public:
   u1 tag;
   u2 class_index; 
   u2 name_and_type_index; 
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_Methodref_info {public:
   u1 tag;
   u2 class_index;
   u2 name_and_type_index;
+  void read_from_file(FILE* f);
 };
 
 class CONSTANT_InterfaceMethodref_info {public:
   u1 tag;
   u2 class_index;
   u2 name_and_type_index;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_String_info {public:
   u1 tag;
   u2 string_index;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_Integer_info {public:
   u1 tag;
   u4 bytes;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_Float_info {public:
   u1 tag;
   u4 bytes;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_Long_info {public:
   u1 tag;
   u4 high_bytes;
   u4 low_bytes;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_Double_info {public:
   u1 tag;
   u4 high_bytes;
   u4 low_bytes;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_NameAndType_info {public:
   u1 tag;
   u2 name_index;
   u2 descriptor_index;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_Utf8_info {public:
   u1 tag;
   u2 length;
   u1 * bytes;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_MethodHandle_info {public:
   u1 tag;
   u1 reference_kind;
   u2 reference_index;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_MethodType_info {public:
   u1 tag;
   u2 descriptor_index;
+  read_from_file(FILE* f);
 };
 
 class CONSTANT_InvokeDynamic_info {public:
   u1 tag;
   u2 bootstrap_method_attr_index;
   u2 name_and_type_index;
+  read_from_file(FILE* f);
 };
 
 union cp_info{
