@@ -1,3 +1,4 @@
+#pragma once
 #include "../UsingUs.hpp"
 #include <iostream>
 
@@ -31,7 +32,7 @@ class ClassFile {
 public:
 /// The magic item supplies the magic number identifying the class file format;
 /// it has the value 0xCAFEBABE .
-  u4 magic = 0xCAFEBABE;
+  u4 magic = 0xcafebabe;
 
   u2 minor_version;
 
@@ -44,7 +45,7 @@ public:
 
 /// The constant_pool table is indexed from
 /// 1 to constant_pool_count -1. (farse-à com [0,constant_pool_count])
-/// cp_info constant_pool[constant_pool_count+1];
+/// cp_info constant_pool[constant_pool_count-1];
   cp_info* constant_pool;
 
 /// Define se é classe/interface, abstrata ou concreta, asbtrata ou nao...
@@ -106,5 +107,5 @@ public:
 
 /// attribute_info attributes[attributes_count];
   attribute_info* attributes;
-};
 
+};

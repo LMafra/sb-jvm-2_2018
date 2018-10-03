@@ -1,10 +1,10 @@
+#pragma once
 #include "UsingUs.hpp"
 #include "ClassFileStructures/ClassFile.cpp"
 #include "ClassFileStructures/cp_info.hpp"
 #include <iostream>
 #include <cstring>
-
-
+#include <cstdio>
 
 /// \brief display para informacoes gerais da classse e opcoes de navegacao.
 ///
@@ -15,6 +15,7 @@ void displayClassFile(ClassFile theclass){  // TODO encontrar this class e super
 	///
 	std::cout << "class file:" << std::endl;
 	std::cout << "  magic: " << std::hex << std::showbase <<std::uppercase << theclass.magic << std::endl << std::dec;
+	printf("  magic: %X\n", theclass.magic);
 	std::cout << "  minor version: " << theclass.minor_version << std::endl;
 	std::cout << "  major version: " << theclass.major_version << std::endl;
 	std::cout << "  constant pool count: " << theclass.constant_pool_count << std::endl;
@@ -219,16 +220,16 @@ void displayCONSTANT_Long_info(CONSTANT_Long_info thelonginfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-int main(){
-	ClassFile obj;
-	//CONSTANT_Float_info numft;
-	//CONSTANT_Utf8_info stringy;
-	CONSTANT_Long_info numlt;
-	//stringy.length = 14;
-	//stringy.bytes = (u1 *)"attemptstring";
-	//displayCONSTANT_Float_info(numft);
-	displayCONSTANT_Long_info(numlt);
-	displayClassFile(obj);
-	//displayCONSTANT_Utf8_info(stringy);
-	return 0;
-}
+// int main(){
+// 	ClassFile obj(0xCAFEBABE);
+// 	//CONSTANT_Float_info numft;
+// 	//CONSTANT_Utf8_info stringy;
+// 	CONSTANT_Long_info numlt;
+// 	//stringy.length = 14;
+// 	//stringy.bytes = (u1 *)"attemptstring";
+// 	//displayCONSTANT_Float_info(numft);
+// 	displayCONSTANT_Long_info(numlt);
+// 	displayClassFile(obj);
+// 	//displayCONSTANT_Utf8_info(stringy);
+// 	return 0;
+// }
