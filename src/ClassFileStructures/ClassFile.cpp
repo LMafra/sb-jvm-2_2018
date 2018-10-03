@@ -1,9 +1,9 @@
 #pragma once
 #include "../UsingUs.hpp"
+#include "cp_info.hpp"
 #include <iostream>
 
 /// definicoes temporarias, soh pra compilar
-class cp_info{};
 class field_info{};
 class method_info{};
 class attribute_info{};

@@ -81,7 +81,8 @@ class CONSTANT_InvokeDynamic_info {public:
   u2 name_and_type_index;
 };
 
-using cp_info = union {
+union cp_info{
+  u1 tag;
   CONSTANT_Class_info  Class;
   CONSTANT_Fieldref_info  Fieldref;
   CONSTANT_Methodref_info  Methodref;
@@ -98,13 +99,5 @@ using cp_info = union {
   CONSTANT_InvokeDynamic_info  InvokeDynamic;
 };
 
-typedef enum {
-  struct{
-    int a,b;
-  }a,
-  struct{
-    float a, b;
-  }a
-} null;
 
 #endif
