@@ -15,7 +15,6 @@ void displayClassFile(ClassFile theclass){  // TODO encontrar this class e super
 	///
 	std::cout << "class file:" << std::endl;
 	std::cout << "  magic: " << std::hex << std::showbase <<std::uppercase << theclass.magic << std::endl << std::dec;
-	printf("  magic: %X\n", theclass.magic);
 	std::cout << "  minor version: " << theclass.minor_version << std::endl;
 	std::cout << "  major version: " << theclass.major_version << std::endl;
 	std::cout << "  constant pool count: " << theclass.constant_pool_count << std::endl;
