@@ -15,15 +15,11 @@ int main() {
   FILE * f = fopen("double_aritmetica.class", "rb");
   ClassFile cf;
   u1 byte;
-  u1 a,b,c,d;
-  fread(&a, 1, 1, f);if(a != 0xca) printf("Não é um .class válido [Not cafebabe");
-  fread(&b, 1, 1, f);if(b != 0xfe) printf("Não é um .class válido [Not cafebabe");
-  fread(&c, 1, 1, f);if(c != 0xba) printf("Não é um .class válido [Not cafebabe");
-  fread(&d, 1, 1, f);if(d != 0xbe) printf("Não é um .class válido [Not cafebabe");
-  printf("li :: %x\n", (unsigned int)a << 24 | 
-                      (unsigned int)b << 16 |
-                      (unsigned int)c << 8 |
-                      (unsigned int)d);
+  read_us(&cf.magic, sizeof(cf.magic),f);
+  if(cf.magic != 0xCAFEBABE){
+    printf("Não é um .class válido (Not cafebabe).");
+  }
+  printf("li :: %x\n", cf.magic);
   return 0;
   read_us(&cf.minor_version, sizeof(cf.minor_version), f);
   read_us(&cf.major_version, sizeof(cf.major_version), f);
