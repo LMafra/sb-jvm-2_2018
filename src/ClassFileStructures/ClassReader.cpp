@@ -1,12 +1,15 @@
-#include "ClassFile.cpp"
+#include "ClassFile.hpp"
 #include "cp_info.hpp"
-#include "read_us.hpp"
 #include <cstring>
 unsigned int only_ones32(int x) {
   return (unsigned int)(-1) >> (32 - x);
 }
 
-
+void read_us(void* buf, int n , FILE * f) {
+  u1* ptr = (u1*)buf;
+  for(int i = n-1; i >= 0; i--)
+    fread( &ptr[i], 1, 1, f );
+}
 
 int main() {
   FILE * f = fopen("double_aritmetica.class", "rb");
@@ -31,90 +34,36 @@ int main() {
     read_us(&tag, sizeof(tag), f);
     switch(tag) {
       // case //enum.xons_class : aux=new classinfo; aux.read();aux.tag=tag;break
-      case enum_cp_tags :: CONSTANT_Class:
-        CONSTANT_Class_info* obj = new CONSTANT_Class_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
+      case enum_cp_tags::CONSTANT_Class:
         break;
-      case enum_cp_tags :: CONSTANT_Fieldref:
-        CONSTANT_Fieldref_info* obj = new CONSTANT_Fieldref_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
+      case enum_cp_tags::CONSTANT_Fieldref:
         break;
-      case enum_cp_tags :: CONSTANT_Methodref:CONSTANT_Methodref:_info()
-
-        CONSTANT_Methodref_info* obj = new CONSTANT_Methodref_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_InterfaceMethodref:CONSTANT_InterfaceMethodref:_info()
-
-        CONSTANT_InterfaceMethodref_info* obj = new CONSTANT_InterfaceMethodref_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_String:CONSTANT_String:_info()
-
-        CONSTANT_String_info* obj = new CONSTANT_String_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_Integer:CONSTANT_Integer:_info()
-
-        CONSTANT_Integer_info* obj = new CONSTANT_Integer_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_Float:CONSTANT_Float:_info()
-
-        CONSTANT_Float_info* obj = new CONSTANT_Float_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_Long:CONSTANT_Long:_info()
-
-        CONSTANT_Long_info* obj = new CONSTANT_Long_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_Double:CONSTANT_Double:_info()
-
-        CONSTANT_Double_info* obj = new CONSTANT_Double_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_NameAndType:CONSTANT_NameAndType:_info()
-
-        CONSTANT_NameAndType_info* obj = new CONSTANT_NameAndType_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_Utf8:CONSTANT_Utf8:_info()
-
-        CONSTANT_Utf8_info* obj = new CONSTANT_Utf8_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_MethodHandle:CONSTANT_MethodHandle:_info()
-
-        CONSTANT_MethodHandle_info* obj = new CONSTANT_MethodHandle_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_MethodType:CONSTANT_MethodType:_info()
-
-        CONSTANT_MethodType_info* obj = new CONSTANT_MethodType_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-      case enum_cp_tags :: CONSTANT_InvokeDynamic:CONSTANT_InvokeDynamic:_info()
-
-        CONSTANT_InvokeDynamic_info* obj = new CONSTANT_InvokeDynamic_info();
-        obj->read_from_file(f);  (mem( &cf.constant_pool[i], obj , sizeof(obj) ));
-      break;
-    default:
+      case enum_cp_tags::CONSTANT_Methodref:
+        break;
+      case enum_cp_tags::CONSTANT_InterfaceMethodref:
+        break;
+      case enum_cp_tags::CONSTANT_String:
+        break;
+      case enum_cp_tags::CONSTANT_Integer:
+        break;
+      case enum_cp_tags::CONSTANT_Float:
+        break;
+      case enum_cp_tags::CONSTANT_Long:
+        break;
+      case enum_cp_tags::CONSTANT_Double:
+        break;
+      case enum_cp_tags::CONSTANT_NameAndType:
+        break;
+      case enum_cp_tags::CONSTANT_Utf8:
+        break;
+      default:
+        break;
       // ler quantidade de bytes informada pela tag e ignorar
-      break;
-
     }
 
   }
-
-  read_us(cf.constant_pool,  (sizeof(cp_info) * cf.constant_pool_count-1) , f);
-  read_us(cf.constant_pool,  sizeof() * cf.constant_pool_count-1) , f);
   // TODO: le perfeitamente bem o contant pool
 
   //
-  read_us(&cf.access_flags, 2, 1, f);
-  read_us();
-  
-
-
+  read_us(&cf.access_flags, sizeof(cf.access_flags), f);
 }

@@ -14,112 +14,99 @@
 class CONSTANT_Class_info {public:
   u1 tag;
   u2 name_index; 
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_Fieldref_info {public:
   u1 tag;
   u2 class_index; 
   u2 name_and_type_index; 
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_Methodref_info {public:
   u1 tag;
   u2 class_index;
   u2 name_and_type_index;
-  void read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_InterfaceMethodref_info {public:
   u1 tag;
   u2 class_index;
   u2 name_and_type_index;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_String_info {public:
   u1 tag;
   u2 string_index;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_Integer_info {public:
   u1 tag;
   u4 bytes;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_Float_info {public:
   u1 tag;
   u4 bytes;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_Long_info {public:
   u1 tag;
   u4 high_bytes;
   u4 low_bytes;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_Double_info {public:
   u1 tag;
   u4 high_bytes;
   u4 low_bytes;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_NameAndType_info {public:
   u1 tag;
   u2 name_index;
   u2 descriptor_index;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_Utf8_info {public:
   u1 tag;
   u2 length;
   u1 * bytes;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_MethodHandle_info {public:
   u1 tag;
   u1 reference_kind;
   u2 reference_index;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_MethodType_info {public:
   u1 tag;
   u2 descriptor_index;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
 class CONSTANT_InvokeDynamic_info {public:
   u1 tag;
   u2 bootstrap_method_attr_index;
   u2 name_and_type_index;
-  read_from_file(FILE* f);
+  void fill_from(FILE* f);
 };
 
-union cp_info{
-  u1 tag;
-  CONSTANT_Class_info  Class;
-  CONSTANT_Fieldref_info  Fieldref;
-  CONSTANT_Methodref_info  Methodref;
-  CONSTANT_InterfaceMethodref_info  InterfaceMethodref;
-  CONSTANT_String_info  String;
-  CONSTANT_Integer_info  Integer;
-  CONSTANT_Float_info  Float;
-  CONSTANT_Long_info  Long;
-  CONSTANT_Double_info  Double;
-  CONSTANT_NameAndType_info  NameAndType;
-  CONSTANT_Utf8_info  Utf8;
-  CONSTANT_MethodHandle_info  MethodHandle;
-  CONSTANT_MethodType_info  MethodType;
-  CONSTANT_InvokeDynamic_info  InvokeDynamic;
+class cp_info{public:
+  u8 padding1;
+  u8 padding2;
 };
 
 enum enum_cp_tags {
