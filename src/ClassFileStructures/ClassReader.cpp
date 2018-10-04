@@ -1,16 +1,11 @@
 #include "ClassFile.hpp"
 #include "cp_info.hpp"
+#include "CONSTANT_Utf8_info.cpp"
+#include "cp_info.cpp"
 #include <cstring>
 unsigned int only_ones32(int x) {
   return (unsigned int)(-1) >> (32 - x);
 }
-
-void read_us(void* buf, int n , FILE * f) {
-  u1* ptr = (u1*)buf;
-  for(int i = n-1; i >= 0; i--)
-    fread( &ptr[i], 1, 1, f );
-}
-
 int main() {
   FILE * f = fopen("double_aritmetica.class", "rb");
   ClassFile cf;
@@ -20,12 +15,12 @@ int main() {
     printf("Não é um .class válido (Not cafebabe).");
   }
   printf("li :: %x\n", cf.magic);
-  return 0;
+  // return 0;
   read_us(&cf.minor_version, sizeof(cf.minor_version), f);
   read_us(&cf.major_version, sizeof(cf.major_version), f);
   read_us(&cf.constant_pool_count, sizeof(cf.constant_pool_count), f);
   cf.constant_pool = (cp_info*)malloc( cf.constant_pool_count * sizeof( cp_info ) );  // primeiro espaco sempre serah vazio
-  for(size_t i = 1; i < cf.constant_pool_count; i++) {
+  for(size_t i = 1; i <= cf.constant_pool_count; i++) {
     u1 tag;
     read_us(&tag, sizeof(tag), f);
     switch(tag) {
@@ -119,4 +114,6 @@ int main() {
 
   //
   read_us(&cf.access_flags, sizeof(cf.access_flags), f);
+  printf("Leu cp! E tambem flag de acesso\n");
+  fclose(f);
 }

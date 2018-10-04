@@ -1,5 +1,6 @@
 #pragma once
 #include "../UsingUs.hpp"
+#include <cstdio>
 #define TO_CLASS_INFO *(CONSTANT_Class_info*)&
 #define TO_FIELDREF_INFO *(CONSTANT_Fieldref_info*)&
 #define TO_METHODREF_INFO *(CONSTANT_Methodref_info*)&
@@ -13,14 +14,14 @@
 
 class CONSTANT_Class_info {public:
   u1 tag;
-  u2 name_index; 
+  u2 name_index;
   void fill_from(FILE* f);
 };
 
 class CONSTANT_Fieldref_info {public:
   u1 tag;
-  u2 class_index; 
-  u2 name_and_type_index; 
+  u2 class_index;
+  u2 name_and_type_index;
   void fill_from(FILE* f);
 };
 
