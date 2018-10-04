@@ -30,27 +30,84 @@ int main() {
     read_us(&tag, sizeof(tag), f);
     switch(tag) {
       // case //enum.xons_class : aux=new classinfo; aux.read();aux.tag=tag;break
-      case enum_cp_tags::CONSTANT_Class:
+      case enum_cp_tags::CONSTANT_Class:{
+        CONSTANT_Class_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
         break;
-      case enum_cp_tags::CONSTANT_Fieldref:
+      case enum_cp_tags::CONSTANT_Fieldref:{
+        CONSTANT_Fieldref_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
         break;
-      case enum_cp_tags::CONSTANT_Methodref:
+      case enum_cp_tags::CONSTANT_Methodref:{
+        CONSTANT_Methodref_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
         break;
-      case enum_cp_tags::CONSTANT_InterfaceMethodref:
+      case enum_cp_tags::CONSTANT_InterfaceMethodref:{
+        CONSTANT_InterfaceMethodref_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
         break;
-      case enum_cp_tags::CONSTANT_String:
+      case enum_cp_tags::CONSTANT_String:{
+        CONSTANT_String_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
         break;
-      case enum_cp_tags::CONSTANT_Integer:
+      case enum_cp_tags::CONSTANT_Integer:{
+        CONSTANT_Integer_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
         break;
-      case enum_cp_tags::CONSTANT_Float:
+      case enum_cp_tags::CONSTANT_Float:{
+        CONSTANT_Float_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
         break;
-      case enum_cp_tags::CONSTANT_Long:
+      case enum_cp_tags::CONSTANT_Long:{
+        CONSTANT_Long_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
+        i++;
         break;
-      case enum_cp_tags::CONSTANT_Double:
+      case enum_cp_tags::CONSTANT_Double:{
+        CONSTANT_Double_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
+        i++;
         break;
-      case enum_cp_tags::CONSTANT_NameAndType:
+      case enum_cp_tags::CONSTANT_NameAndType:{
+        CONSTANT_NameAndType_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
         break;
-      case enum_cp_tags::CONSTANT_Utf8:
+      case enum_cp_tags::CONSTANT_Utf8:{
+        CONSTANT_Utf8_info aux;
+        aux.tag = tag;
+        aux.fill_from(f);
+        std::memcpy(&cf.constant_pool[i], &aux, sizeof(aux));
+        }
         break;
       default:
         break;
