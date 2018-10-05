@@ -219,6 +219,25 @@ void displayCONSTANT_Long_info(CONSTANT_Long_info thelonginfo){
 	std::cout << "0- exit" << std::endl;
 }
 
+/// \brief display para double info.
+///
+/// apresenta o cp info com o numero constante.
+void displayCONSTANT_Double_info(CONSTANT_Double_info thedoubleinfo){
+	/// imprime o numero.
+	///
+	uint32_t buff[2];
+	std::memcpy(&buff[1], &thedoubleinfo.high_bytes, sizeof(thedoubleinfo.high_bytes));
+	std::memcpy(&buff[0], &thedoubleinfo.low_bytes, sizeof(thedoubleinfo.low_bytes));
+	std::cout << "double info:" << std::endl;
+	std::cout << "  value: " << ((double)buff)[0] << std::endl;
+	std::cout << std::endl << std::endl;
+
+	/// imprime opcao de sair, doubles nao levam a nada.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "0- exit" << std::endl;
+}
+
 int main(){
 	ClassFile obj;
 	//CONSTANT_Float_info numft;
