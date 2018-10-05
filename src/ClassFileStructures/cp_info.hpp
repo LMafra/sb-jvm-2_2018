@@ -85,26 +85,6 @@ class CONSTANT_Utf8_info {public:
   void fill_from(FILE* f);
 };
 
-class CONSTANT_MethodHandle_info {public:
-  u1 tag;
-  u1 reference_kind;
-  u2 reference_index;
-  void fill_from(FILE* f);
-};
-
-class CONSTANT_MethodType_info {public:
-  u1 tag;
-  u2 descriptor_index;
-  void fill_from(FILE* f);
-};
-
-class CONSTANT_InvokeDynamic_info {public:
-  u1 tag;
-  u2 bootstrap_method_attr_index;
-  u2 name_and_type_index;
-  void fill_from(FILE* f);
-};
-
 class cp_info{public:
   u8 padding1;
   u8 padding2;
