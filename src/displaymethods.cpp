@@ -238,16 +238,65 @@ void displayCONSTANT_Double_info(CONSTANT_Double_info thedoubleinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-int main(){
-	ClassFile obj;
-	//CONSTANT_Float_info numft;
-	//CONSTANT_Utf8_info stringy;
-	CONSTANT_Long_info numlt;
-	//stringy.length = 14;
-	//stringy.bytes = (u1 *)"attemptstring";
-	//displayCONSTANT_Float_info(numft);
-	displayCONSTANT_Long_info(numlt);
-	displayClassFile(obj);
-	//displayCONSTANT_Utf8_info(stringy);
-	return 0;
+/// \brief display para entradas na tabela de constantes.
+///
+/// apresenta lista de entradas da CP.
+/// mostra opcoes de navegacao para constant pool.
+void displayconstant_pool(ClassFile theclass){  // TODO encontrar this class e super class na constant pool para exibir
+	/// imprime as entradas.
+	for(size_t i = 1; i < cf.constant_pool_count; i++) {
+    	u1 tag;
+    	memcpy(&tag, &theclass.constant_pool[i],sizeof(tag));
+    	switch(tag) {
+    	case enum_cp_tags::CONSTANT_Class:
+    		std::cout << i << "- CONSTANT_Class_info" << std::endl;
+    		break;
+    	case enum_cp_tags::CONSTANT_Fieldref:
+    		std::cout << i << "- CONSTANT_Fieldref_info" << std::endl;
+        	break;
+    	case enum_cp_tags::CONSTANT_Methodref:
+    		std::cout << i << "- CONSTANT_Methodref_info" << std::endl;
+    		break;
+    	case enum_cp_tags::CONSTANT_InterfaceMethodref:
+    		std::cout << i << "- CONSTANT_InterfaceMethodref_info" << std::endl;
+			break;
+    	case enum_cp_tags::CONSTANT_String:
+    		std::cout << i << "- CONSTANT_String_info" << std::endl;
+    		break;
+    	case enum_cp_tags::CONSTANT_Integer:
+    		std::cout << i << "- CONSTANT_Integer_info" << std::endl;
+    		break;
+    	case enum_cp_tags::CONSTANT_Float:
+    		std::cout << i << "- CONSTANT_Float_info" << std::endl;
+    		break;
+    	case enum_cp_tags::CONSTANT_Long:
+    		std::cout << i << "- CONSTANT_Long_info" << std::endl;
+    		i++;
+    		std::cout << i << "- large numeric continued" << std::endl;
+    		break;
+    	case enum_cp_tags::CONSTANT_Double:
+    		std::cout << i << "- CONSTANT_Double_info" << std::endl;
+    		i++;
+    		std::cout << i << "- large numeric continued" << std::endl;
+    		break;
+    	case enum_cp_tags::CONSTANT_NameAndType:
+    		std::cout << i << "- CONSTANT_NameAndType_info" << std::endl;
+    		break;
+    	case enum_cp_tags::CONSTANT_Utf8:
+    		std::cout << i << "- CONSTANT_Utf8_info" << std::endl;
+    		break;
+    	default:
+    		std::cout << i << "- broken link" << std::endl;
+    		break;
+    	}
+	}
+	/// imprime opcoes de navegacao.
+	///
+	std::cout << "options:" << std::endl;
+	std::cout << "1- constant pool" << std::endl;
+	std::cout << "2- interfaces" << std::endl;
+	std::cout << "3- fields" << std::endl;
+	std::cout << "4- methods" << std::endl;
+	std::cout << "5- attributes" << std::endl;
+	std::cout << "0- exit" << std::endl;
 }
