@@ -1,6 +1,9 @@
 #pragma once
 #include "../UsingUs.hpp"
 #include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <string>
 #define TO_CLASS_INFO *(CONSTANT_Class_info*)&
 #define TO_FIELDREF_INFO *(CONSTANT_Fieldref_info*)&
 #define TO_METHODREF_INFO *(CONSTANT_Methodref_info*)&
@@ -11,6 +14,8 @@
 #define TO_LONG_INFO *(CONSTANT_Long_info*)&
 #define TO_UTF8_INFO *(CONSTANT_Utf8_info*)&
 #define TO_NAMEANDTYPE_INFO *(CONSTANT_NameAndType_info*)&
+using namespace std;
+#define DOUBLE_FREE "error: DOUBLE FREE AT "
 
 class CONSTANT_Class_info {public:
   u1 tag;
@@ -83,6 +88,15 @@ class CONSTANT_Utf8_info {public:
   u2 length;
   u1 * bytes;
   void fill_from(FILE* f);
+  ~CONSTANT_Utf8_info() {
+    try{
+      free(this->bytes);
+    }
+    catch(const char* e) {
+      cerr << DOUBLE_FREE << "" << "CONSTANT_Utf8_info" << endl;
+    }
+
+  }
 };
 
 class cp_info{public:

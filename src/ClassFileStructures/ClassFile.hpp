@@ -1,10 +1,10 @@
 #pragma once
 #include "../UsingUs.hpp"
+#include "field_info.hpp"
 #include "cp_info.hpp"
 #include <iostream>
 
 /// definicoes temporarias, soh pra compilar
-class field_info{};
 class method_info{};
 class attribute_info{};
 

@@ -1,7 +1,8 @@
 #include "ClassFile.hpp"
-#include "cp_info.hpp"
+// #include "cp_info.hpp"
 #include "CONSTANT_Utf8_info.cpp"
 #include "cp_info.cpp"
+#include "field_info.hpp"
 #include <cstring>
 unsigned int only_ones32(int x) {
   return (unsigned int)(-1) >> (32 - x);
@@ -113,6 +114,31 @@ int main() {
 
   //
   read_us(&cf.access_flags, sizeof(cf.access_flags), f);
-  printf("Leu cp! E tambem flag de acesso\n");
+  read_us(&cf.this_class, sizeof(cf.this_class), f);
+  read_us(&cf.super_class, sizeof(cf.super_class), f);
+  read_us(&cf.interfaces_count, sizeof(cf.interfaces_count), f);
+  
+  //  Implementar leitura do vetor interfaces  //
+  u2 lim = cf.interfaces_count;  
+  cf.interfaces = (u2*)malloc( lim * sizeof(u2) );
+  for(u2 i = 0; i < lim; i++)
+    read_us(&cf.interfaces[i], sizeof(u2), f);
+  
+  read_us(&cf.fields_count, sizeof(cf.fields_count), f);
+  lim = cf.fields_count;
+  //  Implementar leitura do vetor fields  //
+  for(u2 i = 0; i < lim; i++){
+    read_us(&cf.fields[i].access_flags, sizeof(cf.fields[i].access_flags), f);
+    read_us(&cf.fields[i].name_index, sizeof(cf.fields[i].name_index), f);
+    read_us(&cf.fields[i].descriptor_index, sizeof(cf.fields[i].descriptor_index), f);
+    read_us(&cf.fields[i].attribute_count, sizeof(cf.fields[i].attribute_count), f);
+    // Implementar leitura dos fields
+  }
+
+  read_us(&cf.methods_count, sizeof(cf.methods_count), f);
+
+  read_us(&cf.attribute_count, sizeof(cf.attribute_count), f);
+  
+    printf("Leu cp! E tambem flag de acesso\n");
   fclose(f);
 }
