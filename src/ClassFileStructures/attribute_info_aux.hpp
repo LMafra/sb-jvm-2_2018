@@ -1,5 +1,52 @@
 #pragma once
 #include "../UsingUs.hpp"
+class ExceptionTable;
+class Top_variable_info;
+class Integer_variable_info;
+class Float_variable_info;
+class Long_variable_info;
+class Double_variable_info;
+class Null_variable_info;
+class UninitializedThis_variable_info;
+class Object_variable_info;
+class Uninitialized_variable_info;
+class same_frame;
+class same_locals_1_stack_item_frame;
+class same_locals_1_stack_item_frame_extended;
+class chop_frame;
+class same_frame_extended;
+class append_frame;
+class full_frame;
+class Classes;
+class Line_number_table;
+class Local_variable_table;
+class Enum_const_value;
+class element_value;
+class Element_value_pairs;
+class Array_value;
+class Parameter_annotations;
+class annotation; 
+// class attribute_info;
+class Local_variable_type_table;
+// 4.7.3.0
+
+// 4.7.14
+
+class Local_variable_type_table{public:
+  u2 start_pc;
+  u2 length;
+  u2 name_index;
+  u2 signature_index;
+  u2 index;
+};
+
+// 4.7.16
+class annotation {public:
+  u2 type_index;
+  u2 num_element_value_pairs;
+  Element_value_pairs * element_value_pairs;
+};
+
 
 class ExceptionTable {public:
   u2 start_pc;
@@ -8,7 +55,82 @@ class ExceptionTable {public:
   u2 catch_type;
 };
 
+// 4.7.4 (pg 113)
+enum v_info {
+  Top = 0,Integer,Float,Long,Double,Null,
+  UnitializedThis, Object, Uninitialized
+};
+class Top_variable_info{public: u1 tag;};  // 0
+class Integer_variable_info{public: u1 tag;}; // 1
+class Float_variable_info{public: u1 tag;}; // 2
+class Long_variable_info{public: u1 tag;}; // 3
+class Double_variable_info{public: u1 tag;};  // 4
+class Null_variable_info{public: u1 tag;}; // 5
+class UninitializedThis_variable_info{public: u1 tag;}; // 6 
+class Object_variable_info{public:
+  u1 tag;
+  u2 cpool_index;
+}; // 7
+class Uninitialized_variable_info{public:
+  u1 tag;
+  u2 offset;
+}; // 8
+
+
+union  verification_type_info {
+  Top_variable_info a;
+  Integer_variable_info aa;
+  Float_variable_info aaa;
+  Long_variable_info aaaa;
+  Double_variable_info aaaaa;
+  Null_variable_info aaaaaaa;
+  UninitializedThis_variable_info aaaaaaaa;
+  Object_variable_info aaaaaaaaa;
+  Uninitialized_variable_info aaaaaaaaaa;
+};
+
 // 4.7.4 (pg 109)
+
+
+class same_frame {public: u1 frame_type; /* 0-63 */};
+
+class same_locals_1_stack_item_frame {public:
+  u1 frame_type; /* 64-127 */
+  verification_type_info stack[1];
+};
+
+class same_locals_1_stack_item_frame_extended {public:
+  u1 frame_type; /* 247 */
+  u2 offset_delta;
+  verification_type_info stack[1];
+};
+
+class chop_frame {public:
+  u1 frame_type; /* 248-250 */
+  u2 offset_delta;
+};
+
+class same_frame_extended {public:
+  u1 frame_type; /* 251 */
+  u2 offset_delta;
+};
+
+class append_frame {public:
+  u1 frame_type; /* 252-254 */
+  u2 offset_delta;
+  // verification_type_info locals [ frame_type - append_frame::decrement ];
+  verification_type_info * locals;
+};
+
+class full_frame {public:
+  u1 frame_type; /* 255 */
+  u2 offset_delta;
+  u2 number_of_locals;
+  verification_type_info * locals;
+  u2 number_of_stack_items;
+  verification_type_info * stack;
+};
+
 union stack_map_frame {
   same_frame a;
   same_locals_1_stack_item_frame b;
@@ -46,7 +168,7 @@ class Line_number_table {public:
 };
 
 class Local_variable_table {public:
-  u2 start_pc;
+  u2 start_pc{};
   u2 length;
   u2 name_index;
   u2 descriptor_index;
@@ -81,34 +203,26 @@ class Element_value_pairs  {public:
   u2 element_name_index;
   element_value value;
 };
-// 4.7.16
-class annotation {public:
-  u2 type_index;
-  u2 num_element_value_pairs;
-  Element_value_pairs * element_value_pairs;
-};
 
 ///////////////
-class Enum_const_value {public:
-  u2 type_name_index;
-  u2 const_name_index;
-};
-
-class Array_value {public:
-  u2 num_values;
-  element_value values[num_values];
-};
-
-union UnionValue {
-  u2 const_value_index;
-  Enum_const_value enum_const_value;
-  u2 class_info_index;
-  annotation annotation_value;
-  Array_value array_value;
-};
 
 // 4.7.19
 class Parameter_annotations {public:
   u2 num_annotations;
   annotation * annotations;
+};
+class attribute_info {public:
+
+  /// typeof constant_pool[attribute_name_index] == CONSTANT_Utf8_info
+  /// which represents the name of the attribute.
+  u2 attribute_name_index;
+
+  u4 attribute_length;
+
+  
+  u1 * info;  // Vetor de tamanho attribute_length*bytes,
+
+  attribute_info(u2 _attr_name_index, u4 attr_len) {
+    
+  }
 };
