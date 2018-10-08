@@ -1,6 +1,8 @@
-#include "../UsingUs.hpp"
+#pragma once
 #include <vector>
 #include <iostream>
+#include "../UsingUs.hpp"
+#include "attribute_info.hpp"
 
 using namespace std;
 
@@ -19,21 +21,21 @@ have any of the other flags in Table 4.4(). """
 */
 
 // MAps the Table 4.4.
-enum enum_access_flag {
-	ACC_PUBLIC = 0x0001,
-	ACC_PRIVATE = 0x0002,
-	ACC_PROTECTED = 0x0004,
-	ACC_STATIC = 0x0008,
-	ACC_FINAL = 0x0010,
-	ACC_VOLATILE = 0x0040,
-	ACC_TRANSIENT = 0x0080,
-	ACC_SYNTHETIC = 0x1000,
-	ACC_ENUM = 0x4000
-};
+// enum enum_access_flag {
+// 	ACC_PUBLIC = 0x0001,
+// 	ACC_PRIVATE = 0x0002,
+// 	ACC_PROTECTED = 0x0004,
+// 	ACC_STATIC = 0x0008,
+// 	ACC_FINAL = 0x0010,
+// 	ACC_VOLATILE = 0x0040,
+// 	ACC_TRANSIENT = 0x0080,
+// 	ACC_SYNTHETIC = 0x1000,
+// 	ACC_ENUM = 0x4000
+// };
 
 class field_info {
 	public:
-		enum_access_flag access_flag;
+		u2 access_flags;
 
 		/// \Um indice valido na constant_pool tal que
 		/// typeof constant_pool[name_index] == CONSTANT_Utf8_info

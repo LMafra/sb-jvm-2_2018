@@ -54,12 +54,12 @@ void CONSTANT_Utf8_info :: fill_from(FILE * f) {
   this->bytes = (u1*)malloc(sizeof(u1) * this->length);
   read_us(&this->bytes, this->length, f);
 }
-void CONSTANT_MethodHandle_info :: fill_from(FILE * f) {
+// void CONSTANT_MethodHandle_info :: fill_from(FILE * f) {
 
-}
-void CONSTANT_MethodType_info :: fill_from(FILE * f) {
+// }
+// void CONSTANT_MethodType_info :: fill_from(FILE * f) {
 
-}
-void CONSTANT_InvokeDynamic_info :: fill_from(FILE * f) {
+// }
+// void CONSTANT_InvokeDynamic_info :: fill_from(FILE * f) {
 
-}
+// }

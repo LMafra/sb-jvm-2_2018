@@ -1,32 +1,24 @@
 #pragma once
 #include "../UsingUs.hpp"
+#include "field_info.hpp"
 #include "cp_info.hpp"
+#include "attribute_info_aux.hpp"
 #include <iostream>
 
 /// definicoes temporarias, soh pra compilar
-class field_info{};
 class method_info{};
-class attribute_info{};
+// attribute_info_aux.hpp
+// enum enum_access_flag;
 
-enum enum_access_flag
-{
-	ACC_PUBLIC = 0x0001,
-	ACC_FINAL = 0x0010,
-	ACC_SUPER = 0x0020,
-	ACC_INTERFACE = 0x0200,
-	ACC_ABSTRACT = 0x0400,
-	ACC_SYNTHETIC = 0x2000,
-	ACC_ENUM = 0x4000
-};
-vec<u2> access_flag_values {
-	ACC_PUBLIC,
-	ACC_FINAL,
-	ACC_SUPER,
-	ACC_INTERFACE,
-	ACC_ABSTRACT,
-	ACC_SYNTHETIC,
-	ACC_ENUM
-};
+// vec<u2> access_flag_values {
+// 	ACC_PUBLIC,
+// 	ACC_FINAL,
+// 	ACC_SUPER,
+// 	ACC_INTERFACE,
+// 	ACC_ABSTRACT,
+// 	ACC_SYNTHETIC,
+// 	ACC_ENUM
+// };
 
 class ClassFile {
 public:
