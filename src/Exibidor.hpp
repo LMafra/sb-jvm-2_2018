@@ -74,16 +74,16 @@ class Exibidor{
 	/// opcoes lidas como entrada numerica.
 	void control_cp();
 	void controlCONSTANT_Class_info(CONSTANT_Class_info & theclassinfo);
-	void controlCONSTANT_Fieldref_info(CONSTANT_Fieldref_info * thefieldinfo);
-	void controlCONSTANT_NameAndType_info(CONSTANT_NameAndType_info * thenameandtypeinfo);
+	void controlCONSTANT_Fieldref_info(CONSTANT_Fieldref_info & thefieldinfo);
+	void controlCONSTANT_NameAndType_info(CONSTANT_NameAndType_info & thenameandtypeinfo);
 	void controlCONSTANT_Utf8_info(CONSTANT_Utf8_info & theunistringinfo);
-	void controlCONSTANT_Methodref_info(CONSTANT_Methodref_info * themethodinfo);
-	void controlCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodref_info * themethodinfo);
-	void controlCONSTANT_String_info(CONSTANT_String_info * thestringinfo);
-	void controlCONSTANT_Integer_info(CONSTANT_Integer_info * theintinfo);
-	void controlCONSTANT_Float_info(CONSTANT_Float_info * thefloatinfo);
-	void controlCONSTANT_Long_info(CONSTANT_Long_info * thelonginfo);
-	void controlCONSTANT_Double_info(CONSTANT_Double_info * thedoubleinfo);
+	void controlCONSTANT_Methodref_info(CONSTANT_Methodref_info & themethodinfo);
+	void controlCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodref_info & themethodinfo);
+	void controlCONSTANT_String_info(CONSTANT_String_info & thestringinfo);
+	void controlCONSTANT_Integer_info(CONSTANT_Integer_info & theintinfo);
+	void controlCONSTANT_Float_info(CONSTANT_Float_info & thefloatinfo);
+	void controlCONSTANT_Long_info(CONSTANT_Long_info & thelonginfo);
+	void controlCONSTANT_Double_info(CONSTANT_Double_info & thedoubleinfo);
 	void clearlinesprint();
 public:
 	void feed(ClassFile toshow);

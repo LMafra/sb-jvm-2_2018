@@ -192,6 +192,8 @@ void Exibidor::displayCONSTANT_Double_info(CONSTANT_Double_info & thedoubleinfo)
 	std::memcpy(&buff[1], &thedoubleinfo.high_bytes, sizeof(thedoubleinfo.high_bytes));
 	std::memcpy(&buff[0], &thedoubleinfo.low_bytes, sizeof(thedoubleinfo.low_bytes));
 	std::cout << "double info:" << std::endl;
+	std::cout << "  High bytes: " << std::hex << std::showbase <<((u4*)buff)[1] << std::endl;
+	std::cout << "  Low bytes: " << ((u4*)buff)[0] << std::endl << std::dec;
 	std::cout << "  value: " << ((double*)buff)[0] << std::endl;
 	std::cout << std::endl << std::endl;
 
@@ -289,31 +291,31 @@ void Exibidor::control_cp(){
     			controlCONSTANT_Class_info(*(CONSTANT_Class_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_Fieldref:
-    			controlCONSTANT_Fieldref_info((CONSTANT_Fieldref_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_Fieldref_info(*(CONSTANT_Fieldref_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_Methodref:
-    			controlCONSTANT_Methodref_info((CONSTANT_Methodref_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_Methodref_info(*(CONSTANT_Methodref_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_InterfaceMethodref:
-    			controlCONSTANT_InterfaceMethodref_info((CONSTANT_InterfaceMethodref_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_InterfaceMethodref_info(*(CONSTANT_InterfaceMethodref_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_String:
-    			controlCONSTANT_String_info((CONSTANT_String_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_String_info(*(CONSTANT_String_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_Integer:
-    			controlCONSTANT_Integer_info((CONSTANT_Integer_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_Integer_info(*(CONSTANT_Integer_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_Float:
-    			controlCONSTANT_Float_info((CONSTANT_Float_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_Float_info(*(CONSTANT_Float_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_Long:
-    			controlCONSTANT_Long_info((CONSTANT_Long_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_Long_info(*(CONSTANT_Long_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_Double:
-    			controlCONSTANT_Double_info((CONSTANT_Double_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_Double_info(*(CONSTANT_Double_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_NameAndType:
-    			controlCONSTANT_NameAndType_info((CONSTANT_NameAndType_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_NameAndType_info(*(CONSTANT_NameAndType_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_Utf8:
     			controlCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[opt]);
@@ -338,8 +340,36 @@ void Exibidor::controlCONSTANT_Class_info(CONSTANT_Class_info & theclassinfo){
 		}
 	}
 }
-void Exibidor::controlCONSTANT_Fieldref_info(CONSTANT_Fieldref_info * thefieldinfo){}
-void Exibidor::controlCONSTANT_NameAndType_info(CONSTANT_NameAndType_info * thenameandtypeinfo){}
+void Exibidor::controlCONSTANT_Fieldref_info(CONSTANT_Fieldref_info & thefieldinfo){
+	int opt;
+	bool to_exit = false;
+	while(!to_exit){
+		clearlinesprint();
+		displayCONSTANT_Fieldref_info(thefieldinfo);
+		std::cin >> opt;
+		switch(opt){
+			case 0: to_exit = true; break;
+			case 1: controlCONSTANT_Class_info(*(CONSTANT_Class_info *)&viewobj.constant_pool[thefieldinfo.class_index]);break;
+			case 2: controlCONSTANT_NameAndType_info(*(CONSTANT_NameAndType_info *)&viewobj.constant_pool[thefieldinfo.name_and_type_index]);break;
+			default: break;
+		}
+	}
+}
+void Exibidor::controlCONSTANT_NameAndType_info(CONSTANT_NameAndType_info & thenameandtypeinfo){
+	int opt;
+	bool to_exit = false;
+	while(!to_exit){
+		clearlinesprint();
+		displayCONSTANT_NameAndType_info(thenameandtypeinfo);
+		std::cin >> opt;
+		switch(opt){
+			case 0: to_exit = true; break;
+			case 1: controlCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[thenameandtypeinfo.name_index]);break;
+			case 2: controlCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[thenameandtypeinfo.descriptor_index]);break;
+			default: break;
+		}
+	}
+}
 void Exibidor::controlCONSTANT_Utf8_info(CONSTANT_Utf8_info & theunistringinfo){
 	int opt;
 	bool to_exit = false;
@@ -353,13 +383,102 @@ void Exibidor::controlCONSTANT_Utf8_info(CONSTANT_Utf8_info & theunistringinfo){
 		}
 	}
 }
-void Exibidor::controlCONSTANT_Methodref_info(CONSTANT_Methodref_info * themethodinfo){}
-void Exibidor::controlCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodref_info * themethodinfo){}
-void Exibidor::controlCONSTANT_String_info(CONSTANT_String_info * thestringinfo){}
-void Exibidor::controlCONSTANT_Integer_info(CONSTANT_Integer_info * theintinfo){}
-void Exibidor::controlCONSTANT_Float_info(CONSTANT_Float_info * thefloatinfo){}
-void Exibidor::controlCONSTANT_Long_info(CONSTANT_Long_info * thelonginfo){}
-void Exibidor::controlCONSTANT_Double_info(CONSTANT_Double_info * thedoubleinfo){}
+void Exibidor::controlCONSTANT_Methodref_info(CONSTANT_Methodref_info & themethodinfo){
+	int opt;
+	bool to_exit = false;
+	while(!to_exit){
+		clearlinesprint();
+		displayCONSTANT_Methodref_info(themethodinfo);
+		std::cin >> opt;
+		switch(opt){
+			case 0: to_exit = true; break;
+			case 1: controlCONSTANT_Class_info(*(CONSTANT_Class_info *)&viewobj.constant_pool[themethodinfo.class_index]);break;
+			case 2: controlCONSTANT_NameAndType_info(*(CONSTANT_NameAndType_info *)&viewobj.constant_pool[themethodinfo.name_and_type_index]);break;
+			default: break;
+		}
+	}
+}
+void Exibidor::controlCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodref_info & themethodinfo){
+	int opt;
+	bool to_exit = false;
+	while(!to_exit){
+		clearlinesprint();
+		displayCONSTANT_InterfaceMethodref_info(themethodinfo);
+		std::cin >> opt;
+		switch(opt){
+			case 0: to_exit = true; break;
+			case 1: controlCONSTANT_Class_info(*(CONSTANT_Class_info *)&viewobj.constant_pool[themethodinfo.class_index]);break;
+			case 2: controlCONSTANT_NameAndType_info(*(CONSTANT_NameAndType_info *)&viewobj.constant_pool[themethodinfo.name_and_type_index]);break;
+			default: break;
+		}
+	}
+}
+void Exibidor::controlCONSTANT_String_info(CONSTANT_String_info & thestringinfo){
+	int opt;
+	bool to_exit = false;
+	while(!to_exit){
+		clearlinesprint();
+		displayCONSTANT_String_info(thestringinfo);
+		std::cin >> opt;
+		switch(opt){
+			case 0: to_exit = true; break;
+			case 1: controlCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[thestringinfo.string_index]);break;
+			default: break;
+		}
+	}
+}
+void Exibidor::controlCONSTANT_Integer_info(CONSTANT_Integer_info & theintinfo){
+	int opt;
+	bool to_exit = false;
+	while(!to_exit){
+		clearlinesprint();
+		displayCONSTANT_Integer_info(theintinfo);
+		std::cin >> opt;
+		switch(opt){
+			case 0: to_exit = true; break;
+			default: break;
+		}
+	}
+}
+void Exibidor::controlCONSTANT_Float_info(CONSTANT_Float_info & thefloatinfo){
+	int opt;
+	bool to_exit = false;
+	while(!to_exit){
+		clearlinesprint();
+		displayCONSTANT_Float_info(thefloatinfo);
+		std::cin >> opt;
+		switch(opt){
+			case 0: to_exit = true; break;
+			default: break;
+		}
+	}
+}
+void Exibidor::controlCONSTANT_Long_info(CONSTANT_Long_info & thelonginfo){
+	int opt;
+	bool to_exit = false;
+	while(!to_exit){
+		clearlinesprint();
+		displayCONSTANT_Long_info(thelonginfo);
+		std::cin >> opt;
+		switch(opt){
+			case 0: to_exit = true; break;
+			default: break;
+		}
+	}
+}
+void Exibidor::controlCONSTANT_Double_info(CONSTANT_Double_info & thedoubleinfo){
+	int opt;
+	bool to_exit = false;
+	while(!to_exit){
+		clearlinesprint();
+		displayCONSTANT_Double_info(thedoubleinfo);
+		std::cin >> opt;
+		switch(opt){
+			case 0: to_exit = true; break;
+			default: break;
+		}
+	}
+}
 void Exibidor::feed(ClassFile toshow){
 	viewobj = toshow;
 }
