@@ -49,17 +49,7 @@ void CONSTANT_NameAndType_info :: fill_from(FILE * f) {
 }
 // Ver essa leitura de ponteiro... Alocar espaco antes!
 void CONSTANT_Utf8_info :: fill_from(FILE * f) {
-  // read_us(&this->tag, sizeof(this->tag), f);
-  read_us(&this->length, sizeof(this->length), f);
-  this->bytes = (u1*)malloc(sizeof(u1) * this->length);
-  read_us(&this->bytes, this->length, f);
+  read_us(&length, sizeof(length), f);
+  bytes = (u1*)malloc(sizeof(u1) * length);
+  read_us(bytes, length, f);
 }
-// void CONSTANT_MethodHandle_info :: fill_from(FILE * f) {
-
-// }
-// void CONSTANT_MethodType_info :: fill_from(FILE * f) {
-
-// }
-// void CONSTANT_InvokeDynamic_info :: fill_from(FILE * f) {
-
-// }

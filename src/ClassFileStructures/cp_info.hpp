@@ -88,15 +88,6 @@ class CONSTANT_Utf8_info {public:
   u2 length;
   u1 * bytes;
   void fill_from(FILE* f);
-  ~CONSTANT_Utf8_info() {
-    try{
-      free(this->bytes);
-    }
-    catch(const char* e) {
-      cerr << DOUBLE_FREE << "" << "CONSTANT_Utf8_info" << endl;
-    }
-
-  }
 };
 
 class cp_info{public:

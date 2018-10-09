@@ -1,6 +1,6 @@
 //#include "Exibidor.hpp"
 
-void Exibidor::displayClassFile(ClassFile theclass){  // TODO encontrar this class e super class na constant pool para exibir
+void Exibidor::displayClassFile(ClassFile & theclass){  // TODO encontrar this class e super class na constant pool para exibir
 	/// imprime os dados gerais de class file.
 	///
 	std::cout << "class file:" << std::endl;
@@ -29,7 +29,7 @@ void Exibidor::displayClassFile(ClassFile theclass){  // TODO encontrar this cla
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_Class_info(CONSTANT_Class_info theclassinfo){
+void Exibidor::displayCONSTANT_Class_info(CONSTANT_Class_info & theclassinfo){
 	/// imprime o indice da string nome.
 	///
 	std::cout << "class info:" << std::endl;
@@ -43,7 +43,7 @@ void Exibidor::displayCONSTANT_Class_info(CONSTANT_Class_info theclassinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_Fieldref_info(CONSTANT_Fieldref_info thefieldinfo){
+void Exibidor::displayCONSTANT_Fieldref_info(CONSTANT_Fieldref_info & thefieldinfo){
 	/// imprime o indice da classe/inferface do field e o indice do tipo e nome.
 	///
 	std::cout << "field ref info:" << std::endl;
@@ -62,7 +62,7 @@ void Exibidor::displayCONSTANT_Fieldref_info(CONSTANT_Fieldref_info thefieldinfo
 /// \brief display para name and type info.
 ///
 /// apresenta o cp info com o nome do metodo/field e o tipo do metodo/field.
-void Exibidor::displayCONSTANT_NameAndType_info(CONSTANT_NameAndType_info thenameandtypeinfo){
+void Exibidor::displayCONSTANT_NameAndType_info(CONSTANT_NameAndType_info & thenameandtypeinfo){
 	/// imprime o indice do nome do field/metodo e o indice do tipo.
 	///
 	std::cout << "name and type info:" << std::endl;
@@ -78,14 +78,14 @@ void Exibidor::displayCONSTANT_NameAndType_info(CONSTANT_NameAndType_info thenam
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_Utf8_info(CONSTANT_Utf8_info * theunistringinfo){
+void Exibidor::displayCONSTANT_Utf8_info(CONSTANT_Utf8_info & theunistringinfo){
 	/// imprime o tamanho em bytes da string e a string em si.
 	///
 	std::cout << "utf8 info:" << std::endl;
-	std::cout << "  length: " << theunistringinfo->length << std::endl;
+	std::cout << "  length: " << theunistringinfo.length << std::endl;
 	std::cout << "  string: ";
-	for(int i=0;i<theunistringinfo->length;i++)
-		std::cout << (u1)theunistringinfo->bytes[i];
+	for(int i=0;i<theunistringinfo.length;i++)
+		std::cout << (u1)theunistringinfo.bytes[i];
 	std::cout << std::endl;
 	std::cout << std::endl << std::endl;
 
@@ -95,7 +95,7 @@ void Exibidor::displayCONSTANT_Utf8_info(CONSTANT_Utf8_info * theunistringinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_Methodref_info(CONSTANT_Methodref_info themethodinfo){
+void Exibidor::displayCONSTANT_Methodref_info(CONSTANT_Methodref_info & themethodinfo){
 	/// imprime o indice da classe/inferface do metodo e o indice do tipo e nome.
 	///
 	std::cout << "method ref info:" << std::endl;
@@ -111,7 +111,7 @@ void Exibidor::displayCONSTANT_Methodref_info(CONSTANT_Methodref_info themethodi
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodref_info themethodinfo){
+void Exibidor::displayCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodref_info & themethodinfo){
 	/// imprime o indice da classe/inferface do metodo e o indice do tipo e nome.
 	///
 	std::cout << "method ref info:" << std::endl;
@@ -127,7 +127,7 @@ void Exibidor::displayCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodr
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_String_info(CONSTANT_String_info thestringinfo){
+void Exibidor::displayCONSTANT_String_info(CONSTANT_String_info & thestringinfo){
 	/// imprime o indice da string.
 	///
 	std::cout << "string info:" << std::endl;
@@ -141,7 +141,7 @@ void Exibidor::displayCONSTANT_String_info(CONSTANT_String_info thestringinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_Integer_info(CONSTANT_Integer_info theintinfo){
+void Exibidor::displayCONSTANT_Integer_info(CONSTANT_Integer_info & theintinfo){
 	/// imprime o numero.
 	///
 	std::cout << "integer info:" << std::endl;
@@ -154,7 +154,7 @@ void Exibidor::displayCONSTANT_Integer_info(CONSTANT_Integer_info theintinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_Float_info(CONSTANT_Float_info thefloatinfo){
+void Exibidor::displayCONSTANT_Float_info(CONSTANT_Float_info & thefloatinfo){
 	/// imprime o numero.
 	///
 	float buff;
@@ -169,7 +169,7 @@ void Exibidor::displayCONSTANT_Float_info(CONSTANT_Float_info thefloatinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_Long_info(CONSTANT_Long_info thelonginfo){
+void Exibidor::displayCONSTANT_Long_info(CONSTANT_Long_info & thelonginfo){
 	/// imprime o numero.
 	///
 	uint32_t buff[2];
@@ -185,7 +185,7 @@ void Exibidor::displayCONSTANT_Long_info(CONSTANT_Long_info thelonginfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayCONSTANT_Double_info(CONSTANT_Double_info thedoubleinfo){
+void Exibidor::displayCONSTANT_Double_info(CONSTANT_Double_info & thedoubleinfo){
 	/// imprime o numero.
 	///
 	uint32_t buff[2];
@@ -201,7 +201,7 @@ void Exibidor::displayCONSTANT_Double_info(CONSTANT_Double_info thedoubleinfo){
 	std::cout << "0- exit" << std::endl;
 }
 
-void Exibidor::displayconstant_pool(ClassFile theclass){  // TODO encontrar this class e super class na constant pool para exibir
+void Exibidor::displayconstant_pool(ClassFile & theclass){  // TODO encontrar this class e super class na constant pool para exibir
 	/// imprime as entradas.
 	for(size_t i = 1; i < theclass.constant_pool_count; i++) {
     	u1 tag;
@@ -286,7 +286,7 @@ void Exibidor::control_cp(){
     		memcpy(&tag, &viewobj.constant_pool[opt],sizeof(tag));
     		switch(tag) {
     		case enum_cp_tags::CONSTANT_Class:
-    			controlCONSTANT_Class_info((CONSTANT_Class_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_Class_info(*(CONSTANT_Class_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_Fieldref:
     			controlCONSTANT_Fieldref_info((CONSTANT_Fieldref_info *)&viewobj.constant_pool[opt]);
@@ -316,7 +316,7 @@ void Exibidor::control_cp(){
     			controlCONSTANT_NameAndType_info((CONSTANT_NameAndType_info *)&viewobj.constant_pool[opt]);
     			break;
     		case enum_cp_tags::CONSTANT_Utf8:
-    			controlCONSTANT_Utf8_info((CONSTANT_Utf8_info *)&viewobj.constant_pool[opt]);
+    			controlCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[opt]);
     			break;
     		default:
     			break;
@@ -324,23 +324,23 @@ void Exibidor::control_cp(){
 		}
 	}
 }
-void Exibidor::controlCONSTANT_Class_info(CONSTANT_Class_info * theclassinfo){
+void Exibidor::controlCONSTANT_Class_info(CONSTANT_Class_info & theclassinfo){
 	int opt;
 	bool to_exit = false;
 	while(!to_exit){
 		clearlinesprint();
-		displayCONSTANT_Class_info(*theclassinfo);
+		displayCONSTANT_Class_info(theclassinfo);
 		std::cin >> opt;
 		switch(opt){
 			case 0: to_exit = true; break;
-			case 1: controlCONSTANT_Utf8_info((CONSTANT_Utf8_info *)&viewobj.constant_pool[opt]);break;
+			case 1: controlCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[opt]);break;
 			default: break;
 		}
 	}
 }
 void Exibidor::controlCONSTANT_Fieldref_info(CONSTANT_Fieldref_info * thefieldinfo){}
 void Exibidor::controlCONSTANT_NameAndType_info(CONSTANT_NameAndType_info * thenameandtypeinfo){}
-void Exibidor::controlCONSTANT_Utf8_info(CONSTANT_Utf8_info * theunistringinfo){
+void Exibidor::controlCONSTANT_Utf8_info(CONSTANT_Utf8_info & theunistringinfo){
 	int opt;
 	bool to_exit = false;
 	while(!to_exit){
