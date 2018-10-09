@@ -133,14 +133,22 @@ int main() {
     read_us(&cf.fields[i].name_index, sizeof(cf.fields[i].name_index), f);
     read_us(&cf.fields[i].descriptor_index, sizeof(cf.fields[i].descriptor_index), f);
     read_us(&cf.fields[i].attributes_count, sizeof(cf.fields[i].attributes_count), f);
+    auto lim = cf.fields[i].attributes_count;
+    
+    for(u2 j = 0; j < lim; j++){
+      // cf.fields[i].attributes[i]
+    }
+
     // Implementar leitura dos fields
+
+
   }
 
   read_us(&cf.methods_count, sizeof(cf.methods_count), f);
 
   read_us(&cf.attributes_count, sizeof(cf.attributes_count), f);
   
-    printf("Leu cp! E tambem flag de acesso\n");
+  printf("Leu cp! E tambem flag de acesso\n");
   fclose(f);
 
   exib.feed(cf);
