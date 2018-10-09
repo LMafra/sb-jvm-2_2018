@@ -1,6 +1,5 @@
 #include "ClassFile.hpp"
-// #include "cp_info.hpp"
-#include "CONSTANT_Utf8_info.cpp"
+#include "cp_info.hpp"
 #include "cp_info.cpp"
 #include "field_info.hpp"
 #include <cstring>

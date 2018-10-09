@@ -10,16 +10,6 @@ class method_info{};
 // attribute_info_aux.hpp
 // enum enum_access_flag;
 
-// vec<u2> access_flag_values {
-// 	ACC_PUBLIC,
-// 	ACC_FINAL,
-// 	ACC_SUPER,
-// 	ACC_INTERFACE,
-// 	ACC_ABSTRACT,
-// 	ACC_SYNTHETIC,
-// 	ACC_ENUM
-// };
-
 class ClassFile {
 public:
 /// The magic item supplies the magic number identifying the class file format;
