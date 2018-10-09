@@ -4,10 +4,12 @@
 #include "cp_info.cpp"
 #include "field_info.hpp"
 #include <cstring>
+#include "../Exibidor.hpp"
 unsigned int only_ones32(int x) {
   return (unsigned int)(-1) >> (32 - x);
 }
 int main() {
+  Exibidor exib;
   FILE * f = fopen("double_aritmetica.class", "rb");
   ClassFile cf;
   u1 byte;
@@ -111,6 +113,9 @@ int main() {
 
   }
   // TODO: le perfeitamente bem o contant pool
+
+  exib.feed(cf);
+  exib.show();
 
   //
   read_us(&cf.access_flags, sizeof(cf.access_flags), f);
