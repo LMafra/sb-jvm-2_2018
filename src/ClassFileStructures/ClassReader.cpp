@@ -114,9 +114,6 @@ int main() {
   }
   // TODO: le perfeitamente bem o contant pool
 
-  exib.feed(cf);
-  exib.show();
-
   //
   read_us(&cf.access_flags, sizeof(cf.access_flags), f);
   read_us(&cf.this_class, sizeof(cf.this_class), f);
@@ -146,4 +143,7 @@ int main() {
   
     printf("Leu cp! E tambem flag de acesso\n");
   fclose(f);
+
+  exib.feed(cf);
+  exib.show();
 }

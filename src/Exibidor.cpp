@@ -333,7 +333,7 @@ void Exibidor::controlCONSTANT_Class_info(CONSTANT_Class_info & theclassinfo){
 		std::cin >> opt;
 		switch(opt){
 			case 0: to_exit = true; break;
-			case 1: controlCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[opt]);break;
+			case 1: controlCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theclassinfo.name_index]);break;
 			default: break;
 		}
 	}

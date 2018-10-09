@@ -51,5 +51,5 @@ void CONSTANT_NameAndType_info :: fill_from(FILE * f) {
 void CONSTANT_Utf8_info :: fill_from(FILE * f) {
   read_us(&length, sizeof(length), f);
   bytes = (u1*)malloc(sizeof(u1) * length);
-  read_us(bytes, length, f);
+  read_usstring(bytes, length, f);
 }
