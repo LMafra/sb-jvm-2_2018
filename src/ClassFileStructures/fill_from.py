@@ -29,7 +29,7 @@ while i < sli:
     lis.append(l)
     # print(l)
   i += 1
-lis = ['#pragma once\n', '#include "'+fi+'.hpp"\n\n'] + lis
+lis = ['#pragma once\n#include <stdio.h>', '\n#include "'+fi+'.hpp"\n\n'] + lis
 with open(fi+'.cpp', 'w') as ff:
   for i in lis:
     ff.write(i)

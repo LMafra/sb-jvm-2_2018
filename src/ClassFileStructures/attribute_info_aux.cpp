@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 #include "attribute_info_aux.hpp"
 
 void Local_variable_type_table :: fill_from(FILE * f) {
