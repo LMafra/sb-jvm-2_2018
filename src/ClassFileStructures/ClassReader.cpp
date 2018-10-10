@@ -263,7 +263,7 @@ int main() {
     cf.fields[i].attributes = (attribute_info*)malloc( lim2 * sizeof(attribute_info) );
     
     for(u2 j = 0; j < lim2; j++){
-      load_attribute(f, cf, &(cf.fields[i].attributes[j]) );
+      //load_attribute(f, cf, &(cf.fields[i].attributes[j]) );
     }
     // Implementar leitura dos fields
 

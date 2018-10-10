@@ -1,3 +1,5 @@
+#pragma once
+
 #include <cstdio>
 /// \brief Lê quantidade n de bytes do arquivo f e salva no buffer buf.
 void read_us(void* buf, int n , FILE * f) {
