@@ -7,13 +7,13 @@
 unsigned int only_ones32(int x) {
   return (unsigned int)(-1) >> (32 - x);
 }
-
-void load_attribute(FILE *f, ClassFile cf, attribute_info *atributo)
+/*
+void load_attribute(FILE *f, ClassFile * cf, attribute_info *atributo)
 {
     char *tipoAtributo;
     u4 attribute_length;
-    read_us(&atributo.attribute_name_index, sizeof(u2), f);
-    read_us(&atributo.attribute_length, sizeof(u4), f);
+    read_us(&atributo.attribute_name_index, sizeof(atributo.attribute_name_index), f);
+    read_us(&atributo.attribute_length, sizeof(atributo.attribute_length), f);
     attribute_length = atributo->attribute_length;
     u2 index = atributo->attribute_name_index - 1;
     tipoAtributo = (char *) malloc((cf.constant_pool[index].info.Utf8.length+1) * sizeof(char));
@@ -131,7 +131,7 @@ void load_attribute(FILE *f, ClassFile cf, attribute_info *atributo)
     }
     free(tipoAtributo); 
 }
-
+/**/
 int main() {
   Exibidor exib;
   FILE * f = fopen("double_aritmetica.class", "rb");

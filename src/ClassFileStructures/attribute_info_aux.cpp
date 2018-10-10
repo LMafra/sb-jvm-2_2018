@@ -11,12 +11,12 @@ void Local_variable_type_table :: fill_from(FILE * f) {
 }
 
 void annotation  :: fill_from(FILE * f) {
-	read_us(&type_index, sizeof(type_index), f);
-	read_us(&num_element_value_pairs, sizeof(num_element_value_pairs), f);
-	auto t = num_element_value_pairs;
-	element_value_pairs = (Element_value_pairs*)malloc(sizeof(Element_value_pairs));
-	for(auto i = 0; i < t; i++)
-		element_value_pairs[i].fill_from(f);
+	// read_us(&type_index, sizeof(type_index), f);
+	// read_us(&num_element_value_pairs, sizeof(num_element_value_pairs), f);
+	// auto t = num_element_value_pairs;
+	// element_value_pairs = (Element_value_pairs*)malloc(sizeof(Element_value_pairs));
+	// for(auto i = 0; i < t; i++)
+	// 	element_value_pairs[i].fill_from(f);
 
 }
 
@@ -122,6 +122,8 @@ void Parameter_annotations  :: fill_from(FILE * f) {
 void attribute_info  :: fill_from(FILE * f) {
 	read_us(&attribute_name_index, sizeof(attribute_name_index), f);
 	read_us(&attribute_length, sizeof(attribute_length), f);
-	read_us(&info, sizeof(info), f);
+	info = (u1*)malloc(sizeof(u1) * attribute_length);	
+	for(auto i = 0; i < attribute_length; i++)	
+		read_us(&info[i], sizeof(info[i]), f);
 }
 

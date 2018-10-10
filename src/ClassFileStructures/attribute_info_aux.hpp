@@ -242,6 +242,8 @@ class attribute_info {public:
 
   
   u1 * info;  // Vetor de tamanho attribute_length*bytes,
-
+  
   void fill_from(FILE*f);
 };
+
+#include "attribute_info_aux.cpp"
