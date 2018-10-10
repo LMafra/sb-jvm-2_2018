@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "attribute_info.hpp"
-#include "read_us.hpp"
+#include "../ReaderFiles/read_us.hpp"
 
 void ConstantValue_attribute  :: fill_from(FILE * f) {
 	read_us(&attribute_name_index, sizeof(attribute_name_index), f);

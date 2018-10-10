@@ -1,9 +1,9 @@
-#include "ClassFile.hpp"
-#include "cp_info.hpp"
-#include "cp_info.cpp"
-#include "field_info.hpp"
+#include "../ClassFileStructures/ClassFile.hpp"
+#include "../ClassFileStructures/cp_info.hpp"
+#include "../ClassFileStructures/field_info.hpp"
 #include <cstring>
-#include "../Exibidor.hpp"
+#include "../ViewerFiles/Exibidor.hpp"
+#include "read_us.hpp"
 unsigned int only_ones32(int x) {
   return (unsigned int)(-1) >> (32 - x);
 }

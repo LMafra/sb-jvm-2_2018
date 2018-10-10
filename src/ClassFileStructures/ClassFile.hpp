@@ -2,7 +2,6 @@
 #include "../UsingUs.hpp"
 #include "field_info.hpp"
 #include "cp_info.hpp"
-#include "attribute_info_aux.hpp"
 #include <iostream>
 
 /// definicoes temporarias, soh pra compilar

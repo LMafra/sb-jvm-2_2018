@@ -1,7 +1,7 @@
 #pragma once
-#include "UsingUs.hpp"
-#include "ClassFileStructures/ClassFile.hpp"
-#include "ClassFileStructures/cp_info.hpp"
+#include "../UsingUs.hpp"
+#include "../ClassFileStructures/ClassFile.hpp"
+#include "../ClassFileStructures/cp_info.hpp"
 #include <iostream>
 #include <cstring>
 #include <cstdio>

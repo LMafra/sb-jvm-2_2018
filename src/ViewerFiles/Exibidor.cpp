@@ -1,4 +1,4 @@
-//#include "Exibidor.hpp"
+#include "Exibidor.hpp"
 
 void Exibidor::displayClassFile(ClassFile & theclass){  // TODO encontrar this class e super class na constant pool para exibir
 	/// imprime os dados gerais de class file.
