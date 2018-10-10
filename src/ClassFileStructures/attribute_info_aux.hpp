@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 #include "../UsingUs.hpp"
 class ExceptionTable;
 class Top_variable_info;
@@ -38,7 +39,7 @@ class Local_variable_type_table{public:
   u2 name_index;
   u2 signature_index;
   u2 index;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 // 4.7.16
@@ -46,7 +47,7 @@ class annotation {public:
   u2 type_index;
   u2 num_element_value_pairs;
   Element_value_pairs * element_value_pairs;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 
@@ -55,7 +56,7 @@ class ExceptionTable {public:
   u2 end_pc;
   u2 handler_pc;
   u2 catch_type;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 // 4.7.4 (pg 113)
@@ -74,12 +75,12 @@ class UninitializedThis_variable_info{public: u1 tag;}; // 6
 class Object_variable_info{public:
   u1 tag;
   u2 cpool_index;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 }; // 7
 class Uninitialized_variable_info{public:
   u1 tag;
   u2 offset;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 }; // 8
 
 
@@ -103,26 +104,26 @@ class same_frame {public: u1 frame_type; /* 0-63 */};
 class same_locals_1_stack_item_frame {public:
   u1 frame_type; /* 64-127 */
   verification_type_info stack[1];
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 class same_locals_1_stack_item_frame_extended {public:
   u1 frame_type; /* 247 */
   u2 offset_delta;
   verification_type_info stack[1];
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 class chop_frame {public:
   u1 frame_type; /* 248-250 */
   u2 offset_delta;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 class same_frame_extended {public:
   u1 frame_type; /* 251 */
   u2 offset_delta;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 class append_frame {public:
@@ -130,7 +131,7 @@ class append_frame {public:
   u2 offset_delta;
   // verification_type_info locals [ frame_type - append_frame::decrement ];
   verification_type_info * locals;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 class full_frame {public:
@@ -140,7 +141,7 @@ class full_frame {public:
   verification_type_info * locals;
   u2 number_of_stack_items;
   verification_type_info * stack;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 union stack_map_frame {
@@ -172,13 +173,13 @@ class Classes {public:
   u2 outer_class_info_index;
   u2 inner_name_index;
   enum_inner_class_access_flags inner_class_access_flags;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 class Line_number_table {public:
   u2 start_pc;
   u2 line_number;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 class Local_variable_table {public:
@@ -187,20 +188,20 @@ class Local_variable_table {public:
   u2 name_index;
   u2 descriptor_index;
   u2 index;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 // 4.7.16.1
 
 class Enum_const_value{public:
   u2 type_name_index;
   u2 const_name_index;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 class Array_value{public:
   u2 num_values;
   element_value ** values;  // element_value value[num_values]; porem, isso dah da tamanho infinito!
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 union UnionValue {
@@ -214,13 +215,13 @@ union UnionValue {
 class element_value {public:
   u1 tag;
   UnionValue value;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 class Element_value_pairs  {public:
   u2 element_name_index;
   element_value value;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 
 ///////////////
@@ -229,7 +230,7 @@ class Element_value_pairs  {public:
 class Parameter_annotations {public:
   u2 num_annotations;
   annotation * annotations;
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };
 class attribute_info {public:
 
@@ -242,5 +243,5 @@ class attribute_info {public:
   
   u1 * info;  // Vetor de tamanho attribute_length*bytes,
 
-  void fill_from(FILE*f){};
+  void fill_from(FILE*f);
 };

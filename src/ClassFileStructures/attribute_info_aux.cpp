@@ -13,7 +13,11 @@ void Local_variable_type_table :: fill_from(FILE * f) {
 void annotation  :: fill_from(FILE * f) {
 	read_us(&type_index, sizeof(type_index), f);
 	read_us(&num_element_value_pairs, sizeof(num_element_value_pairs), f);
-	read_us(&element_value_pairs, sizeof(element_value_pairs), f);
+	auto t = num_element_value_pairs;
+	element_value_pairs = (Element_value_pairs*)malloc(sizeof(Element_value_pairs));
+	for(auto i = 0; i < t; i++)
+		element_value_pairs[i].fill_from(f);
+
 }
 
 void ExceptionTable  :: fill_from(FILE * f) {
@@ -107,7 +111,7 @@ void element_value  :: fill_from(FILE * f) {
 
 void Element_value_pairs   :: fill_from(FILE * f) {
 	read_us(&element_name_index, sizeof(element_name_index), f);
-	read_us(&value, sizeof(value), f);
+	value.fill_from(f);
 }
 
 void Parameter_annotations  :: fill_from(FILE * f) {
