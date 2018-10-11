@@ -67,6 +67,7 @@ class Exibidor{
 	/// apresenta lista de entradas da CP.
 	/// mostra opcoes de navegacao para constant pool.
 	void displayconstant_pool(ClassFile & theclass);
+	void displayfields(ClassFile & theclass);
 	/// \brief entrada do exibidor.
 	///
 	/// mostra opcoes na tela e controla fluxo de input/output.
@@ -77,18 +78,8 @@ class Exibidor{
 	/// lista todas as constantes e seleciona uma para mostrar.
 	/// opcoes lidas como entrada numerica.
 	void control_cp();
-	void controlCONSTANT_Class_info(CONSTANT_Class_info & theclassinfo);
-	void controlCONSTANT_Fieldref_info(CONSTANT_Fieldref_info & thefieldinfo);
-	void controlCONSTANT_NameAndType_info(CONSTANT_NameAndType_info & thenameandtypeinfo);
-	void controlCONSTANT_Utf8_info(CONSTANT_Utf8_info & theunistringinfo);
-	void controlCONSTANT_Methodref_info(CONSTANT_Methodref_info & themethodinfo);
-	void controlCONSTANT_InterfaceMethodref_info(CONSTANT_InterfaceMethodref_info & themethodinfo);
-	void controlCONSTANT_String_info(CONSTANT_String_info & thestringinfo);
-	void controlCONSTANT_Integer_info(CONSTANT_Integer_info & theintinfo);
-	void controlCONSTANT_Float_info(CONSTANT_Float_info & thefloatinfo);
-	void controlCONSTANT_Long_info(CONSTANT_Long_info & thelonginfo);
-	void controlCONSTANT_Double_info(CONSTANT_Double_info & thedoubleinfo);
-	void clearlinesprint();
+	void control_fields();
+	void control_attributes();
 public:
 	/// \brief fornece estrutura de ClassFile a ser exibida.
 	///

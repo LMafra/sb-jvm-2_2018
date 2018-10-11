@@ -164,67 +164,67 @@ void Exibidor::displayconstant_pool(ClassFile & theclass){  // TODO encontrar th
     	switch(tag) {
     	case enum_cp_tags::CONSTANT_Class:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_Class_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_Class_info" << std::endl;
     		displayCONSTANT_Class_info(*(CONSTANT_Class_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Fieldref:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_Fieldref_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_Fieldref_info" << std::endl;
     		displayCONSTANT_Fieldref_info(*(CONSTANT_Fieldref_info *)&viewobj.constant_pool[i]);
         	break;
     	case enum_cp_tags::CONSTANT_Methodref:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_Methodref_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_Methodref_info" << std::endl;
     		displayCONSTANT_Methodref_info(*(CONSTANT_Methodref_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_InterfaceMethodref:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_InterfaceMethodref_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_InterfaceMethodref_info" << std::endl;
     		displayCONSTANT_InterfaceMethodref_info(*(CONSTANT_InterfaceMethodref_info *)&viewobj.constant_pool[i]);
 			break;
     	case enum_cp_tags::CONSTANT_String:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_String_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_String_info" << std::endl;
     		displayCONSTANT_String_info(*(CONSTANT_String_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Integer:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_Integer_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_Integer_info" << std::endl;
     		displayCONSTANT_Integer_info(*(CONSTANT_Integer_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Float:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_Float_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_Float_info" << std::endl;
     		displayCONSTANT_Float_info(*(CONSTANT_Float_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Long:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_Long_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_Long_info" << std::endl;
     		displayCONSTANT_Long_info(*(CONSTANT_Long_info *)&viewobj.constant_pool[i]);
     		i++;
-    		std::cout << i << "- large numeric continued" << std::endl << std::endl;
+    		std::cout << "[" << i << "]" << " large numeric continued" << std::endl << std::endl;
     		break;
     	case enum_cp_tags::CONSTANT_Double:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_Double_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_Double_info" << std::endl;
     		displayCONSTANT_Double_info(*(CONSTANT_Double_info *)&viewobj.constant_pool[i]);
     		i++;
     		std::cout << "  ";
-    		std::cout << i << "- large numeric continued" << std::endl << std::endl;
+    		std::cout << "[" << i << "]" << " large numeric continued" << std::endl << std::endl;
     		break;
     	case enum_cp_tags::CONSTANT_NameAndType:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_NameAndType_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_NameAndType_info" << std::endl;
     		displayCONSTANT_NameAndType_info(*(CONSTANT_NameAndType_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Utf8:
     		std::cout << "  ";
-    		std::cout << i << "- CONSTANT_Utf8_info" << std::endl;
+    		std::cout << "[" << i << "]" << " CONSTANT_Utf8_info" << std::endl;
     		displayCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[i]);
     		break;
     	default:
     		std::cout << "  ";
-    		std::cout << i << "- broken link" << std::endl;
+    		std::cout << "[" << i << "]" << " broken link" << std::endl;
     		break;
     	}
 	}
@@ -233,16 +233,31 @@ void Exibidor::displayconstant_pool(ClassFile & theclass){  // TODO encontrar th
 void Exibidor::control_class(){
 	displayClassFile(viewobj);
 	control_cp();
+	control_fields();
 }
 void Exibidor::control_cp(){
 	displayconstant_pool(viewobj);
 }
+void Exibidor::control_fields(){
+	displayfields(viewobj);
+}
+void Exibidor::displayfields(ClassFile & theclass){
+    std::cout << " Fields:\n";
+	for(size_t i = 0; i < theclass.fields_count; i++) {
+    	field_info & aux = theclass.fields[i];
+    	std::cout << "  ";
+    	std::cout << "[" << i << "]" << " ";
+    	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.name_index]);
+    	std::cout << std::endl;
+		std::cout << "    Descriptor: cp_info# " << aux.descriptor_index << " ";
+		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.descriptor_index]);
+		std::cout << std::endl;
+	}
+}
+void Exibidor::control_attributes(){}
 void Exibidor::feed(ClassFile toshow){
 	viewobj = toshow;
 }
 void Exibidor::show(){
 	control_class();
-}
-void Exibidor::clearlinesprint(){
-	printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 }
