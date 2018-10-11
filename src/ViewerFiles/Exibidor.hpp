@@ -17,6 +17,7 @@ class Exibidor{
 	void displayClassFileFlags(ClassFile & theclass);
 	void displayClassInfoString(CONSTANT_Class_info & theinfo);
 	void displayUtf8InfoString(CONSTANT_Utf8_info & theinfo);
+	void displayNameTypeInfoString(CONSTANT_NameAndType_info & theinfo);
 	/// \brief display para class info.
 	///
 	/// apresenta o cp info com o nome da classe.
