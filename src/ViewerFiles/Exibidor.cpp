@@ -4,29 +4,53 @@ void Exibidor::displayClassFile(ClassFile & theclass){  // TODO encontrar this c
 	/// imprime os dados gerais de class file.
 	///
 	std::cout << "class file:" << std::endl;
-	std::cout << "  magic: " << std::hex << std::showbase <<std::uppercase << theclass.magic << std::endl << std::dec;
-	std::cout << "  minor version: " << theclass.minor_version << std::endl;
-	std::cout << "  major version: " << theclass.major_version << std::endl;
-	std::cout << "  constant pool count: " << theclass.constant_pool_count << std::endl;
+	std::cout << "  Minor version: " << theclass.minor_version << std::endl;
+	std::cout << "  Major version: " << theclass.major_version << std::endl;
+	std::cout << "  Constant Pool Count: " << theclass.constant_pool_count << std::endl;
 	// TODO apresentar mnemonicos das flags
-	std::cout << "  access flags: " << std::hex << std::showbase << std::uppercase << theclass.access_flags << std::endl << std::dec;
-	std::cout << "  this class: cp_info# " << theclass.this_class << std::endl;
-	std::cout << "  super class: cp_info# " << theclass.super_class << std::endl;
-	std::cout << "  interfaces count: " << theclass.interfaces_count << std::endl;
-	std::cout << "  fields count: " << theclass.fields_count << std::endl;
-	std::cout << "  methods count: " << theclass.methods_count << std::endl;
-	std::cout << "  attributes count: " << theclass.attributes_count << std::endl;
+	std::cout << "  Access Flags: " << std::hex << std::showbase << std::uppercase << theclass.access_flags;
+	displayClassFileFlags(theclass);
+	std::cout << std::endl << std::dec;
+	std::cout << "  This Class: cp_info# " << theclass.this_class << " ";
+	displayClassInfoString(*(CONSTANT_Class_info *)&viewobj.constant_pool[theclass.this_class]);
+	std::cout << std::endl;
+	std::cout << "  Super Class: cp_info# " << theclass.super_class << " ";
+	displayClassInfoString(*(CONSTANT_Class_info *)&viewobj.constant_pool[theclass.super_class]);
+	std::cout << std::endl;
+	std::cout << "  Interfaces Count: " << theclass.interfaces_count << std::endl;
+	std::cout << "  Fields Count: " << theclass.fields_count << std::endl;
+	std::cout << "  Methods Count: " << theclass.methods_count << std::endl;
+	std::cout << "  Attributes Count: " << theclass.attributes_count << std::endl;
 	std::cout << std::endl << std::endl;
+}
 
-	/// imprime opcoes de navegacao.
-	///
-	std::cout << "options:" << std::endl;
-	std::cout << "1- constant pool" << std::endl;
-	std::cout << "2- interfaces" << std::endl;
-	std::cout << "3- fields" << std::endl;
-	std::cout << "4- methods" << std::endl;
-	std::cout << "5- attributes" << std::endl;
-	std::cout << "0- exit" << std::endl;
+void Exibidor::displayClassInfoString(CONSTANT_Class_info & theinfo){
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theinfo.name_index]);
+}
+
+void Exibidor::displayUtf8InfoString(CONSTANT_Utf8_info & theinfo){
+	std::cout << "<";
+	for(int i=0;i<theinfo.length;i++)
+		std::cout << (u1)theinfo.bytes[i];
+	std::cout << ">";
+}
+
+void Exibidor::displayClassFileFlags(ClassFile & theclass){
+	if (theclass.access_flags & ClassFileFlags::ACC_PUBLIC){
+		printf("[public]");
+	}
+	if (theclass.access_flags & ClassFileFlags::ACC_FINAL){
+		printf("[final]");
+	}
+	if (theclass.access_flags & ClassFileFlags::ACC_SUPER){
+		printf("[super]");
+	}
+	if (theclass.access_flags & ClassFileFlags::ACC_INTERFACE){
+		printf("[interface]");
+	}
+	if (theclass.access_flags & ClassFileFlags::ACC_ABSTRACT){
+		printf("[abstract]");
+	}
 }
 
 void Exibidor::displayCONSTANT_Class_info(CONSTANT_Class_info & theclassinfo){
@@ -270,6 +294,8 @@ void Exibidor::control_class(){
 			case 3: break;
 			case 4: break;
 			case 5: break;
+			case 6: controlCONSTANT_Class_info(*(CONSTANT_Class_info *)&viewobj.constant_pool[viewobj.this_class]);break;
+			case 7: controlCONSTANT_Class_info(*(CONSTANT_Class_info *)&viewobj.constant_pool[viewobj.super_class]);break;
 			default: break;
 		}
 	}

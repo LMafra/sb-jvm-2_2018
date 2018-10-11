@@ -14,6 +14,9 @@ class Exibidor{
 	/// apresenta informacoes como magic number, versao, contadores e flags de acesso.
 	/// mostra opcoes de navegacao para constant pool, metodos, atributos, fields e interfaces.
 	void displayClassFile(ClassFile & theclass);
+	void displayClassFileFlags(ClassFile & theclass);
+	void displayClassInfoString(CONSTANT_Class_info & theinfo);
+	void displayUtf8InfoString(CONSTANT_Utf8_info & theinfo);
 	/// \brief display para class info.
 	///
 	/// apresenta o cp info com o nome da classe.
@@ -86,7 +89,16 @@ class Exibidor{
 	void controlCONSTANT_Double_info(CONSTANT_Double_info & thedoubleinfo);
 	void clearlinesprint();
 public:
+	/// \brief fornece estrutura de ClassFile a ser exibida.
+	///
+	/// a estrutura e copiada e armazenada pelo exibidor.
+	/// futuros feeds substituem a estrutura.
 	void feed(ClassFile toshow);
+	/// \brief inicia a exibicao da classe armazenada.
+	///
+	/// o fluxo de exibicao inclui input e output.
+	/// a output inclui as "telas" que mostram informacao e opcoes.
+	/// a input inclui selecao de opcoes de navegacao pelo usuario
 	void show();
 };
 
