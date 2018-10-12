@@ -230,6 +230,16 @@ void Exibidor::displayconstant_pool(ClassFile & theclass){  // TODO encontrar th
 	}
 }
 
+
+void Exibidor::displayConstantValueAtt(ConstantValue_attribute & theatt, int indent){}
+void Exibidor::displayCodeAtt(Code_attribute & theatt, int indent){}
+void Exibidor::displayDeprecatedAtt(Deprecated_attribute & theatt, int indent){}
+void Exibidor::displayExceptionsAtt(Exceptions_attribute & theatt, int indent){}
+void Exibidor::displayInnerClassesAtt(InnerClasses_attribute & theatt, int indent){}
+void Exibidor::displaySourceFileAtt(SourceFile_attribute & theatt, int indent){}
+void Exibidor::displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int indent){}
+void Exibidor::displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent){}
+
 void Exibidor::control_class(){
 	displayClassFile(viewobj);
 	control_cp();
@@ -240,6 +250,98 @@ void Exibidor::control_cp(){
 }
 void Exibidor::control_fields(){
 	displayfields(viewobj);
+}
+att_name_result Exibidor::attributenamecompare(CONSTANT_Utf8_info & name){
+	int size = name.length+1;
+	int i;
+	char namestring[size];
+	for (i=0; i<name.length; i++){
+		namestring[i] = (char)name.bytes[i];
+	}
+	namestring[i]='\0';
+	if (std::strcmp(namestring, "ConstantValue")){
+		return ATT_CONSTANTVALUE;
+	}
+	if (std::strcmp(namestring, "Code")){
+		return ATT_CODE;
+	}
+	if (std::strcmp(namestring, "Deprecated")){
+		return ATT_DEPRECATED;
+	}
+	if (std::strcmp(namestring, "Exceptions")){
+		return ATT_EXCEPTIONS;
+	}
+	if (std::strcmp(namestring, "InnerClasses")){
+		return ATT_INNERCLASSES;
+	}
+	if (std::strcmp(namestring, "SourceFile")){
+		return ATT_SOURCEFILE;
+	}
+	if (std::strcmp(namestring, "LineNumberTable")){
+		return ATT_LINENUMBERTABLE;
+	}
+	if (std::strcmp(namestring, "LocalVariableTable")){
+		return ATT_LOCALVARIABLETABLE;
+	}
+	else return ATT_SYNTHETIC;
+}
+void Exibidor::printindent(int indent){
+	for(int i=0; i<indent; i++){
+		printf(" ");
+	}
+}
+void Exibidor::displayAttributes(attribute_info * attlist, int length, int indent){
+	for(int i=0; i<length; i++){
+    	u2 tag;
+    	memcpy(&tag, &attlist[i],sizeof(tag));
+    	int nameswitch = attributenamecompare(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[tag]);
+    	switch(nameswitch) {
+    	case ATT_CONSTANTVALUE:
+    		printindent(indent);
+    		std::cout << "[" << i << "]" << " ConstantValue" << std::endl;
+    		displayConstantValueAtt(*(ConstantValue_attribute *)&attlist[i], indent+1);
+    		break;
+    	case ATT_CODE:
+    		printindent(indent);
+    		std::cout << "[" << i << "]" << " Code" << std::endl;
+    		displayCodeAtt(*(Code_attribute *)&attlist[i], indent+1);
+        	break;
+    	case ATT_DEPRECATED:
+    		printindent(indent);
+    		std::cout << "[" << i << "]" << " Deprecated" << std::endl;
+    		displayDeprecatedAtt(*(Deprecated_attribute *)&attlist[i], indent+1);
+    		break;
+    	case ATT_EXCEPTIONS:
+    		printindent(indent);
+    		std::cout << "[" << i << "]" << " Exceptions" << std::endl;
+    		displayExceptionsAtt(*(Exceptions_attribute *)&attlist[i], indent+1);
+			break;
+    	case ATT_INNERCLASSES:
+    		printindent(indent);
+    		std::cout << "[" << i << "]" << " InnerClasses" << std::endl;
+    		displayInnerClassesAtt(*(InnerClasses_attribute *)&attlist[i], indent+1);
+    		break;
+    	case ATT_SOURCEFILE:
+    		printindent(indent);
+    		std::cout << "[" << i << "]" << " SourceFile" << std::endl;
+    		displaySourceFileAtt(*(SourceFile_attribute *)&attlist[i], indent+1);
+    		break;
+    	case ATT_LINENUMBERTABLE:
+    		printindent(indent);
+    		std::cout << "[" << i << "]" << " LineNumberTable" << std::endl;
+    		displayLineNumberTableAtt(*(LineNumberTable_attribute *)&attlist[i], indent+1);
+    		break;
+    	case ATT_LOCALVARIABLETABLE:
+    		printindent(indent);
+    		std::cout << "[" << i << "]" << " LocalVariableTable" << std::endl;
+    		displayLocalVariableTableAtt(*(LocalVariableTable_attribute *)&attlist[i], indent+1);
+    		break;
+    	default:
+    		printindent(indent);
+    		std::cout << "[" << i << "]" << " invalid attribute" << std::endl;
+    		break;
+    	}
+	}
 }
 void Exibidor::displayfields(ClassFile & theclass){
     std::cout << " Fields:\n";

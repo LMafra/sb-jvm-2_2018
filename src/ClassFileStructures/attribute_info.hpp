@@ -21,6 +21,18 @@ class attribute_info {public:
   void fill_from(FILE*f);
 };
 
+enum att_name_result{
+  ATT_CONSTANTVALUE=0,
+  ATT_CODE,
+  ATT_DEPRECATED,
+  ATT_EXCEPTIONS,
+  ATT_INNERCLASSES,
+  ATT_SOURCEFILE,
+  ATT_LINENUMBERTABLE,
+  ATT_LOCALVARIABLETABLE,
+  ATT_SYNTHETIC
+};
+
 class ConstantValue_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;

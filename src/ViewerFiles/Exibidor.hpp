@@ -2,6 +2,7 @@
 #include "../UsingUs.hpp"
 #include "../ClassFileStructures/ClassFile.hpp"
 #include "../ClassFileStructures/cp_info.hpp"
+#include "../ClassFileStructures/attribute_info.hpp"
 #include <iostream>
 #include <cstring>
 #include <cstdio>
@@ -67,7 +68,21 @@ class Exibidor{
 	/// apresenta lista de entradas da CP.
 	/// mostra opcoes de navegacao para constant pool.
 	void displayconstant_pool(ClassFile & theclass);
+
+
+    void displayConstantValueAtt(ConstantValue_attribute & theatt, int indent);
+    void displayCodeAtt(Code_attribute & theatt, int indent);
+    void displayDeprecatedAtt(Deprecated_attribute & theatt, int indent);
+    void displayExceptionsAtt(Exceptions_attribute & theatt, int indent);
+    void displayInnerClassesAtt(InnerClasses_attribute & theatt, int indent);
+    void displaySourceFileAtt(SourceFile_attribute & theatt, int indent);
+    void displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int indent);
+    void displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent);
+
 	void displayfields(ClassFile & theclass);
+	att_name_result attributenamecompare(CONSTANT_Utf8_info & name);
+	void printindent(int indent);
+	void displayAttributes(attribute_info * attlist, int length, int indent);
 	/// \brief entrada do exibidor.
 	///
 	/// mostra opcoes na tela e controla fluxo de input/output.
