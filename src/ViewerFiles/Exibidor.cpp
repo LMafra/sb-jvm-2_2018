@@ -231,9 +231,44 @@ void Exibidor::displayconstant_pool(ClassFile & theclass){  // TODO encontrar th
 }
 
 
-void Exibidor::displayConstantValueAtt(ConstantValue_attribute & theatt, int indent){}
-void Exibidor::displayCodeAtt(Code_attribute & theatt, int indent){}
-void Exibidor::displayDeprecatedAtt(Deprecated_attribute & theatt, int indent){}
+void Exibidor::displayConstantValueAtt(ConstantValue_attribute & theatt, int indent){
+    printindent(indent);
+	std::cout << "Attribute Name: cp_info# " << theatt.attribute_name_index << " ";
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.attribute_name_index]);
+	std::cout << std::endl;
+    printindent(indent);
+	std::cout << "Attribute Length: " << theatt.attribute_length << std::endl;
+    printindent(indent);
+	std::cout << "Value: cp_info# " << theatt.constantvalue_index << std::endl;
+	std::cout << std::endl;
+}
+void Exibidor::displayCodeAtt(Code_attribute & theatt, int indent){
+    printindent(indent);
+	std::cout << "Attribute Name: cp_info# " << theatt.attribute_name_index << " ";
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.attribute_name_index]);
+	std::cout << std::endl;
+    printindent(indent);
+	std::cout << "Attribute Length: " << theatt.attribute_length << std::endl;
+    printindent(indent);
+	std::cout << "Max Stack: " << theatt.max_stack << std::endl;
+    printindent(indent);
+	std::cout << "Max Locals: " << theatt.max_locals << std::endl;
+    printindent(indent);
+	std::cout << "Code Length: " << theatt.code_length << std::endl;
+	std::cout << std::endl;
+	// TODO mostrar codigo
+	// TODO mostrat excecoes
+	if(theatt.attributes_count > 0){
+		displayAttributes(theatt.attributes, theatt.attributes_count, indent+1);
+	}
+}
+void Exibidor::displayDeprecatedAtt(Deprecated_attribute & theatt, int indent){
+    printindent(indent);
+	std::cout << "Attribute Name: cp_info# " << theatt.attribute_name_index << " ";
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.attribute_name_index]);
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
 void Exibidor::displayExceptionsAtt(Exceptions_attribute & theatt, int indent){}
 void Exibidor::displayInnerClassesAtt(InnerClasses_attribute & theatt, int indent){}
 void Exibidor::displaySourceFileAtt(SourceFile_attribute & theatt, int indent){}
@@ -243,7 +278,12 @@ void Exibidor::displayLocalVariableTableAtt(LocalVariableTable_attribute & theat
 void Exibidor::control_class(){
 	displayClassFile(viewobj);
 	control_cp();
-	control_fields();
+	if(viewobj.fields_count > 0){
+		control_fields();
+	}
+	if(viewobj.attributes_count > 0){
+		displayAttributes(viewobj.attributes, viewobj.attributes_count, 1);
+	}
 }
 void Exibidor::control_cp(){
 	displayconstant_pool(viewobj);
@@ -259,31 +299,34 @@ att_name_result Exibidor::attributenamecompare(CONSTANT_Utf8_info & name){
 		namestring[i] = (char)name.bytes[i];
 	}
 	namestring[i]='\0';
-	if (std::strcmp(namestring, "ConstantValue")){
+	if (std::strcmp(namestring, "ConstantValue")==0){
 		return ATT_CONSTANTVALUE;
 	}
-	if (std::strcmp(namestring, "Code")){
+	if (std::strcmp(namestring, "Code")==0){
 		return ATT_CODE;
 	}
-	if (std::strcmp(namestring, "Deprecated")){
+	if (std::strcmp(namestring, "Deprecated")==0){
 		return ATT_DEPRECATED;
 	}
-	if (std::strcmp(namestring, "Exceptions")){
+	if (std::strcmp(namestring, "Exceptions")==0){
 		return ATT_EXCEPTIONS;
 	}
-	if (std::strcmp(namestring, "InnerClasses")){
+	if (std::strcmp(namestring, "InnerClasses")==0){
 		return ATT_INNERCLASSES;
 	}
-	if (std::strcmp(namestring, "SourceFile")){
+	if (std::strcmp(namestring, "SourceFile")==0){
 		return ATT_SOURCEFILE;
 	}
-	if (std::strcmp(namestring, "LineNumberTable")){
+	if (std::strcmp(namestring, "LineNumberTable")==0){
 		return ATT_LINENUMBERTABLE;
 	}
-	if (std::strcmp(namestring, "LocalVariableTable")){
+	if (std::strcmp(namestring, "LocalVariableTable")==0){
 		return ATT_LOCALVARIABLETABLE;
 	}
-	else return ATT_SYNTHETIC;
+	if (std::strcmp(namestring, "Synthetic")==0){
+		return ATT_SYNTHETIC;
+	}
+	else return ATT_INVALID;
 }
 void Exibidor::printindent(int indent){
 	for(int i=0; i<indent; i++){
@@ -291,6 +334,8 @@ void Exibidor::printindent(int indent){
 	}
 }
 void Exibidor::displayAttributes(attribute_info * attlist, int length, int indent){
+    printindent(indent);
+    std::cout << "Attributes:" << std::endl;
 	for(int i=0; i<length; i++){
     	u2 tag;
     	memcpy(&tag, &attlist[i],sizeof(tag));
@@ -351,9 +396,12 @@ void Exibidor::displayfields(ClassFile & theclass){
     	std::cout << "[" << i << "]" << " ";
     	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.name_index]);
     	std::cout << std::endl;
-		std::cout << "    Descriptor: cp_info# " << aux.descriptor_index << " ";
+		std::cout << "   Descriptor: cp_info# " << aux.descriptor_index << " ";
 		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.descriptor_index]);
 		std::cout << std::endl;
+		if(aux.attributes_count > 0){
+			displayAttributes(aux.attributes, aux.attributes_count, 3);
+		}
 	}
 }
 void Exibidor::control_attributes(){}

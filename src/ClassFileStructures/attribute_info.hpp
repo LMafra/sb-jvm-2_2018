@@ -30,7 +30,8 @@ enum att_name_result{
   ATT_SOURCEFILE,
   ATT_LINENUMBERTABLE,
   ATT_LOCALVARIABLETABLE,
-  ATT_SYNTHETIC
+  ATT_SYNTHETIC,
+  ATT_INVALID
 };
 
 class ConstantValue_attribute {public:
