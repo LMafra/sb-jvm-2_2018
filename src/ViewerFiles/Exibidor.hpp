@@ -74,12 +74,15 @@ class Exibidor{
     void displayCodeAtt(Code_attribute & theatt, int indent);
     void displayDeprecatedAtt(Deprecated_attribute & theatt, int indent);
     void displayExceptionsAtt(Exceptions_attribute & theatt, int indent);
+    void displayInnerClassesFlags(u2 accflags);
     void displayInnerClassesAtt(InnerClasses_attribute & theatt, int indent);
     void displaySourceFileAtt(SourceFile_attribute & theatt, int indent);
     void displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int indent);
     void displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent);
 
 	void displayfields(ClassFile & theclass);
+	void displayMethodsFlags(u2 accflags);
+	void displaymethods(ClassFile & theclass);
 	att_name_result attributenamecompare(CONSTANT_Utf8_info & name);
 	void printindent(int indent);
 	void displayAttributes(attribute_info * attlist, int length, int indent);
@@ -95,6 +98,7 @@ class Exibidor{
 	void control_cp();
 	void control_fields();
 	void control_attributes();
+	void control_methods();
 public:
 	/// \brief fornece estrutura de ClassFile a ser exibida.
 	///

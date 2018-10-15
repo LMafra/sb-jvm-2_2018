@@ -24,17 +24,6 @@ void Exibidor::displayClassFile(ClassFile & theclass){  // TODO encontrar this c
 	std::cout << std::endl << std::endl;
 }
 
-void Exibidor::displayClassInfoString(CONSTANT_Class_info & theinfo){
-	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theinfo.name_index]);
-}
-
-void Exibidor::displayUtf8InfoString(CONSTANT_Utf8_info & theinfo){
-	std::cout << "<";
-	for(int i=0;i<theinfo.length;i++)
-		std::cout << (u1)theinfo.bytes[i];
-	std::cout << ">";
-}
-
 void Exibidor::displayClassFileFlags(ClassFile & theclass){
 	if (theclass.access_flags & ClassFileFlags::ACC_PUBLIC){
 		printf("[public]");
@@ -51,6 +40,29 @@ void Exibidor::displayClassFileFlags(ClassFile & theclass){
 	if (theclass.access_flags & ClassFileFlags::ACC_ABSTRACT){
 		printf("[abstract]");
 	}
+}
+
+void Exibidor::displayClassInfoString(CONSTANT_Class_info & theinfo){
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theinfo.name_index]);
+}
+
+void Exibidor::displayUtf8InfoString(CONSTANT_Utf8_info & theinfo){
+	std::cout << "<";
+	for(int i=0;i<theinfo.length;i++)
+		std::cout << (u1)theinfo.bytes[i];
+	std::cout << ">";
+}
+
+void Exibidor::displayNameTypeInfoString(CONSTANT_NameAndType_info & theinfo){
+	CONSTANT_Utf8_info & aux = *(CONSTANT_Utf8_info *)&viewobj.constant_pool[theinfo.name_index];
+	CONSTANT_Utf8_info & aux2 = *(CONSTANT_Utf8_info *)&viewobj.constant_pool[theinfo.descriptor_index];
+	std::cout << "<";
+	for(int i=0;i<aux.length;i++)
+		std::cout << (u1)aux.bytes[i];
+	std::cout << " : ";
+	for(int i=0;i<aux2.length;i++)
+		std::cout << (u1)aux2.bytes[i];
+	std::cout << ">";
 }
 
 void Exibidor::displayCONSTANT_Class_info(CONSTANT_Class_info & theclassinfo){
@@ -78,18 +90,6 @@ void Exibidor::displayCONSTANT_NameAndType_info(CONSTANT_NameAndType_info & then
 	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[thenameandtypeinfo.descriptor_index]);
 	std::cout << std::endl;
 	std::cout << std::endl;
-}
-
-void Exibidor::displayNameTypeInfoString(CONSTANT_NameAndType_info & theinfo){
-	CONSTANT_Utf8_info & aux = *(CONSTANT_Utf8_info *)&viewobj.constant_pool[theinfo.name_index];
-	CONSTANT_Utf8_info & aux2 = *(CONSTANT_Utf8_info *)&viewobj.constant_pool[theinfo.descriptor_index];
-	std::cout << "<";
-	for(int i=0;i<aux.length;i++)
-		std::cout << (u1)aux.bytes[i];
-	std::cout << " : ";
-	for(int i=0;i<aux2.length;i++)
-		std::cout << (u1)aux2.bytes[i];
-	std::cout << ">";
 }
 
 void Exibidor::displayCONSTANT_Utf8_info(CONSTANT_Utf8_info & theunistringinfo){
@@ -269,27 +269,168 @@ void Exibidor::displayDeprecatedAtt(Deprecated_attribute & theatt, int indent){
 	std::cout << std::endl;
 	std::cout << std::endl;
 }
-void Exibidor::displayExceptionsAtt(Exceptions_attribute & theatt, int indent){}
-void Exibidor::displayInnerClassesAtt(InnerClasses_attribute & theatt, int indent){}
-void Exibidor::displaySourceFileAtt(SourceFile_attribute & theatt, int indent){}
-void Exibidor::displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int indent){}
-void Exibidor::displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent){}
+void Exibidor::displayExceptionsAtt(Exceptions_attribute & theatt, int indent){
+	for(int i=0;i<theatt.number_of_exceptions;i++){
+		printindent(indent);
+		std::cout << "Exception #" << i << ": ";
+		displayClassInfoString(*(CONSTANT_Class_info *)&viewobj.constant_pool[theatt.exception_index_table[i]]);
+		std::cout << std::endl;
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+}
 
-void Exibidor::control_class(){
-	displayClassFile(viewobj);
-	control_cp();
-	if(viewobj.fields_count > 0){
-		control_fields();
+void Exibidor::displayInnerClassesFlags(u2 accflags){
+	if (accflags & enum_inner_class_access_flags::ACC_PUBLIC){
+		printf("[public]");
 	}
-	if(viewobj.attributes_count > 0){
-		displayAttributes(viewobj.attributes, viewobj.attributes_count, 1);
+	if (accflags & enum_inner_class_access_flags::ACC_PRIVATE){
+		printf("[private]");
+	}
+	if (accflags & enum_inner_class_access_flags::ACC_PROTECTED){
+		printf("[protected]");
+	}
+	if (accflags & enum_inner_class_access_flags::ACC_STATIC){
+		printf("[static]");
+	}
+	if (accflags & enum_inner_class_access_flags::ACC_FINAL){
+		printf("[final]");
+	}
+	if (accflags & enum_inner_class_access_flags::ACC_INTERFACE){
+		printf("[interface]");
+	}
+	if (accflags & enum_inner_class_access_flags::ACC_ABSTRACT){
+		printf("[abstract]");
 	}
 }
-void Exibidor::control_cp(){
-	displayconstant_pool(viewobj);
+void Exibidor::displayInnerClassesAtt(InnerClasses_attribute & theatt, int indent){
+	for(int i=0;i<theatt.number_of_classes;i++){
+		if(theatt.classes[i].inner_class_info_index != 0){
+			printindent(indent);
+			std::cout << "Class" << i << ": ";
+			displayClassInfoString(*(CONSTANT_Class_info *)&viewobj.constant_pool[theatt.classes[i].inner_class_info_index]);
+			std::cout << std::endl;
+		}
+		if(theatt.classes[i].outer_class_info_index != 0){
+			printindent(indent);
+			std::cout << "Member of: ";
+			displayClassInfoString(*(CONSTANT_Class_info *)&viewobj.constant_pool[theatt.classes[i].outer_class_info_index]);
+			std::cout << std::endl;
+		}
+		if(theatt.classes[i].inner_name_index != 0){
+			printindent(indent);
+			std::cout << "Named: ";
+			displayClassInfoString(*(CONSTANT_Class_info *)&viewobj.constant_pool[theatt.classes[i].inner_name_index]);
+			std::cout << std::endl;
+		}
+		printindent(indent);
+		std::cout << "Access Flags: ";
+		displayInnerClassesFlags(theatt.classes[i].inner_class_access_flags);
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
 }
-void Exibidor::control_fields(){
-	displayfields(viewobj);
+void Exibidor::displaySourceFileAtt(SourceFile_attribute & theatt, int indent){
+    printindent(indent);
+	std::cout << "Source: cp_info# " << theatt.sourcefile_index << " ";
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.sourcefile_index]);
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+void Exibidor::displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int indent){
+	for(int i=0;i<theatt.line_number_table_length;i++){
+		printindent(indent);
+		std::cout << "Start PC: " << std::hex << std::showbase << theatt.line_number_table[i].start_pc << std::endl;
+		printindent(indent);
+		std::cout << "Line Number: " << std::hex << std::showbase << theatt.line_number_table[i].line_number << std::endl;
+		std::cout << std::endl;
+	}
+	std::cout << std::endl << std::dec;
+}
+void Exibidor::displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent){
+	for(int i=0;i<theatt.local_variable_table_length;i++){
+		printindent(indent);
+		std::cout << "Start PC: " << std::hex << std::showbase << theatt.local_variable_table[i].start_pc << std::endl;
+		printindent(indent);
+		std::cout << "Length: " << std::hex << std::showbase << theatt.local_variable_table[i].length << std::endl << std::dec;
+		printindent(indent);
+		std::cout << "Name: ";
+		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.local_variable_table[i].name_index]);
+		std::cout << std::endl;
+		printindent(indent);
+		std::cout << "Descriptor: ";
+		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.local_variable_table[i].descriptor_index]);
+		std::cout << std::endl;
+		printindent(indent);
+		std::cout << "Variable Index: #" << theatt.local_variable_table[i].index << std::endl;
+
+	}
+	std::cout << std::endl;
+}
+void Exibidor::displayfields(ClassFile & theclass){
+    std::cout << " Fields:\n";
+	for(size_t i = 0; i < theclass.fields_count; i++) {
+    	field_info & aux = theclass.fields[i];
+    	std::cout << "  ";
+    	std::cout << "[" << i << "]" << " ";
+    	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.name_index]);
+    	std::cout << std::endl;
+		std::cout << "   Descriptor: cp_info# " << aux.descriptor_index << " ";
+		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.descriptor_index]);
+		std::cout << std::endl;
+		if(aux.attributes_count > 0){
+			displayAttributes(aux.attributes, aux.attributes_count, 3);
+		}
+	}
+}
+
+void Exibidor::displayMethodsFlags(u2 accflags){
+	if (accflags & enum_method_access_flags::ACC_PUBLIC){
+		printf("[public]");
+	}
+	if (accflags & enum_method_access_flags::ACC_PRIVATE){
+		printf("[private]");
+	}
+	if (accflags & enum_method_access_flags::ACC_PROTECTED){
+		printf("[protected]");
+	}
+	if (accflags & enum_method_access_flags::ACC_STATIC){
+		printf("[static]");
+	}
+	if (accflags & enum_method_access_flags::ACC_FINAL){
+		printf("[final]");
+	}
+	if (accflags & enum_method_access_flags::ACC_SYNCHRONIZED){
+		printf("[synchronized]");
+	}
+	if (accflags & enum_method_access_flags::ACC_NATIVE){
+		printf("[native]");
+	}
+	if (accflags & enum_method_access_flags::ACC_ABSTRACT){
+		printf("[abstract]");
+	}
+	if (accflags & enum_method_access_flags::ACC_STRICT){
+		printf("[strict]");
+	}
+}
+void Exibidor::displaymethods(ClassFile & theclass){
+    std::cout << " Methods:\n";
+	for(size_t i = 0; i < theclass.methods_count; i++) {
+    	method_info & aux = theclass.methods[i];
+    	std::cout << "  ";
+    	std::cout << "[" << i << "]" << " ";
+    	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.name_index]);
+    	std::cout << std::endl;
+		std::cout << "   Descriptor: cp_info# " << aux.descriptor_index << " ";
+		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.descriptor_index]);
+		std::cout << std::endl;
+		std::cout << "   Access Flags: ";
+		displayMethodsFlags(aux.access_flags);
+		std::cout << std::endl;
+		if(aux.attributes_count > 0){
+			displayAttributes(aux.attributes, aux.attributes_count, 3);
+		}
+	}
 }
 att_name_result Exibidor::attributenamecompare(CONSTANT_Utf8_info & name){
 	int size = name.length+1;
@@ -388,21 +529,28 @@ void Exibidor::displayAttributes(attribute_info * attlist, int length, int inden
     	}
 	}
 }
-void Exibidor::displayfields(ClassFile & theclass){
-    std::cout << " Fields:\n";
-	for(size_t i = 0; i < theclass.fields_count; i++) {
-    	field_info & aux = theclass.fields[i];
-    	std::cout << "  ";
-    	std::cout << "[" << i << "]" << " ";
-    	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.name_index]);
-    	std::cout << std::endl;
-		std::cout << "   Descriptor: cp_info# " << aux.descriptor_index << " ";
-		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.descriptor_index]);
-		std::cout << std::endl;
-		if(aux.attributes_count > 0){
-			displayAttributes(aux.attributes, aux.attributes_count, 3);
-		}
+
+void Exibidor::control_class(){
+	displayClassFile(viewobj);
+	control_cp();
+	if(viewobj.fields_count > 0){
+		control_fields();
 	}
+	if(viewobj.methods_count > 0){
+		control_methods();
+	}
+	if(viewobj.attributes_count > 0){
+		displayAttributes(viewobj.attributes, viewobj.attributes_count, 1);
+	}
+}
+void Exibidor::control_cp(){
+	displayconstant_pool(viewobj);
+}
+void Exibidor::control_fields(){
+	displayfields(viewobj);
+}
+void Exibidor::control_methods(){
+	displaymethods(viewobj);
 }
 void Exibidor::control_attributes(){}
 void Exibidor::feed(ClassFile toshow){
