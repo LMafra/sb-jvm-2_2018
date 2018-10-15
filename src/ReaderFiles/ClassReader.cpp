@@ -177,6 +177,7 @@ void load_attribute(FILE *f, ClassFile * cf, attribute_info *atributo)
 void loadconstantpool(FILE *f, ClassFile & cf){
   cf.constant_pool = (cp_info*)malloc( cf.constant_pool_count * sizeof( cp_info ) );  // primeiro espaco sempre serah vazio
   for(size_t i = 1; i < cf.constant_pool_count; i++) {
+    std::cout << "boop index " << i << std::endl;
     u1 tag;
     read_us(&tag, sizeof(tag), f);
     switch(tag) {
@@ -267,8 +268,7 @@ void loadconstantpool(FILE *f, ClassFile & cf){
 
   }
 }
-void load_attribute(FILE *f, ClassFile & cf, attribute_info * & atributos, int n){
-  atributos = (attribute_info*)malloc( n * sizeof( attribute_info ) );
+void load_attribute(FILE *f, ClassFile & cf, attribute_info * atributos, int n){
   for(size_t i = 0; i < n; i++){
     u2 tag;
     read_us(&tag, sizeof(tag), f);
@@ -285,6 +285,7 @@ void load_attribute(FILE *f, ClassFile & cf, attribute_info * & atributos, int n
         Code_attribute aux;
         aux.attribute_name_index = tag;
         aux.fill_from(f);
+        aux.attributes = (attribute_info*)malloc( n * sizeof( attribute_info ) );
         load_attribute(f, cf, aux.attributes, aux.attributes_count);
         std::memcpy(&(atributos[i]), &aux, sizeof(aux));
         }
@@ -312,9 +313,12 @@ void load_attribute(FILE *f, ClassFile & cf, attribute_info * & atributos, int n
         break;
       case ATT_SOURCEFILE:{
         SourceFile_attribute aux;
+        std::cout << std::hex << std::showbase << (u8)atributos << "  " << i << " " << tag << std::endl << "that was it!\n";
         aux.attribute_name_index = tag;
         aux.fill_from(f);
-        std::memcpy(&(atributos[i]), &aux, sizeof(aux));
+        std::cout << std::hex << std::showbase << (u8)atributos << "  " << i << " " << tag << "  " << sizeof(aux) << std::endl << "that was it!\n";
+        std::memcpy(&atributos[i], &aux, sizeof(aux));
+        std::cout << std::hex << std::showbase << (u8)cf.attributes << "  " << 0 << " " << (*(SourceFile_attribute *)&(cf.attributes[0])).attribute_name_index << std::endl << "that was it!\n";
         }
         break;
       case ATT_LINENUMBERTABLE:{
@@ -373,6 +377,7 @@ int main() {
     read_us(&cf.fields[i].name_index, sizeof(cf.fields[i].name_index), f);
     read_us(&cf.fields[i].descriptor_index, sizeof(cf.fields[i].descriptor_index), f);
     read_us(&cf.fields[i].attributes_count, sizeof(cf.fields[i].attributes_count), f);
+    cf.fields[i].attributes = (attribute_info*)malloc( cf.fields[i].attributes_count * sizeof( attribute_info ) );
     load_attribute(f, cf, cf.fields[i].attributes, cf.fields[i].attributes_count);
   }
 
@@ -383,14 +388,19 @@ int main() {
     read_us(&cf.methods[i].name_index, sizeof(cf.methods[i].name_index), f);
     read_us(&cf.methods[i].descriptor_index, sizeof(cf.methods[i].descriptor_index), f);
     read_us(&cf.methods[i].attributes_count, sizeof(cf.methods[i].attributes_count), f);
+    cf.methods[i].attributes = (attribute_info*)malloc( cf.methods[i].attributes_count * sizeof( attribute_info ) );
     load_attribute(f, cf, cf.methods[i].attributes, cf.methods[i].attributes_count);
   }
 
   read_us(&cf.attributes_count, sizeof(cf.attributes_count), f);
+  cf.attributes = (attribute_info*)malloc( cf.attributes_count * sizeof( attribute_info ) );
+  std::cout << std::hex << std::showbase << (u8)cf.attributes << "  " << 0 << " " << (*(SourceFile_attribute *)&(cf.attributes[0])).attribute_name_index << std::endl << "that was it!\n";
   load_attribute(f, cf, cf.attributes, cf.attributes_count);
+  std::cout << std::hex << std::showbase << (u8)cf.attributes << "  " << 0 << " " << (*(SourceFile_attribute *)&(cf.attributes[0])).attribute_name_index << std::endl << "that was it!\n";
 
   fclose(f);
 
   exib.feed(cf);
   exib.show();
+  std::cout << std::hex << std::showbase << (u8)cf.attributes << "  " << 0 << " " << (*(SourceFile_attribute *)&(cf.attributes[0])).attribute_name_index << std::endl << "that was it!\n";
 }

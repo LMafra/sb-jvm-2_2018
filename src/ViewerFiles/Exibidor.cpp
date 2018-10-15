@@ -339,6 +339,7 @@ void Exibidor::displayAttributes(attribute_info * attlist, int length, int inden
 	for(int i=0; i<length; i++){
     	u2 tag;
     	memcpy(&tag, &attlist[i],sizeof(tag));
+    	std::cout << tag;
     	int nameswitch = attributenamecompare(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[tag]);
     	switch(nameswitch) {
     	case ATT_CONSTANTVALUE:
