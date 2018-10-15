@@ -12,7 +12,6 @@ void Deprecated_attribute  :: fill_from(FILE * f) {
 }
 
 void SourceFile_attribute  :: fill_from(FILE * f) {
-	read_us(&attribute_name_index, sizeof(attribute_name_index), f);
 	read_us(&attribute_length, sizeof(attribute_length), f);
 	read_us(&sourcefile_index, sizeof(sourcefile_index), f);
 }

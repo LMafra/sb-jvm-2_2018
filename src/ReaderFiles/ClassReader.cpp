@@ -10,7 +10,6 @@ unsigned int only_ones32(int x) {
   return (unsigned int)(-1) >> (32 - x);
 }
 
-
 att_name_result attcmp(CONSTANT_Utf8_info & name){
   int size = name.length+1;
   int i;
@@ -48,136 +47,10 @@ att_name_result attcmp(CONSTANT_Utf8_info & name){
   }
   else return ATT_INVALID;
 }
-/*
-void load_attribute(FILE *f, ClassFile * cf, attribute_info *atributo)
-{
-    char *tipoAtributo;
-    u4 attribute_length;
-    read_us(&atributo->attribute_name_index, sizeof(atributo->attribute_name_index), f);
-    read_us(&atributo->attribute_length, sizeof(atributo->attribute_length), f);
-    attribute_length = atributo->attribute_length;
-    u2 index = atributo->attribute_name_index - 1;
-    CONSTANT_Utf8_info &var = *(CONSTANT_Utf8_info*) &cf->constant_pool[index];
-    tipoAtributo = (char *) malloc((var.length +1) * sizeof(char));
-    for (int l = 0; l < var.length; l++)
-        tipoAtributo[l] = var.bytes[l];
-  tipoAtributo[var.length] = '\0';
 
-    if (!strcmp(tipoAtributo, "ConstantValue"))
-    {
-        read_us(atributo->info.ConstantValue.constantvalue_index, sizeof(u2), f);
-        atributo->tag = ATTRTAG_Constantvalue;
-    }
-    else if (!strcmp(tipoAtributo, "Code"))
-    {
-        u4 code_length;
-        read_us(atributo->info.CodeAttribute.max_stack, sizeof(u2), f);
-        read_us(atributo->info.CodeAttribute.max_locals, sizeof(u2), f);
-        read_us(atributo->info.CodeAttribute.code_length, sizeof(u4), f);
-        code_length = atributo->info.CodeAttribute.code_length;
-        atributo->info.CodeAttribute.code = (u1 *) malloc(code_length * sizeof(u1));
-        for (int i = 0; i < code_length; i++)
-        {
-            read_us(atributo->info.CodeAttribute.code[i], sizeof(u1), f);
-        }
-        u2 exception_table_length;
-        read_us(atributo->info.CodeAttribute.exception_table_length, sizeof(u2), f);
-        exception_table_length = atributo->info.CodeAttribute.exception_table_length;
-        atributo->info.CodeAttribute.exception_table = (struct et *) malloc(exception_table_length * sizeof(struct et));
-        for (int i = 0; i < exception_table_length; i++)
-        {
-            read_us(atributo->info.CodeAttribute.exception_table[i].start_pc, sizeof(u2), f);
-            read_us(atributo->info.CodeAttribute.exception_table[i].end_pc, sizeof(u2), f);
-            read_us(atributo->info.CodeAttribute.exception_table[i].handler_pc, sizeof(u2), f);
-            read_us(atributo->info.CodeAttribute.exception_table[i].catch_type, sizeof(u2), f);
-        }
-        u2 attributes_count;
-        read_us(atributo->info.CodeAttribute.attributes_count, sizeof(u2), f);
-        attributes_count = atributo->info.CodeAttribute.attributes_count;
-        atributo->info.CodeAttribute.attributes = (attribute_info *) malloc(attributes_count * sizeof(attribute_info));
-        for (int k = 0; k < attributes_count; k++)
-        {
-            load_attribute(f, cf, atributo->info.CodeAttribute.attributes);
-        }
-        atributo->tag = ATTRTAG_Code;
-    }
-    else if (!strcmp(tipoAtributo, "Exceptions"))
-    {
-        u2 number_of_exceptions;
-        read_us(atributo->info.Exception.number_of_exceptions, sizeof(u2), f);
-        number_of_exceptions = atributo->info.Exception.number_of_exceptions;
-        atributo->info.Exception.exception_index_table = (u2 *) malloc(number_of_exceptions * sizeof(u2));
-        for (int i = 0; i < number_of_exceptions; i++)
-        {
-            read_us(atributo->info.exception_index_table[i], sizeof(u2), f);
-        }
-        atributo->tag = ATTRTAG_Exception;
-    }
-    else if (!strcmp(tipoAtributo, "InnerClasses"))
-    {
-        u2 number_of_classes;
-        read_us(atributo->info.InnerClasses.number_of_classes, sizeof(u2), f);
-        number_of_classes = atributo->info.InnerClasses.number_of_classes;
-        atributo->info.InnerClasses.classes = (struct ic *) malloc(number_of_classes * sizeof(struct ic));
-        for (int i = 0; i < number_of_classes; i++)
-        {
-            read_us(atributo->info.InnerClasses.classes[i].inner_class_info_index, sizeof(u2), f);
-            read_us(atributo->info.InnerClasses.classes[i].outer_class_info_index, sizeof(u2), f);
-            read_us(atributo->info.InnerClasses.classes[i].inner_name_index, sizeof(u2), f);
-            read_us(atributo->info.InnerClasses.classes[i].inner_class_access_flags, sizeof(u2), f);
-        }
-        atributo->tag = ATTRTAG_Innerclasses;
-    }
-    else if (!strcmp(tipoAtributo, "SourceFile"))
-    {
-        read_us(atributo->info.sourcefile_index, sizeof(u2), f);
-        atributo->tag = ATTRTAG_Sourcefile;
-    }
-    else if (!strcmp(tipoAtributo, "LineNumberTable"))
-    {
-        read_us(atributo->info.line_number_table_length, sizeof(u2), f);
-        u2 atributo_tamanho = atributo->info.LineNumberTable.line_number_table_length;
-        atributo->info.LineNumberTable.line_number_table = (struct lnt *) malloc(atributo_tamanho * sizeof(struct lnt));
-        for (int i = 0; i < atributo_tamanho; i++)
-        {
-            read_us(atributo->info.LineNumberTable.line_number_table[i].start_pc, sizeof(u2), f);
-            read_us(atributo->info.LineNumberTable.line_number_table[i].line_number, sizeof(u2), f);
-        }
-        atributo->tag = ATTRTAG_Linenumbertable;
-    }
-    else if (!strcmp(tipoAtributo, "LocalVariableTable"))
-    {
-        u2 local_variable_table_length;
-        read_us(atributo->info.LocalVariableTable.local_variable_table_length, sizeof(u2), f);
-        local_variable_table_length = atributo->info.LocalVariableTable.local_variable_table_length;
-        atributo->info.LocalVariableTable.local_variable_table = (struct lvt *) malloc(
-                    local_variable_table_length * sizeof(struct lvt *));
-        for (int i = 0; i < local_variable_table_length; i++)
-        {
-            read_us(atributo->info.LocalVariableTable.local_variable_table[i].start_pc, sizeof(u2), f);
-            read_us(atributo->info.LocalVariableTable.local_variable_table[i].length, sizeof(u2), f);
-            read_us(atributo->info.LocalVariableTable.local_variable_table[i].name_index, sizeof(u2), f);
-            read_us(atributo->info.LocalVariableTable.local_variable_table[i].descriptor_index, sizeof(u2), f);
-            read_us(atributo->info.LocalVariableTable.local_variable_table[i].index, sizeof(u2), f);
-        }
-        atributo->tag = ATTRTAG_Localvariabletable;
-    }
-    else
-    {
-        atributo->info.Default.data = (u1 *) malloc(attribute_length * sizeof(u1));
-        for (int i = 0; i < attribute_length; i++)
-        {
-            read_us(atributo->info.Default.data[i], sizeof(u1), f);
-        }
-        atributo->tag = ATTRTAG_Default;
-    }
-    free(tipoAtributo); 
-}
-/**/
 void loadconstantpool(FILE *f, ClassFile & cf){
   cf.constant_pool = (cp_info*)malloc( cf.constant_pool_count * sizeof( cp_info ) );  // primeiro espaco sempre serah vazio
   for(size_t i = 1; i < cf.constant_pool_count; i++) {
-    std::cout << "boop index " << i << std::endl;
     u1 tag;
     read_us(&tag, sizeof(tag), f);
     switch(tag) {
@@ -268,7 +141,7 @@ void loadconstantpool(FILE *f, ClassFile & cf){
 
   }
 }
-void load_attribute(FILE *f, ClassFile & cf, attribute_info * atributos, int n){
+void load_attribute(FILE *f, ClassFile & cf, attribute_info * & atributos, int n){
   for(size_t i = 0; i < n; i++){
     u2 tag;
     read_us(&tag, sizeof(tag), f);
@@ -278,7 +151,7 @@ void load_attribute(FILE *f, ClassFile & cf, attribute_info * atributos, int n){
         ConstantValue_attribute aux;
         aux.attribute_name_index = tag;
         aux.fill_from(f);
-        std::memcpy(&(atributos[i]), &aux, sizeof(aux));
+        std::memcpy(&atributos[i], &aux, sizeof(aux));
         }
         break;
       case ATT_CODE:{
@@ -287,52 +160,49 @@ void load_attribute(FILE *f, ClassFile & cf, attribute_info * atributos, int n){
         aux.fill_from(f);
         aux.attributes = (attribute_info*)malloc( n * sizeof( attribute_info ) );
         load_attribute(f, cf, aux.attributes, aux.attributes_count);
-        std::memcpy(&(atributos[i]), &aux, sizeof(aux));
+        std::memcpy(&atributos[i], &aux, sizeof(aux));
         }
         break;
       case ATT_DEPRECATED:{
         Deprecated_attribute aux;
         aux.attribute_name_index = tag;
         aux.fill_from(f);
-        std::memcpy(&(atributos[i]), &aux, sizeof(aux));
+        std::memcpy(&atributos[i], &aux, sizeof(aux));
         }
         break;
       case ATT_EXCEPTIONS:{
         Exceptions_attribute aux;
         aux.attribute_name_index = tag;
         aux.fill_from(f);
-        std::memcpy(&(atributos[i]), &aux, sizeof(aux));
+        std::memcpy(&atributos[i], &aux, sizeof(aux));
         }
         break;
       case ATT_INNERCLASSES:{
         InnerClasses_attribute aux;
         aux.attribute_name_index = tag;
         aux.fill_from(f);
-        std::memcpy(&(atributos[i]), &aux, sizeof(aux));
+        std::memcpy(&atributos[i], &aux, sizeof(aux));
         }
         break;
       case ATT_SOURCEFILE:{
         SourceFile_attribute aux;
-        std::cout << std::hex << std::showbase << (u8)atributos << "  " << i << " " << tag << std::endl << "that was it!\n";
         aux.attribute_name_index = tag;
         aux.fill_from(f);
-        std::cout << std::hex << std::showbase << (u8)atributos << "  " << i << " " << tag << "  " << sizeof(aux) << std::endl << "that was it!\n";
         std::memcpy(&atributos[i], &aux, sizeof(aux));
-        std::cout << std::hex << std::showbase << (u8)cf.attributes << "  " << 0 << " " << (*(SourceFile_attribute *)&(cf.attributes[0])).attribute_name_index << std::endl << "that was it!\n";
         }
         break;
       case ATT_LINENUMBERTABLE:{
         LineNumberTable_attribute aux;
         aux.attribute_name_index = tag;
         aux.fill_from(f);
-        std::memcpy(&(atributos[i]), &aux, sizeof(aux));
+        std::memcpy(&atributos[i], &aux, sizeof(aux));
         }
         break;
       case ATT_LOCALVARIABLETABLE:{
         LocalVariableTable_attribute aux;
         aux.attribute_name_index = tag;
         aux.fill_from(f);
-        std::memcpy(&(atributos[i]), &aux, sizeof(aux));
+        std::memcpy(&atributos[i], &aux, sizeof(aux));
         }
         break;
       default:
@@ -394,13 +264,10 @@ int main() {
 
   read_us(&cf.attributes_count, sizeof(cf.attributes_count), f);
   cf.attributes = (attribute_info*)malloc( cf.attributes_count * sizeof( attribute_info ) );
-  std::cout << std::hex << std::showbase << (u8)cf.attributes << "  " << 0 << " " << (*(SourceFile_attribute *)&(cf.attributes[0])).attribute_name_index << std::endl << "that was it!\n";
   load_attribute(f, cf, cf.attributes, cf.attributes_count);
-  std::cout << std::hex << std::showbase << (u8)cf.attributes << "  " << 0 << " " << (*(SourceFile_attribute *)&(cf.attributes[0])).attribute_name_index << std::endl << "that was it!\n";
 
   fclose(f);
 
   exib.feed(cf);
   exib.show();
-  std::cout << std::hex << std::showbase << (u8)cf.attributes << "  " << 0 << " " << (*(SourceFile_attribute *)&(cf.attributes[0])).attribute_name_index << std::endl << "that was it!\n";
 }
