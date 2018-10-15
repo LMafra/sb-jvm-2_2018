@@ -7,19 +7,6 @@ using namespace std;
 /// Code_attribute structures of the class file format.
 
 // 4.7.2
-class attribute_info {public:
-
-  /// typeof constant_pool[attribute_name_index] == CONSTANT_Utf8_info
-  /// which represents the name of the attribute.
-  u2 attribute_name_index;
-
-  u4 attribute_length;
-
-  
-  u1 * info;  // Vetor de tamanho attribute_length*bytes,
-  
-  void fill_from(FILE*f);
-};
 
 enum att_name_result{
   ATT_CONSTANTVALUE=0,
@@ -32,6 +19,16 @@ enum att_name_result{
   ATT_LOCALVARIABLETABLE,
   ATT_SYNTHETIC,
   ATT_INVALID
+};
+
+union attribute_info {
+  u8 pad1;
+  u8 pad2;
+  u8 pad3;
+  u8 pad4;
+  u8 pad5;
+  u8 pad6;
+  u8 pad7;
 };
 
 class ConstantValue_attribute {public:
@@ -89,7 +86,7 @@ class Classes{public:
   void fill_from(FILE*f);
 };
 
-class InnerClasses_attribute {
+class InnerClasses_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;
   u2 number_of_classes;

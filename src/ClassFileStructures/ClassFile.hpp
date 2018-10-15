@@ -1,11 +1,12 @@
 #pragma once
 #include "../UsingUs.hpp"
 #include "field_info.hpp"
+#include "attribute_info.hpp"
+#include "method_info.hpp"
 #include "cp_info.hpp"
 #include <iostream>
 
 /// definicoes temporarias, soh pra compilar
-class method_info{};
 // attribute_info_aux.hpp
 // enum enum_access_flag;
 namespace ClassFileFlags{

@@ -6,20 +6,6 @@
 
 using namespace std;
 
-
-// Ver paginas 95-9, ch. 4.5
-/* DESTAQUES
-""" a  specific field of a class may have at most one of its ACC_PRIVATE
-, ACC_PROTECTED, and ACC_PUBLIC flags set and must not have both its
-ACC_FINAL and ACC_VOLATILE flags set. """
-
-""" All  fields  of  interfaces  must  have  their  
-ACC_PUBLIC, ACC_STATIC, and ACC_FINAL flags set;
-they may have their ACC_SYNTHETIC flag set and must not
-have any of the other flags in Table 4.4(). """
-
-*/
-
 // MAps the Table 4.4.
 // enum enum_access_flag {
 // 	ACC_PUBLIC = 0x0001,
