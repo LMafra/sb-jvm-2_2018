@@ -8,7 +8,7 @@ void Exibidor::displayClassFile(ClassFile & theclass){  // TODO encontrar this c
 	std::cout << "  Major version: " << theclass.major_version << std::endl;
 	std::cout << "  Constant Pool Count: " << theclass.constant_pool_count << std::endl;
 	// TODO apresentar mnemonicos das flags
-	std::cout << "  Access Flags: " << std::hex  << std::uppercase << theclass.access_flags << " ";
+	std::cout << "  Access Flags: " << std::hex << std::showbase << std::uppercase << theclass.access_flags << " ";
 	displayClassFileFlags(theclass);
 	std::cout << std::endl << std::dec;
 	std::cout << "  This Class: cp_info# " << theclass.this_class << " ";
@@ -340,7 +340,7 @@ void Exibidor::displaySourceFileAtt(SourceFile_attribute & theatt, int indent){
 void Exibidor::displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int indent){
 	for(int i=0;i<theatt.line_number_table_length;i++){
 		printindent(indent);
-		std::cout << "Start PC: " << std::hex  << theatt.line_number_table[i].start_pc << std::endl;
+		std::cout << "Start PC: " << std::hex << std::showbase << theatt.line_number_table[i].start_pc << std::endl;
 		printindent(indent);
 		std::cout << "Line Number: " <<  std::dec << theatt.line_number_table[i].line_number << std::endl;
 		std::cout << std::endl;
@@ -350,9 +350,9 @@ void Exibidor::displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int
 void Exibidor::displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent){
 	for(int i=0;i<theatt.local_variable_table_length;i++){
 		printindent(indent);
-		std::cout << "Start PC: " << std::hex  << theatt.local_variable_table[i].start_pc << std::endl;
+		std::cout << "Start PC: " << std::hex << std::showbase << theatt.local_variable_table[i].start_pc << std::endl;
 		printindent(indent);
-		std::cout << "Length: " << std::hex  << theatt.local_variable_table[i].length << std::endl << std::dec;
+		std::cout << "Length: " << std::hex << std::showbase << theatt.local_variable_table[i].length << std::endl << std::dec;
 		printindent(indent);
 		std::cout << "Name: ";
 		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.local_variable_table[i].name_index]);
