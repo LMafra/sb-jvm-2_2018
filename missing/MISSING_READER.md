@@ -1,3 +1,1 @@
-- [x] bytes do double
-- [x] name of methods
-- [x] methods access flags
+- [ ] attribute length dos **attributes**

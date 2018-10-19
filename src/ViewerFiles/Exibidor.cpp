@@ -73,10 +73,10 @@ void Exibidor::displayCONSTANT_Class_info(CONSTANT_Class_info & theclassinfo){
 }
 
 void Exibidor::displayCONSTANT_Fieldref_info(CONSTANT_Fieldref_info & thefieldinfo){
-	std::cout << "\t Class/Interface Name: cp_info# " << thefieldinfo.class_index << " ";
+	std::cout << "\tClass/Interface Name: cp_info# " << thefieldinfo.class_index << " ";
 	displayClassInfoString(*(CONSTANT_Class_info *)&viewobj.constant_pool[thefieldinfo.class_index]);
 	std::cout << std::endl;
-	std::cout << "\t Name and Type: cp_info# " << thefieldinfo.name_and_type_index << " ";
+	std::cout << "\tName and Type: cp_info# " << thefieldinfo.name_and_type_index << " ";
 	displayNameTypeInfoString(*(CONSTANT_NameAndType_info *)&viewobj.constant_pool[thefieldinfo.name_and_type_index]);
 	std::cout << std::endl;
 	std::cout << std::endl;
@@ -101,7 +101,7 @@ void Exibidor::displayCONSTANT_Utf8_info(CONSTANT_Utf8_info & theunistringinfo){
 }
 
 void Exibidor::displayCONSTANT_Methodref_info(CONSTANT_Methodref_info & themethodinfo){
-	std::cout << "\tInterface Name: cp_info# " << themethodinfo.class_index << " ";
+	std::cout << "\tClass/Interface Name: cp_info# " << themethodinfo.class_index << " ";
 	displayClassInfoString(*(CONSTANT_Class_info *)&viewobj.constant_pool[themethodinfo.class_index]);
 	std::cout << std::endl;
 	std::cout << "\tName and Type: cp_info# " << themethodinfo.name_and_type_index << " ";
@@ -416,7 +416,9 @@ void Exibidor::displaymethods(ClassFile & theclass){
 		std::cout << "[" << i << "]" << " ";
 		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.name_index]);
 		std::cout << std::endl;
-		std::cout << "\tName: cp_info#" << aux.name_index << std::endl;
+		std::cout << "\tName: cp_info#" << aux.name_index << " ";
+		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.name_index]);
+		std::cout << endl;
 		std::cout << "\tDescriptor: cp_info# " << aux.descriptor_index << " ";
 		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.descriptor_index]);
 		std::cout << std::endl;
@@ -477,9 +479,24 @@ void Exibidor::displayAttributes(attribute_info * attlist, int length, int inden
     	u2 tag;
     	memcpy(&tag, &attlist[i],sizeof(tag));
 			printindent(indent);
-			std::cout << "Attribute name index: cp_info#" << std::dec << tag << std::endl;
-			// std::cout << "Attribute length: cp_info#" << std::dec << viewobj << std::endl;
+			std::cout << "Attribute name index: cp_info#" << std::dec << tag << " ";
     	int nameswitch = attributenamecompare(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[tag]);
+
+    	switch(nameswitch) {
+				case ATT_CONSTANTVALUE:cout<<"<ConstantValue>"<<std::endl;break;
+				case ATT_CODE:cout<<"<Code>"<<std::endl;break;
+				case ATT_DEPRECATED:cout<<"<Deprecated>"<<std::endl;break;
+				case ATT_EXCEPTIONS:cout<<"<Exceptions>"<<std::endl;break;
+				case ATT_INNERCLASSES:cout<<"<InnerClasses>"<<std::endl;break;
+				case ATT_SOURCEFILE:cout<<"<SourceFile>"<<std::endl;break;
+				case ATT_LINENUMBERTABLE:cout<<"<LineNumberTable>"<<std::endl;break;
+				case ATT_LOCALVARIABLETABLE:cout<<"<LocalVariableTable>"<<std::endl;break;
+				default:cout<<"<invalid attribute>"<<std::endl;break;
+    	}
+
+			auto aux = *(CONSTANT_Utf8_info *)&viewobj.constant_pool[tag];
+			// std::cout << "Attribute length: "  << std::endl;
+			// std::cout << "Attribute length: cp_info#" << std::dec << viewobj << std::endl;
 			printindent(indent);
 			std::cout << "[" << i << "] ";
     	switch(nameswitch) {
