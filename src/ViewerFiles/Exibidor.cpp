@@ -342,7 +342,7 @@ void Exibidor::displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int
 		printindent(indent);
 		std::cout << "Start PC: " << std::hex << std::showbase << theatt.line_number_table[i].start_pc << std::endl;
 		printindent(indent);
-		std::cout << "Line Number: " << std::hex << std::showbase << theatt.line_number_table[i].line_number << std::endl;
+		std::cout << "Line Number: " <<  std::dec << theatt.line_number_table[i].line_number << std::endl;
 		std::cout << std::endl;
 	}
 	std::cout << std::endl << std::dec;
