@@ -70,15 +70,15 @@ class Exibidor{
 	void displayconstant_pool(ClassFile & theclass);
 
 
-    void displayConstantValueAtt(ConstantValue_attribute & theatt, int indent);
-    void displayCodeAtt(Code_attribute & theatt, int indent);
-    void displayDeprecatedAtt(Deprecated_attribute & theatt, int indent);
-    void displayExceptionsAtt(Exceptions_attribute & theatt, int indent);
-    void displayInnerClassesFlags(u2 accflags);
-    void displayInnerClassesAtt(InnerClasses_attribute & theatt, int indent);
-    void displaySourceFileAtt(SourceFile_attribute & theatt, int indent);
-    void displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int indent);
-    void displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent);
+	void displayConstantValueAtt(ConstantValue_attribute & theatt, int indent);
+	void displayCodeAtt(Code_attribute & theatt, int indent);
+	void displayDeprecatedAtt(Deprecated_attribute & theatt, int indent);
+	void displayExceptionsAtt(Exceptions_attribute & theatt, int indent);
+	void displayInnerClassesFlags(u2 accflags);
+	void displayInnerClassesAtt(InnerClasses_attribute & theatt, int indent);
+	void displaySourceFileAtt(SourceFile_attribute & theatt, int indent);
+	void displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int indent);
+	void displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent);
 
 	void displayfields(ClassFile & theclass);
 	void displayMethodsFlags(u2 accflags);
