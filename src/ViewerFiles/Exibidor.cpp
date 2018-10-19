@@ -161,70 +161,58 @@ void Exibidor::displayconstant_pool(ClassFile & theclass){  // TODO encontrar th
 	for(size_t i = 1; i < theclass.constant_pool_count; i++) {
     	u1 tag;
     	memcpy(&tag, &theclass.constant_pool[i],sizeof(tag));
+			std::cout << "  [" << i << "] ";
     	switch(tag) {
     	case enum_cp_tags::CONSTANT_Class:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_Class_info" << std::endl;
+				cout << "CONSTANT_Class_info" << std::endl;
     		displayCONSTANT_Class_info(*(CONSTANT_Class_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Fieldref:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_Fieldref_info" << std::endl;
+    		cout << "CONSTANT_Fieldref_info" << std::endl;
     		displayCONSTANT_Fieldref_info(*(CONSTANT_Fieldref_info *)&viewobj.constant_pool[i]);
         	break;
     	case enum_cp_tags::CONSTANT_Methodref:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_Methodref_info" << std::endl;
+    		cout << "CONSTANT_Methodref_info" << std::endl;
     		displayCONSTANT_Methodref_info(*(CONSTANT_Methodref_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_InterfaceMethodref:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_InterfaceMethodref_info" << std::endl;
+    		cout << "CONSTANT_InterfaceMethodref_info" << std::endl;
     		displayCONSTANT_InterfaceMethodref_info(*(CONSTANT_InterfaceMethodref_info *)&viewobj.constant_pool[i]);
 			break;
     	case enum_cp_tags::CONSTANT_String:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_String_info" << std::endl;
+    		cout << "CONSTANT_String_info" << std::endl;
     		displayCONSTANT_String_info(*(CONSTANT_String_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Integer:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_Integer_info" << std::endl;
+    		cout << "CONSTANT_Integer_info" << std::endl;
     		displayCONSTANT_Integer_info(*(CONSTANT_Integer_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Float:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_Float_info" << std::endl;
+    		cout << "CONSTANT_Float_info" << std::endl;
     		displayCONSTANT_Float_info(*(CONSTANT_Float_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Long:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_Long_info" << std::endl;
+    		cout << "CONSTANT_Long_info" << std::endl;
     		displayCONSTANT_Long_info(*(CONSTANT_Long_info *)&viewobj.constant_pool[i]);
     		i++;
-    		std::cout << "[" << i << "]" << " large numeric continued" << std::endl << std::endl;
+    		std::cout << "  [" << i << "]" << " large numeric continued" << std::endl << std::endl;
     		break;
     	case enum_cp_tags::CONSTANT_Double:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_Double_info" << std::endl;
+    		cout << "CONSTANT_Double_info" << std::endl;
     		displayCONSTANT_Double_info(*(CONSTANT_Double_info *)&viewobj.constant_pool[i]);
     		i++;
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " large numeric continued" << std::endl << std::endl;
+    		std::cout << "  [" << i << "]" << " large numeric continued" << std::endl << std::endl;
     		break;
     	case enum_cp_tags::CONSTANT_NameAndType:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_NameAndType_info" << std::endl;
+    		cout << "CONSTANT_NameAndType_info" << std::endl;
     		displayCONSTANT_NameAndType_info(*(CONSTANT_NameAndType_info *)&viewobj.constant_pool[i]);
     		break;
     	case enum_cp_tags::CONSTANT_Utf8:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " CONSTANT_Utf8_info" << std::endl;
+    		cout << "CONSTANT_Utf8_info" << std::endl;
     		displayCONSTANT_Utf8_info(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[i]);
     		break;
     	default:
-    		std::cout << "  ";
-    		std::cout << "[" << i << "]" << " broken link" << std::endl;
+    		cout << "broken link" << std::endl;
     		break;
     	}
 	}
@@ -340,7 +328,7 @@ void Exibidor::displaySourceFileAtt(SourceFile_attribute & theatt, int indent){
 void Exibidor::displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int indent){
 	for(int i=0;i<theatt.line_number_table_length;i++){
 		printindent(indent);
-		std::cout << "Start PC: " << std::hex << std::showbase << theatt.line_number_table[i].start_pc << std::endl;
+		std::cout << "Start PC: " << std::dec << std::showbase << theatt.line_number_table[i].start_pc << std::endl;
 		printindent(indent);
 		std::cout << "Line Number: " <<  std::dec << theatt.line_number_table[i].line_number << std::endl;
 		std::cout << std::endl;
@@ -350,7 +338,7 @@ void Exibidor::displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int
 void Exibidor::displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent){
 	for(int i=0;i<theatt.local_variable_table_length;i++){
 		printindent(indent);
-		std::cout << "Start PC: " << std::hex << std::showbase << theatt.local_variable_table[i].start_pc << std::endl;
+		std::cout << "Start PC: " << std::dec << std::showbase << theatt.local_variable_table[i].start_pc << std::endl;
 		printindent(indent);
 		std::cout << "Length: " << std::hex << std::showbase << theatt.local_variable_table[i].length << std::endl << std::dec;
 		printindent(indent);
