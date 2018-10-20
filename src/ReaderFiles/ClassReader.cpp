@@ -213,9 +213,14 @@ void load_attribute(FILE *f, ClassFile & cf, attribute_info * & atributos, int n
 }
 
 
-int main() {
+int main(int argc, char ** argv ) {
   Exibidor exib;
-  FILE * f = fopen("double_aritmetica.class", "rb");
+  char * arquivo = argv[1];
+  if (argc != 2){
+    std::cout << "Voce esqueceu de digitar o nome do arquivo" << endl;
+    return 0;
+  }
+  FILE * f = fopen(arquivo, "rb");
   ClassFile cf;
   read_us(&cf.magic, sizeof(cf.magic),f);
   if(cf.magic != 0xCAFEBABE){
