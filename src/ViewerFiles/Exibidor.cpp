@@ -260,6 +260,10 @@ void Exibidor::displayDeprecatedAtt(Deprecated_attribute & theatt, int indent){
 	std::cout << std::endl;
 }
 void Exibidor::displayExceptionsAtt(Exceptions_attribute & theatt, int indent){
+    printindent(indent);
+	std::cout << "Attribute Name: cp_info# " << theatt.attribute_name_index << " ";
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.attribute_name_index]);
+	std::cout << std::endl;
 	for(int i=0;i<theatt.number_of_exceptions;i++){
 		printindent(indent);
 		std::cout << "Exception #" << i << ": ";
@@ -294,6 +298,10 @@ void Exibidor::displayInnerClassesFlags(u2 accflags){
 	}
 }
 void Exibidor::displayInnerClassesAtt(InnerClasses_attribute & theatt, int indent){
+    printindent(indent);
+	std::cout << "Attribute Name: cp_info# " << theatt.attribute_name_index << " ";
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.attribute_name_index]);
+	std::cout << std::endl;
 	for(int i=0;i<theatt.number_of_classes;i++){
 		if(theatt.classes[i].inner_class_info_index != 0){
 			printindent(indent);
@@ -321,6 +329,10 @@ void Exibidor::displayInnerClassesAtt(InnerClasses_attribute & theatt, int inden
 	std::cout << std::endl;
 }
 void Exibidor::displaySourceFileAtt(SourceFile_attribute & theatt, int indent){
+    printindent(indent);
+	std::cout << "Attribute Name: cp_info# " << theatt.attribute_name_index << " ";
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.attribute_name_index]);
+	std::cout << std::endl;
 	printindent(indent);
 	std::cout << "Source: cp_info# " << theatt.sourcefile_index << " ";
 	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.sourcefile_index]);
@@ -342,6 +354,10 @@ void Exibidor::displayLineNumberTableAtt(LineNumberTable_attribute & theatt, int
 	std::cout << std::endl;
 }
 void Exibidor::displayLocalVariableTableAtt(LocalVariableTable_attribute & theatt, int indent){
+    printindent(indent);
+	std::cout << "Attribute Name: cp_info# " << theatt.attribute_name_index << " ";
+	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theatt.attribute_name_index]);
+	std::cout << std::endl;
 	for(int i=0;i<theatt.local_variable_table_length;i++){
 		printindent(indent);
 		std::cout << "Start PC: " << theatt.local_variable_table[i].start_pc << std::endl;
