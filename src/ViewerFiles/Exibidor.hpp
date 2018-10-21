@@ -18,6 +18,8 @@ class Exibidor{
 	void displayClassFileFlags(ClassFile & theclass);
 	void displayClassInfoString(CONSTANT_Class_info & theinfo);
 	void displayUtf8InfoString(CONSTANT_Utf8_info & theinfo);
+	void displayClassInfoStringRaw(CONSTANT_Class_info & theinfo);
+	void displayUtf8InfoStringRaw(CONSTANT_Utf8_info & theinfo);
 	void displayNameTypeInfoString(CONSTANT_NameAndType_info & theinfo);
 	/// \brief display para class info.
 	///
@@ -99,6 +101,9 @@ class Exibidor{
 	void control_fields();
 	void control_attributes();
 	void control_methods();
+	void printparammethodname(u2 index);
+	void printparamfieldname(u2 index);
+	void printparamcat2value(u2 index);
 public:
 	/// \brief fornece estrutura de ClassFile a ser exibida.
 	///

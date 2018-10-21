@@ -45,12 +45,20 @@ void Exibidor::displayClassFileFlags(ClassFile & theclass){
 void Exibidor::displayClassInfoString(CONSTANT_Class_info & theinfo){
 	displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theinfo.name_index]);
 }
+void Exibidor::displayClassInfoStringRaw(CONSTANT_Class_info & theinfo){
+	displayUtf8InfoStringRaw(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[theinfo.name_index]);
+}
+
 
 void Exibidor::displayUtf8InfoString(CONSTANT_Utf8_info & theinfo){
 	std::cout << "<";
 	for(int i=0;i<theinfo.length;i++)
 		std::cout << (u1)theinfo.bytes[i];
 	std::cout << ">";
+}
+void Exibidor::displayUtf8InfoStringRaw(CONSTANT_Utf8_info & theinfo){
+	for(int i=0;i<theinfo.length;i++)
+		std::cout << (u1)theinfo.bytes[i];
 }
 
 void Exibidor::displayNameTypeInfoString(CONSTANT_NameAndType_info & theinfo){
@@ -559,6 +567,53 @@ void Exibidor::control_methods(){
 	displaymethods(viewobj);
 }
 void Exibidor::control_attributes(){}
+void Exibidor::printparammethodname(u2 index){
+	CONSTANT_Methodref_info & methodinfo = *(CONSTANT_Methodref_info *)&viewobj.constant_pool[index];
+	CONSTANT_Class_info & classname = *(CONSTANT_Class_info *)&viewobj.constant_pool[methodinfo.class_index];
+	CONSTANT_NameAndType_info & nameandtype = *(CONSTANT_NameAndType_info *)&viewobj.constant_pool[methodinfo.name_and_type_index];
+	CONSTANT_Utf8_info & methodname = *(CONSTANT_Utf8_info *)&viewobj.constant_pool[nameandtype.name_index];
+	std::cout << "<";
+	displayClassInfoStringRaw(classname);
+	std::cout << ".";
+	displayUtf8InfoStringRaw(methodname);
+	std::cout << ">";
+}
+void Exibidor::printparamfieldname(u2 index){
+	CONSTANT_Fieldref_info & fieldinfo = *(CONSTANT_Fieldref_info *)&viewobj.constant_pool[index];
+	CONSTANT_Class_info & classname = *(CONSTANT_Class_info *)&viewobj.constant_pool[fieldinfo.class_index];
+	CONSTANT_NameAndType_info & nameandtype = *(CONSTANT_NameAndType_info *)&viewobj.constant_pool[fieldinfo.name_and_type_index];
+	CONSTANT_Utf8_info & fieldname = *(CONSTANT_Utf8_info *)&viewobj.constant_pool[nameandtype.name_index];
+	std::cout << "<";
+	displayClassInfoStringRaw(classname);
+	std::cout << ".";
+	displayUtf8InfoStringRaw(fieldname);
+	std::cout << ">";
+}
+void Exibidor::printparamcat2value(u2 index){
+	uint32_t buff[2];
+    u1 tag;
+    memcpy(&tag, &viewobj.constant_pool[index],sizeof(tag));
+    switch(tag) {
+    	case enum_cp_tags::CONSTANT_Long:{
+    		CONSTANT_Long_info & thelonginfo = *(CONSTANT_Long_info *)&viewobj.constant_pool[index];
+			std::memcpy(&buff[1], &thelonginfo.high_bytes, sizeof(thelonginfo.high_bytes));
+			std::memcpy(&buff[0], &thelonginfo.low_bytes, sizeof(thelonginfo.low_bytes));
+			std::cout << "<";
+			std::cout << *((uint64_t*)buff);
+			std::cout << ">";
+		}
+    	case enum_cp_tags::CONSTANT_Double:{
+    		CONSTANT_Double_info & thedoubleinfo = *(CONSTANT_Double_info *)&viewobj.constant_pool[index];
+			std::memcpy(&buff[1], &thedoubleinfo.high_bytes, sizeof(thedoubleinfo.high_bytes));
+			std::memcpy(&buff[0], &thedoubleinfo.low_bytes, sizeof(thedoubleinfo.low_bytes));
+			std::cout << "<";
+			std::cout << *((double*)buff);
+			std::cout << ">";
+		}
+    	default:
+    		break;
+    }
+}
 void Exibidor::feed(ClassFile toshow){
 	viewobj = toshow;
 }
