@@ -221,6 +221,10 @@ int main(int argc, char ** argv ) {
     return 0;
   }
   FILE * f = fopen(arquivo, "rb");
+  if (!f){
+    std::cout << "Arquivo .class não encontrado" << endl;
+    return 0;
+  }
   ClassFile cf;
   read_us(&cf.magic, sizeof(cf.magic),f);
   if(cf.magic != 0xCAFEBABE){
