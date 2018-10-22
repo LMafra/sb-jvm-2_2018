@@ -228,7 +228,8 @@ int main(int argc, char ** argv ) {
   ClassFile cf;
   read_us(&cf.magic, sizeof(cf.magic),f);
   if(cf.magic != 0xCAFEBABE){
-    printf("Não é um .class válido (Not cafebabe).");
+    printf("Não é um .class válido (Not cafebabe).\n");
+    return 0;
   }
   printf("li :: %x\n", cf.magic);
   read_us(&cf.minor_version, sizeof(cf.minor_version), f);
