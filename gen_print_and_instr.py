@@ -7,7 +7,7 @@ def array_function(prefix,list_tup, vetname='vet', includes=[]):
 	for i in includes:
 		st += '#include "{}"\n'.format(i)
 	st+= "void ** {} ".format(vetname)+'{\n'
-	st+= "  void* {};\n".format(vetname)
+	st+= "  void** {};\n".format(vetname)
 	st+= "  {} = (void**)malloc(1000 * sizeof(void*));\n".format(vetname)
 	for i in range(len(list_tup[0])):
 		name, ii = list_tup[0][i], list_tup[1][i]
@@ -43,7 +43,7 @@ def lazy_gen(filename, prefix):
 		# print('c == ', str(c))
 		lis.append(re.findall(r'([^\s]+)', ln)[0])
 		it += 1
-	with open(prefix+filename+'.cpp', 'w') as ff:
+	with open(prefix+filename+'.hpp', 'w') as ff:
 		for i in lis:
 			ff.write(sign + i + ' {\n\n}\n')
 	print('QTD :: ',len(lis))
