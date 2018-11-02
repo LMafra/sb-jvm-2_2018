@@ -1,6 +1,5 @@
-void ** exec_vet {
-  void** exec_vet;
-  exec_vet = (void**)malloc(1000 * sizeof(void*));
+void (*exec_vet[256])(void);
+void set_exec_vet(){
   exec_vet[0] = exec_jvm_nop;
   exec_vet[1] = exec_jvm_aconst_null;
   exec_vet[2] = exec_jvm_iconst_m1;
@@ -205,5 +204,5 @@ void ** exec_vet {
   exec_vet[202] = exec_jvm_breakpoint;
   exec_vet[254] = exec_jvm_impdep1;
   exec_vet[255] = exec_jvm_impdep2;
-  return exec_vet;
+  return;
 }

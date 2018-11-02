@@ -1,6 +1,5 @@
-void ** print_vet {
-  void** print_vet;
-  print_vet = (void**)malloc(1000 * sizeof(void*));
+void (*print_vet[256])(void);
+void set_print_vet(){
   print_vet[0] = print_jvm_nop;
   print_vet[1] = print_jvm_aconst_null;
   print_vet[2] = print_jvm_iconst_m1;
@@ -205,5 +204,5 @@ void ** print_vet {
   print_vet[202] = print_jvm_breakpoint;
   print_vet[254] = print_jvm_impdep1;
   print_vet[255] = print_jvm_impdep2;
-  return print_vet;
+  return;
 }
