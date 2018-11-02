@@ -84,7 +84,7 @@ def lazy_genp(filename, prefix):
 	# print(lines)
 	it = 0
 	c = -1
-	sign = 'void ' + prefix
+	sign = 'void Exibidor::' + prefix
 	lis = []
 	idx = []
 	while it < len(lines)  :
