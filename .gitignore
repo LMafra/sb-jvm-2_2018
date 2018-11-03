@@ -5,3 +5,7 @@
 # Gerem os executáveis terminados em "ig", para que assim o git
 # os ignore.
 *ig
+
+_*
+
+jclasslib

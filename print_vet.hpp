@@ -1,4 +1,6 @@
-void (*print_vet[256])(void);
+#pragma once
+
+void (*print_vet[256]);
 void set_print_vet(){
   print_vet[0] = print_jvm_nop;
   print_vet[1] = print_jvm_aconst_null;
