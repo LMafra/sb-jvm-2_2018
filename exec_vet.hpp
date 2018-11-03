@@ -1,4 +1,6 @@
-void (*exec_vet[256])(void);
+#pragma once
+
+void (*exec_vet[256]);
 void set_exec_vet(){
   exec_vet[0] = exec_jvm_nop;
   exec_vet[1] = exec_jvm_aconst_null;

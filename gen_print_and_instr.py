@@ -4,9 +4,10 @@ import re
 def array_function(prefix,list_tup, vetname='vet', includes=[]):
 	vetname = str(vetname)
 	st = ''
+	st += '#pragma once\n\n'
 	for i in includes:
 		st += '#include "{}"\n'.format(i)
-	st+= "void (*{}[256])(void);\n".format(vetname)
+	st+= "void (*{}[256]);\n".format(vetname)
 	st+= "void set_{}()".format(vetname)+'{\n'
 	for i in range(len(list_tup[0])):
 		name, ii = list_tup[0][i], list_tup[1][i]
