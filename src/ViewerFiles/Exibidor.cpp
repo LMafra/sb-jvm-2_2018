@@ -1488,7 +1488,7 @@ void Exibidor::print_jvm_impdep2(){
 	std::cout << "impdep2";
 }
 
-void Exibidor::feed(ClassFile toshow){
+void Exibidor::feed(const ClassFile & toshow){
 	viewobj = toshow;
 }
 void Exibidor::show(){
