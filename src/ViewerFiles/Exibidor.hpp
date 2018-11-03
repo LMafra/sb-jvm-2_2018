@@ -316,13 +316,17 @@ public:
 	///
 	/// a estrutura e copiada e armazenada pelo exibidor.
 	/// futuros feeds substituem a estrutura.
-	void feed(ClassFile toshow);
+	void feed(const ClassFile & toshow);
 	/// \brief inicia a exibicao da classe armazenada.
 	///
 	/// o fluxo de exibicao inclui input e output.
 	/// a output inclui as "telas" que mostram informacao e opcoes.
 	/// a input inclui selecao de opcoes de navegacao pelo usuario
 	void show();
+	Exibidor(){}
+	Exibidor(const ClassFile & cf){
+		feed(cf);
+	}
 };
 
 #include "Exibidor.cpp"
