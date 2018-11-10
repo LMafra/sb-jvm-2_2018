@@ -21,7 +21,7 @@ enum att_name_result{
   ATT_INVALID
 };
 
-union attribute_info {
+class attribute_info {
   u8 pad1;
   u8 pad2;
   u8 pad3;

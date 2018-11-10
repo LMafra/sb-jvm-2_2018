@@ -1,3 +1,8 @@
 # Tenham sua orópria pasta de testes para EXPERIMENTAÇÃO.
 tst/
+
 *.out
+
+*.png
+
+*.jpg
