@@ -8,7 +8,7 @@
 // pushcat1: boolean, byte, char, short, int, float, reference, return_address
 // pushcat2: long, double
 
-void exec_jvm_nop(){
+void exec_jvm_nop(){ 
 }
 
 void exec_jvm_aconst_null(){
@@ -99,3 +99,5 @@ void exec_jvm_sipush(){
   incpc(1);
 }
 
+// 75 Primeiras instruções - Rofl
+//-----------------------------------------------------------------------------------------------------------------------------//
