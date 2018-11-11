@@ -11,33 +11,15 @@ att_name_result ClassLoader :: which_att(CONSTANT_Utf8_info & name){
     namestring[i] = (char)name.bytes[i];
   }
   namestring[i]='\0';
-  if (std::strcmp(namestring, "ConstantValue")==0){
-    return ATT_CONSTANTVALUE;
-  }
-  if (std::strcmp(namestring, "Code")==0){
-    return ATT_CODE;
-  }
-  if (std::strcmp(namestring, "Deprecated")==0){
-    return ATT_DEPRECATED;
-  }
-  if (std::strcmp(namestring, "Exceptions")==0){
-    return ATT_EXCEPTIONS;
-  }
-  if (std::strcmp(namestring, "InnerClasses")==0){
-    return ATT_INNERCLASSES;
-  }
-  if (std::strcmp(namestring, "SourceFile")==0){
-    return ATT_SOURCEFILE;
-  }
-  if (std::strcmp(namestring, "LineNumberTable")==0){
-    return ATT_LINENUMBERTABLE;
-  }
-  if (std::strcmp(namestring, "LocalVariableTable")==0){
-    return ATT_LOCALVARIABLETABLE;
-  }
-  if (std::strcmp(namestring, "Synthetic")==0){
-    return ATT_SYNTHETIC;
-  }
+  if (std::strcmp(namestring, "ConstantValue")==0)return ATT_CONSTANTVALUE;
+  else if (std::strcmp(namestring, "Code")==0)return ATT_CODE;
+  else if (std::strcmp(namestring, "Deprecated")==0)return ATT_DEPRECATED;
+  else if (std::strcmp(namestring, "Exceptions")==0)return ATT_EXCEPTIONS;
+  else if (std::strcmp(namestring, "InnerClasses")==0)return ATT_INNERCLASSES;
+  else if (std::strcmp(namestring, "SourceFile")==0)return ATT_SOURCEFILE;
+  else if (std::strcmp(namestring, "LineNumberTable")==0)return ATT_LINENUMBERTABLE;
+  else if (std::strcmp(namestring, "LocalVariableTable")==0)return ATT_LOCALVARIABLETABLE;
+  else if (std::strcmp(namestring, "Synthetic")==0)return ATT_SYNTHETIC;
   else return ATT_INVALID;
 }
 

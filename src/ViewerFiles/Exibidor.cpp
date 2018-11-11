@@ -476,9 +476,7 @@ void Exibidor::displayCodeAtt(Code_attribute & theatt, int indent){
 	printindent(indent);
 	std::cout << "Code Length: " << theatt.code_length << std::endl;
 	std::cout << std::endl;
-	cout << "NOW displayInstructions" << endl;
 	displayInstructions(theatt.code,theatt.code_length);
-	cout << "END displayInstructions" << endl;
 	// TODO mostrat excecoes
 	if(theatt.attributes_count > 0){
 		displayAttributes(theatt.attributes, theatt.attributes_count, indent+1);
