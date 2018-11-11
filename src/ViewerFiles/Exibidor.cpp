@@ -449,15 +449,18 @@ void Exibidor::displayConstantValueAtt(ConstantValue_attribute & theatt, int ind
 }
 void Exibidor::displayInstructions(u1 * instructions, u4 length){
 	PC = instructions;
-	for(int i=0;i<length;i++){
+	/*for(int i=0;i<length;i++){
 		std::cout << std::hex << std::showbase << (int)PC[i] << std::dec << std::endl;
-	}
-	/*while(((long long int)(&instructions[length]))>((long long int)(&PC[0]))){
-		u1 aux = PC[0];
-		std::cout << "\n" << (int)aux << "\n";
-		((*this).*(print_vet[aux]))();
-		std::cout << "\n" << (int)aux << "\n";
 	}*/
+	while(((long long int)(&instructions[length-1]))>=((long long int)(&PC[0]))){
+		u1 aux = PC[0];
+		//std::cout << "\n" << (int)aux << "\n";
+    std::cout << "     ";
+		((*this).*(print_vet[aux]))();
+    std::cout << "\n";
+		//std::cout << "\n" << (int)aux << "\n";
+	}
+  std::cout << "\n";
 }
 void Exibidor::displayCodeAtt(Code_attribute & theatt, int indent){
 	printindent(indent);
