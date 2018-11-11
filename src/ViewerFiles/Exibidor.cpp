@@ -476,7 +476,9 @@ void Exibidor::displayCodeAtt(Code_attribute & theatt, int indent){
 	printindent(indent);
 	std::cout << "Code Length: " << theatt.code_length << std::endl;
 	std::cout << std::endl;
+	cout << "NOW displayInstructions" << endl;
 	displayInstructions(theatt.code,theatt.code_length);
+	cout << "END displayInstructions" << endl;
 	// TODO mostrat excecoes
 	if(theatt.attributes_count > 0){
 		displayAttributes(theatt.attributes, theatt.attributes_count, indent+1);
@@ -656,22 +658,22 @@ void Exibidor::displayMethodsFlags(u2 accflags){
 void Exibidor::displaymethods(ClassFile & theclass){
   std::cout << " Methods:\n";
 	for(size_t i = 0; i < theclass.methods_count; i++) {
-		method_info & aux = theclass.methods[i];
+		method_info * aux = &theclass.methods[i];
 		std::cout << "  ";
 		std::cout << "[" << i << "]" << " ";
-		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.name_index]);
+		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux->name_index]);
 		std::cout << std::endl;
-		std::cout << "   Name: cp_info# " << aux.name_index << " ";
-		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.name_index]);
+		std::cout << "   Name: cp_info# " << aux->name_index << " ";
+		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux->name_index]);
 		std::cout << endl;
-		std::cout << "   Descriptor: cp_info# " << aux.descriptor_index << " ";
-		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux.descriptor_index]);
+		std::cout << "   Descriptor: cp_info# " << aux->descriptor_index << " ";
+		displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[aux->descriptor_index]);
 		std::cout << std::endl;
-		std::cout << "   Access Flags: " << std::hex << aux.access_flags << " ";
-		displayMethodsFlags(aux.access_flags);
+		std::cout << "   Access Flags: " << std::hex << aux->access_flags << " ";
+		displayMethodsFlags(aux->access_flags);
 		std::cout << std::endl << std::dec;
-		if(aux.attributes_count > 0){
-			displayAttributes(aux.attributes, aux.attributes_count, 3);
+		if(aux->attributes_count > 0){
+			displayAttributes(aux->attributes, aux->attributes_count, 3);
 		}
 	}
 }
@@ -718,65 +720,74 @@ void Exibidor::printindent(int indent){
 	}
 }
 void Exibidor::displayAttributes(attribute_info * attlist, int length, int indent){
-    printindent(indent);
-    std::cout << "Attributes:" << std::endl;
+  printindent(indent);
+  std::cout << "Attributes:" << std::endl;
 	for(int i=0; i<length; i++){
-    	u2 tag;
-    	memcpy(&tag, &attlist[i],sizeof(tag));
-    	int nameswitch = attributenamecompare(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[tag]);
+    u2 tag;
+    memcpy(&tag, &attlist[i],sizeof(tag));
+    int nameswitch = attributenamecompare(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[tag]);
 		printindent(indent);
 		std::cout << "[" << i << "] ";
-    	switch(nameswitch) {
-		case ATT_CONSTANTVALUE:    		
-			cout << "ConstantValue" << std::endl;
-			displayConstantValueAtt(*(ConstantValue_attribute *)&attlist[i], indent+1);
-			break;
-		case ATT_CODE:
-			cout << "Code" << std::endl;
-			displayCodeAtt(*(Code_attribute *)&attlist[i], indent+1);
-			break;
-		case ATT_DEPRECATED:
-			cout << "Deprecated" << std::endl;
-			displayDeprecatedAtt(*(Deprecated_attribute *)&attlist[i], indent+1);
-			break;
-		case ATT_EXCEPTIONS:
-			cout << "Exceptions" << std::endl;
-			displayExceptionsAtt(*(Exceptions_attribute *)&attlist[i], indent+1);
-			break;
-		case ATT_INNERCLASSES:
-			cout << "InnerClasses" << std::endl;
-			displayInnerClassesAtt(*(InnerClasses_attribute *)&attlist[i], indent+1);
-			break;
-		case ATT_SOURCEFILE:
-			cout << "SourceFile" << std::endl;
-			displaySourceFileAtt(*(SourceFile_attribute *)&attlist[i], indent+1);
-			break;
-		case ATT_LINENUMBERTABLE:
-			cout << "LineNumberTable" << std::endl;
-			displayLineNumberTableAtt(*(LineNumberTable_attribute *)&attlist[i], indent+1);
-			break;
-		case ATT_LOCALVARIABLETABLE:
-			cout << "LocalVariableTable" << std::endl;
-			displayLocalVariableTableAtt(*(LocalVariableTable_attribute *)&attlist[i], indent+1);
-			break;
-		default:
-			cout << "invalid attribute" << std::endl;
-			break;
+    switch(nameswitch) {
+			case ATT_CONSTANTVALUE:    		
+				cout << "ConstantValue" << std::endl;
+				displayConstantValueAtt(*(ConstantValue_attribute *)&attlist[i], indent+1);
+				break;
+			case ATT_CODE:
+				cout << "Code" << std::endl;
+				displayCodeAtt(*(Code_attribute *)&attlist[i], indent+1);
+				break;
+			case ATT_DEPRECATED:
+				cout << "Deprecated" << std::endl;
+				displayDeprecatedAtt(*(Deprecated_attribute *)&attlist[i], indent+1);
+				break;
+			case ATT_EXCEPTIONS:
+				cout << "Exceptions" << std::endl;
+				displayExceptionsAtt(*(Exceptions_attribute *)&attlist[i], indent+1);
+				break;
+			case ATT_INNERCLASSES:
+				cout << "InnerClasses" << std::endl;
+				displayInnerClassesAtt(*(InnerClasses_attribute *)&attlist[i], indent+1);
+				break;
+			case ATT_SOURCEFILE:
+				cout << "SourceFile" << std::endl;
+				displaySourceFileAtt(*(SourceFile_attribute *)&attlist[i], indent+1);
+				break;
+			case ATT_LINENUMBERTABLE:
+				cout << "LineNumberTable" << std::endl;
+				displayLineNumberTableAtt(*(LineNumberTable_attribute *)&attlist[i], indent+1);
+				break;
+			case ATT_LOCALVARIABLETABLE:
+				cout << "LocalVariableTable" << std::endl;
+				displayLocalVariableTableAtt(*(LocalVariableTable_attribute *)&attlist[i], indent+1);
+				break;
+			default:
+				cout << "invalid attribute" << std::endl;
+				break;
     	}
 	}
+	cout << "AFTER Exibidor::displayAttributes" << endl;
 }
 
 void Exibidor::control_class(){
 	displayClassFile(viewobj);
+	cout << "BEFORE control_cp\n";
 	control_cp();
+	cout << "AFTER control_cp\n";
 	if(viewobj.fields_count > 0){
+		cout << "BEFORE CONTROLL FIELDS\n";
 		control_fields();
+		cout << "AFTER CONTROLL FIELDS\n";				
 	}
 	if(viewobj.methods_count > 0){
+		cout << "BEFORE CONTROLL METHODS\n";
 		control_methods();
+		cout << "AFTER CONTROLL METHODS\n";
 	}
 	if(viewobj.attributes_count > 0){
+		cout << "BEFORE displayAttributes\n";	
 		displayAttributes(viewobj.attributes, viewobj.attributes_count, 1);
+		cout << "AFTER displayAttributes\n";	
 	}
 }
 void Exibidor::control_cp(){
