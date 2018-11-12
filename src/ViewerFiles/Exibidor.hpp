@@ -76,6 +76,7 @@ class Exibidor{
 
 	void displayConstantValueAtt(ConstantValue_attribute & theatt, int indent);
 	void displayInstructions(u1 * instructions, u4 length);
+	void displayCodeExcepts(Exception_Table * exceptions, u4 length);
 	void displayCodeAtt(Code_attribute & theatt, int indent);
 	void displayDeprecatedAtt(Deprecated_attribute & theatt, int indent);
 	void displayExceptionsAtt(Exceptions_attribute & theatt, int indent);

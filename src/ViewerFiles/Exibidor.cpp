@@ -452,6 +452,8 @@ void Exibidor::displayInstructions(u1 * instructions, u4 length){
 	/*for(int i=0;i<length;i++){
 		std::cout << std::hex << std::showbase << (int)PC[i] << std::dec << std::endl;
 	}*/
+  std::cout << "     Instructions:";
+  std::cout << "\n";
 	while(((long long int)(&instructions[length-1]))>=((long long int)(&PC[0]))){
 		u1 aux = PC[0];
 		//std::cout << "\n" << (int)aux << "\n";
@@ -461,6 +463,21 @@ void Exibidor::displayInstructions(u1 * instructions, u4 length){
 		//std::cout << "\n" << (int)aux << "\n";
 	}
   std::cout << "\n";
+}
+
+void Exibidor::displayCodeExcepts(Exception_Table * exceptions, u4 length){
+  std::cout << "     Exceptions:";
+  std::cout << "\n";
+  for(int i=0;i<length;i++){
+    Exception_Table aux = exceptions[i];
+    std::cout << "     Start pc: " << aux.start_pc << "\n";
+    std::cout << "     End pc: " << aux.end_pc << "\n";
+    std::cout << "     Handler pc: " << aux.handler_pc << "\n";
+    std::cout << "     Catch type: #" << aux.catch_type;
+    displayClassInfoString(*(CONSTANT_Class_info *)&viewobj.constant_pool[aux.catch_type]);
+    std::cout << "\n";
+    std::cout << "\n";
+  }
 }
 void Exibidor::displayCodeAtt(Code_attribute & theatt, int indent){
 	printindent(indent);
@@ -477,7 +494,7 @@ void Exibidor::displayCodeAtt(Code_attribute & theatt, int indent){
 	std::cout << "Code Length: " << theatt.code_length << std::endl;
 	std::cout << std::endl;
 	displayInstructions(theatt.code,theatt.code_length);
-	// TODO mostrat excecoes
+  displayCodeExcepts(theatt.exception_table,theatt.exception_table_length);
 	if(theatt.attributes_count > 0){
 		displayAttributes(theatt.attributes, theatt.attributes_count, indent+1);
 	}
