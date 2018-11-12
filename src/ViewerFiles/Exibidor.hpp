@@ -1,5 +1,6 @@
 #pragma once
 #include "../UsingUs.hpp"
+#include "../VMGlobals.hpp"
 #include "../ClassFileStructures/ClassFile.hpp"
 #include "../ClassFileStructures/cp_info.hpp"
 #include "../ClassFileStructures/attribute_info.hpp"
