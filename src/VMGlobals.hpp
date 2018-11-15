@@ -4,6 +4,8 @@
 #include <stack>
 #include "UsingUs.hpp"
 #include "ClassFileStructures/ClassFile.hpp"
+#define popcat1 pop_cat1
+#define popcat2 pop_cat2
 
 class Instancia{
 	ClassFile * classe;
