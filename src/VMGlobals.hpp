@@ -19,5 +19,9 @@ class Frame_type{
 u1 * PC;
 std::stack<Frame_type> frame_stack;
 std::stack<u4> stack;
-ClassFile * method_area;
-int class_counter;
+ClassFile * method_area;  // vetor de ClassFile
+
+bool global_path_set = 0;  // indica que "global_path" foi ou nao inicializado
+char * global_path;
+
+int class_counter = 0;
