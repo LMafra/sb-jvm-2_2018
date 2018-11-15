@@ -16,9 +16,14 @@ class Frame_type{
 	u4 * variaveis_locais;
 };
 
+union cat1 {
+	u4 a;
+	void* aa;
+};
+
 u1 * PC;
 std::stack<Frame_type> frame_stack;
-std::stack<u4> stack;
+std::stack<cat1> stack;
 ClassFile * method_area;  // vetor de ClassFile
 
 bool global_path_set = 0;  // indica que "global_path" foi ou nao inicializado
