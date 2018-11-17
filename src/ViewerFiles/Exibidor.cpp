@@ -204,6 +204,17 @@ void Exibidor::set_print_vet(){
   print_vet[202] = &Exibidor::print_jvm_breakpoint;
   print_vet[254] = &Exibidor::print_jvm_impdep1;
   print_vet[255] = &Exibidor::print_jvm_impdep2;
+  print_vetwide[21] = &Exibidor::print_jvm_wide_iload;
+  print_vetwide[22] = &Exibidor::print_jvm_wide_lload;
+  print_vetwide[23] = &Exibidor::print_jvm_wide_fload;
+  print_vetwide[24] = &Exibidor::print_jvm_wide_dload;
+  print_vetwide[25] = &Exibidor::print_jvm_wide_aload;
+  print_vetwide[54] = &Exibidor::print_jvm_wide_istore;
+  print_vetwide[55] = &Exibidor::print_jvm_wide_lstore;
+  print_vetwide[56] = &Exibidor::print_jvm_wide_fstore;
+  print_vetwide[57] = &Exibidor::print_jvm_wide_dstore;
+  print_vetwide[58] = &Exibidor::print_jvm_wide_astore;
+  print_vetwide[169] = &Exibidor::print_jvm_wide_ret;
   return;
 }
 
@@ -449,6 +460,7 @@ void Exibidor::displayConstantValueAtt(ConstantValue_attribute & theatt, int ind
 }
 void Exibidor::displayInstructions(u1 * instructions, u4 length){
 	PC = instructions;
+  PCpadhelp = instructions;
 	/*for(int i=0;i<length;i++){
 		std::cout << std::hex << std::showbase << (int)PC[i] << std::dec << std::endl;
 	}*/
@@ -806,6 +818,12 @@ void Exibidor::control_methods(){
 	displaymethods(viewobj);
 }
 void Exibidor::control_attributes(){}
+void Exibidor::printparamclassname(u2 index){
+  CONSTANT_Class_info & classname = *(CONSTANT_Class_info *)&viewobj.constant_pool[index];
+  std::cout << "<";
+  displayClassInfoStringRaw(classname);
+  std::cout << ">";
+}
 void Exibidor::printparammethodname(u2 index){
 	CONSTANT_Methodref_info & methodinfo = *(CONSTANT_Methodref_info *)&viewobj.constant_pool[index];
 	CONSTANT_Class_info & classname = *(CONSTANT_Class_info *)&viewobj.constant_pool[methodinfo.class_index];
@@ -856,63 +874,97 @@ void Exibidor::printparamcat2value(u2 index){
 
 void Exibidor::print_jvm_nop(){
 	std::cout << "nop";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_aconst_null(){
 	std::cout << "aconst_null";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iconst_m1(){
 	std::cout << "iconst_m1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iconst_0(){
 	std::cout << "iconst_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iconst_1(){
 	std::cout << "iconst_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iconst_2(){
 	std::cout << "iconst_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iconst_3(){
 	std::cout << "iconst_3";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iconst_4(){
 	std::cout << "iconst_4";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iconst_5(){
 	std::cout << "iconst_5";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lconst_0(){
 	std::cout << "lconst_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lconst_1(){
 	std::cout << "lconst_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fconst_0(){
 	std::cout << "fconst_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fconst_1(){
 	std::cout << "fconst_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fconst_2(){
 	std::cout << "fconst_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dconst_0(){
 	std::cout << "dconst_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dconst_1(){
 	std::cout << "dconst_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_bipush(){
 	std::cout << "bipush";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" %d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_sipush(){
 	std::cout << "sipush";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ldc(){
 	std::cout << "ldc";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_ldc_w(){
 	std::cout << "ldc_w";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ldc2_w(){
 	std::cout << "ldc2_w";
@@ -925,54 +977,86 @@ void Exibidor::print_jvm_ldc2_w(){
 }
 void Exibidor::print_jvm_iload(){
 	std::cout << "iload";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_lload(){
 	std::cout << "lload";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_fload(){
 	std::cout << "fload";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_dload(){
 	std::cout << "dload";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_aload(){
 	std::cout << "aload";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_iload_0(){
 	std::cout << "iload_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iload_1(){
 	std::cout << "iload_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iload_2(){
 	std::cout << "iload_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iload_3(){
 	std::cout << "iload_3";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lload_0(){
 	std::cout << "lload_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lload_1(){
 	std::cout << "lload_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lload_2(){
 	std::cout << "lload_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lload_3(){
 	std::cout << "lload_3";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fload_0(){
 	std::cout << "fload_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fload_1(){
 	std::cout << "fload_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fload_2(){
 	std::cout << "fload_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fload_3(){
 	std::cout << "fload_3";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dload_0(){
 	std::cout << "dload_0";
@@ -996,84 +1080,126 @@ void Exibidor::print_jvm_aload_0(){
 }
 void Exibidor::print_jvm_aload_1(){
 	std::cout << "aload_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_aload_2(){
 	std::cout << "aload_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_aload_3(){
 	std::cout << "aload_3";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iaload(){
 	std::cout << "iaload";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_faload(){
 	std::cout << "faload";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_daload(){
 	std::cout << "daload";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_aaload(){
 	std::cout << "aaload";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_baload(){
 	std::cout << "baload";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_caload(){
 	std::cout << "caload";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_saload(){
 	std::cout << "saload";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_istore(){
 	std::cout << "istore";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_lstore(){
 	std::cout << "lstore";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_fstore(){
 	std::cout << "fstore";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_dstore(){
 	std::cout << "dstore";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_astore(){
 	std::cout << "astore";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_istore_0(){
 	std::cout << "istore_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_istore_1(){
 	std::cout << "istore_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_istore_2(){
 	std::cout << "istore_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_istore_3(){
 	std::cout << "istore_3";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lstore_0(){
 	std::cout << "lstore_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lstore_1(){
 	std::cout << "lstore_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lstore_2(){
 	std::cout << "lstore_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lstore_3(){
 	std::cout << "lstore_3";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fstore_0(){
 	std::cout << "fstore_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fstore_1(){
 	std::cout << "fstore_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fstore_2(){
 	std::cout << "fstore_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fstore_3(){
 	std::cout << "fstore_3";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dstore_0(){
 	std::cout << "dstore_0";
@@ -1093,75 +1219,99 @@ void Exibidor::print_jvm_dstore_3(){
 }
 void Exibidor::print_jvm_astore_0(){
 	std::cout << "astore_0";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_astore_1(){
 	std::cout << "astore_1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_astore_2(){
 	std::cout << "astore_2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_astore_3(){
 	std::cout << "astore_3";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iastore(){
 	std::cout << "iastore";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lastore(){
 	std::cout << "lastore";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fastore(){
 	std::cout << "fastore";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dastore(){
 	std::cout << "dastore";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_aastore(){
 	std::cout << "aastore";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_bastore(){
 	std::cout << "bastore";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_castore(){
 	std::cout << "castore";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_sastore(){
 	std::cout << "sastore";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_pop(){
 	std::cout << "pop";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_pop2(){
 	std::cout << "pop2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dup(){
 	std::cout << "dup";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dup_x1(){
 	std::cout << "dup_x1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dup_x2(){
 	std::cout << "dup_x2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dup2(){
 	std::cout << "dup2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dup2_x1(){
 	std::cout << "dup2_x1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dup2_x2(){
 	std::cout << "dup2_x2";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_swap(){
 	std::cout << "swap";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iadd(){
 	std::cout << "iadd";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_ladd(){
 	std::cout << "ladd";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fadd(){
 	std::cout << "fadd";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dadd(){
 	std::cout << "dadd";
@@ -1169,12 +1319,15 @@ void Exibidor::print_jvm_dadd(){
 }
 void Exibidor::print_jvm_isub(){
 	std::cout << "isub";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lsub(){
 	std::cout << "lsub";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fsub(){
 	std::cout << "fsub";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dsub(){
 	std::cout << "dsub";
@@ -1182,12 +1335,15 @@ void Exibidor::print_jvm_dsub(){
 }
 void Exibidor::print_jvm_imul(){
 	std::cout << "imul";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lmul(){
 	std::cout << "lmul";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fmul(){
 	std::cout << "fmul";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dmul(){
 	std::cout << "dmul";
@@ -1195,12 +1351,15 @@ void Exibidor::print_jvm_dmul(){
 }
 void Exibidor::print_jvm_idiv(){
 	std::cout << "idiv";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_ldiv(){
 	std::cout << "ldiv";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fdiv(){
 	std::cout << "fdiv";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_ddiv(){
 	std::cout << "ddiv";
@@ -1208,12 +1367,15 @@ void Exibidor::print_jvm_ddiv(){
 }
 void Exibidor::print_jvm_irem(){
 	std::cout << "irem";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lrem(){
 	std::cout << "lrem";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_frem(){
 	std::cout << "frem";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_drem(){
 	std::cout << "drem";
@@ -1221,12 +1383,15 @@ void Exibidor::print_jvm_drem(){
 }
 void Exibidor::print_jvm_ineg(){
 	std::cout << "ineg";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lneg(){
 	std::cout << "lneg";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fneg(){
 	std::cout << "fneg";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dneg(){
 	std::cout << "dneg";
@@ -1234,75 +1399,104 @@ void Exibidor::print_jvm_dneg(){
 }
 void Exibidor::print_jvm_ishl(){
 	std::cout << "ishl";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lshl(){
 	std::cout << "lshl";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_ishr(){
 	std::cout << "ishr";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lshr(){
 	std::cout << "lshr";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iushr(){
 	std::cout << "iushr";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lushr(){
 	std::cout << "lushr";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iand(){
 	std::cout << "iand";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_land(){
 	std::cout << "land";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_ior(){
 	std::cout << "ior";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lor(){
 	std::cout << "lor";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_ixor(){
 	std::cout << "ixor";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lxor(){
 	std::cout << "lxor";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_iinc(){
 	std::cout << "iinc";
+  u1 aux;
+  u1 aux1;
+  ((u1 *)&aux1)[0] = PC[2];
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" #%d %d", (int)aux, (int)aux1);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_i2l(){
 	std::cout << "i2l";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_i2f(){
 	std::cout << "i2f";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_i2d(){
 	std::cout << "i2d";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_l2i(){
 	std::cout << "l2i";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_l2f(){
 	std::cout << "l2f";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_l2d(){
 	std::cout << "l2d";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_f2i(){
 	std::cout << "f2i";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_f2l(){
 	std::cout << "f2l";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_f2d(){
 	std::cout << "f2d";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_d2i(){
 	std::cout << "d2i";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_d2l(){
 	std::cout << "d2l";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_d2f(){
 	std::cout << "d2f";
@@ -1310,99 +1504,280 @@ void Exibidor::print_jvm_d2f(){
 }
 void Exibidor::print_jvm_i2b(){
 	std::cout << "i2b";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_i2c(){
 	std::cout << "i2c";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_i2s(){
 	std::cout << "i2s";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lcmp(){
 	std::cout << "lcmp";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fcmpl(){
 	std::cout << "fcmpl";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_fcmpg(){
 	std::cout << "fcmpg";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dcmpl(){
 	std::cout << "dcmpl";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dcmpg(){
 	std::cout << "dcmpg";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_ifeq(){
 	std::cout << "ifeq";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ifne(){
 	std::cout << "ifne";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_iflt(){
 	std::cout << "iflt";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ifge(){
 	std::cout << "ifge";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ifgt(){
 	std::cout << "ifgt";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ifle(){
 	std::cout << "ifle";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmpeq(){
 	std::cout << "if_icmpeq";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmpne(){
 	std::cout << "if_icmpne";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmplt(){
 	std::cout << "if_icmplt";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmpge(){
 	std::cout << "if_icmpge";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmpgt(){
 	std::cout << "if_icmpgt";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmple(){
 	std::cout << "if_icmple";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_acmpeq(){
 	std::cout << "if_acmpeq";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_acmpne(){
 	std::cout << "if_acmpne";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_goto(){
 	std::cout << "goto";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_jsr(){
 	std::cout << "jsr";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ret(){
 	std::cout << "ret";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" %d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_tableswitch(){
 	std::cout << "tableswitch";
+  int padnum = ((u8)PC) - ((u8)PCpadhelp);
+  if (padnum%4 == 0){
+    PC = &(PC[4]);
+  }
+  else if (padnum%4 == 1){
+    PC = &(PC[3]);
+  }
+  else if (padnum%4 == 2){
+    PC = &(PC[2]);
+  }
+  else if (padnum%4 == 3){
+    PC = &(PC[1]);
+  }
+  u4 defa;
+  u4 high;
+  u4 low;
+  u4 aux;
+  ((u1 *)&defa)[3] = PC[0];
+  ((u1 *)&defa)[2] = PC[1];
+  ((u1 *)&defa)[1] = PC[2];
+  ((u1 *)&defa)[0] = PC[3];
+  PC = &(PC[4]);
+  ((u1 *)&low)[3] = PC[0];
+  ((u1 *)&low)[2] = PC[1];
+  ((u1 *)&low)[1] = PC[2];
+  ((u1 *)&low)[0] = PC[3];
+  PC = &(PC[4]);
+  ((u1 *)&high)[3] = PC[0];
+  ((u1 *)&high)[2] = PC[1];
+  ((u1 *)&high)[1] = PC[2];
+  ((u1 *)&high)[0] = PC[3];
+  PC = &(PC[4]);
+  printf(" %d,%d,%d", (int)defa,(int)low,(int)high);
+  int offs = ((int)high - (int)low)+1;
+  for(int i = 0;i < offs;i++){
+    ((u1 *)&aux)[3] = PC[0];
+    ((u1 *)&aux)[2] = PC[1];
+    ((u1 *)&aux)[1] = PC[2];
+    ((u1 *)&aux)[0] = PC[3];
+    PC = &(PC[4]);
+    printf("\n       %d",(int)aux);
+  }
 }
 void Exibidor::print_jvm_lookupswitch(){
 	std::cout << "lookupswitch";
+  int padnum = ((u8)PC) - ((u8)PCpadhelp);
+  if (padnum%4 == 0){
+    PC = &(PC[4]);
+  }
+  else if (padnum%4 == 1){
+    PC = &(PC[3]);
+  }
+  else if (padnum%4 == 2){
+    PC = &(PC[2]);
+  }
+  else if (padnum%4 == 3){
+    PC = &(PC[1]);
+  }
+  u4 defa;
+  u4 npairs;
+  u4 aux;
+  ((u1 *)&defa)[3] = PC[0];
+  ((u1 *)&defa)[2] = PC[1];
+  ((u1 *)&defa)[1] = PC[2];
+  ((u1 *)&defa)[0] = PC[3];
+  PC = &(PC[4]);
+  ((u1 *)&npairs)[3] = PC[0];
+  ((u1 *)&npairs)[2] = PC[1];
+  ((u1 *)&npairs)[1] = PC[2];
+  ((u1 *)&npairs)[0] = PC[3];
+  PC = &(PC[4]);
+  printf(" %d", (int)npairs);
+  for(int i = 0;i < npairs;i++){
+    ((u1 *)&aux)[3] = PC[0];
+    ((u1 *)&aux)[2] = PC[1];
+    ((u1 *)&aux)[1] = PC[2];
+    ((u1 *)&aux)[0] = PC[3];
+    PC = &(PC[4]);
+    printf("\n       %d",(int)aux);
+    ((u1 *)&aux)[3] = PC[0];
+    ((u1 *)&aux)[2] = PC[1];
+    ((u1 *)&aux)[1] = PC[2];
+    ((u1 *)&aux)[0] = PC[3];
+    PC = &(PC[4]);
+    printf(": %d",(int)aux);
+  }
+  printf("\n       default: %d",(int)defa);
 }
 void Exibidor::print_jvm_ireturn(){
 	std::cout << "ireturn";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_lreturn(){
 	std::cout << "lreturn";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_freturn(){
 	std::cout << "freturn";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_dreturn(){
 	std::cout << "dreturn";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_areturn(){
 	std::cout << "areturn";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_return(){
 	std::cout << "return";
@@ -1419,12 +1794,30 @@ void Exibidor::print_jvm_getstatic(){
 }
 void Exibidor::print_jvm_putstatic(){
 	std::cout << "putstatic";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparamfieldname(aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_getfield(){
 	std::cout << "getfield";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparamfieldname(aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_putfield(){
 	std::cout << "putfield";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparamfieldname(aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_invokevirtual(){
 	std::cout << "invokevirtual";
@@ -1446,68 +1839,248 @@ void Exibidor::print_jvm_invokespecial(){
 }
 void Exibidor::print_jvm_invokestatic(){
 	std::cout << "invokestatic";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparammethodname(aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_invokeinterface(){
 	std::cout << "invokeinterface";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparammethodname(aux);
+  PC = &(PC[3]);
+  u1 count;
+  ((u1 *)&count)[0] = PC[0];
+  printf(" %d", (int)count);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_invokedynamic(){
 	std::cout << "invokedynamic";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparammethodname(aux);
+  PC = &(PC[3]);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_new(){
 	std::cout << "new";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparamclassname(aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_newarray(){
 	std::cout << "newarray";
+  u1 aux;
+  ((u1 *)&aux)[0] = PC[1];
+  printf(" %d", (int)aux);
+  PC = &(PC[2]);
 }
 void Exibidor::print_jvm_anewarray(){
 	std::cout << "anewarray";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparamclassname(aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_arraylength(){
 	std::cout << "arraylength";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_athrow(){
 	std::cout << "athrow";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_checkcast(){
 	std::cout << "checkcast";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparamclassname(aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_instanceof(){
 	std::cout << "instanceof";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparamclassname(aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_monitorenter(){
 	std::cout << "monitorenter";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_monitorexit(){
 	std::cout << "monitorexit";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_wide(){
-	std::cout << "wide";
+  u1 aux = PC[1];
+  PC = &(PC[1]);
+  ((*this).*(print_vetwide[aux]))();
 }
 void Exibidor::print_jvm_multianewarray(){
 	std::cout << "multianewarray";
+  u2 aux;
+  u1 aux2;
+  ((u1 *)&aux2)[0] = PC[3];
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d ", (int)aux);
+  printparamclassname(aux);
+  printf(" %d", (int)aux2);
+  PC = &(PC[4]);
 }
 void Exibidor::print_jvm_ifnull(){
 	std::cout << "ifnull";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ifnonnull(){
 	std::cout << "ifnonnull";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[3]);
 }
 void Exibidor::print_jvm_goto_w(){
 	std::cout << "goto_w";
+  u4 aux;
+  ((u1 *)&aux)[0] = PC[4];
+  ((u1 *)&aux)[1] = PC[3];
+  ((u1 *)&aux)[2] = PC[2];
+  ((u1 *)&aux)[3] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[5]);
 }
 void Exibidor::print_jvm_jsr_w(){
 	std::cout << "jsr_w";
+  u4 aux;
+  ((u1 *)&aux)[0] = PC[4];
+  ((u1 *)&aux)[1] = PC[3];
+  ((u1 *)&aux)[2] = PC[2];
+  ((u1 *)&aux)[3] = PC[1];
+  printf(" %d ", (int)aux);
+  PC = &(PC[5]);
 }
 void Exibidor::print_jvm_breakpoint(){
 	std::cout << "breakpoint";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_impdep1(){
 	std::cout << "impdep1";
+  PC = &(PC[1]);
 }
 void Exibidor::print_jvm_impdep2(){
 	std::cout << "impdep2";
+  PC = &(PC[1]);
 }
-
+void Exibidor::print_jvm_wide_iload(){
+  std::cout << "wide iload";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_lload(){
+  std::cout << "wide lload";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_fload(){
+  std::cout << "wide fload";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_dload(){
+  std::cout << "wide dload";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_aload(){
+  std::cout << "wide aload";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_istore(){
+  std::cout << "wide istore";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_lstore(){
+  std::cout << "wide lstore";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_fstore(){
+  std::cout << "wide fstore";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_dstore(){
+  std::cout << "wide dstore";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_astore(){
+  std::cout << "wide astore";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
+void Exibidor::print_jvm_wide_ret(){
+  std::cout << "wide ret";
+  u2 aux;
+  ((u1 *)&aux)[0] = PC[2];
+  ((u1 *)&aux)[1] = PC[1];
+  printf(" #%d", (int)aux);
+  PC = &(PC[3]);
+}
 void Exibidor::feed(const ClassFile & toshow){
 	viewobj = toshow;
 }

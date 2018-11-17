@@ -9,11 +9,8 @@
 #include <cstdio>
 
 
-class Exibidor{
-	ClassFile viewobj;
-	u1 * PCpadhelp;
-	void (Exibidor::*print_vet[256])(void);
-	void (Exibidor::*print_vetwide[256])(void);
+class InstrPrintr{
+	void (InstrPrintr::*print_vet[256])(void);
 	void set_print_vet();
 	/// \brief display para informacoes gerais da classse e opcoes de navegacao.
 	///
@@ -108,7 +105,6 @@ class Exibidor{
 	void control_fields();
 	void control_attributes();
 	void control_methods();
-	void printparamclassname(u2 index);
 	void printparammethodname(u2 index);
 	void printparamfieldname(u2 index);
 	void printparamcat2value(u2 index);
@@ -316,17 +312,6 @@ class Exibidor{
 	void print_jvm_breakpoint();
 	void print_jvm_impdep1();
 	void print_jvm_impdep2();
-	void print_jvm_wide_iload();
-	void print_jvm_wide_lload();
-	void print_jvm_wide_fload();
-	void print_jvm_wide_dload();
-	void print_jvm_wide_aload();
-	void print_jvm_wide_istore();
-	void print_jvm_wide_lstore();
-	void print_jvm_wide_fstore();
-	void print_jvm_wide_dstore();
-	void print_jvm_wide_astore();
-	void print_jvm_wide_ret();
 public:
 	/// \brief fornece estrutura de ClassFile a ser exibida.
 	///

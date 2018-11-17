@@ -1,0 +1,11 @@
+void print_jvm_wide_iload();
+void print_jvm_wide_lload();
+void print_jvm_wide_fload();
+void print_jvm_wide_dload();
+void print_jvm_wide_aload();
+void print_jvm_wide_istore();
+void print_jvm_wide_lstore();
+void print_jvm_wide_fstore();
+void print_jvm_wide_dstore();
+void print_jvm_wide_astore();
+void print_jvm_wide_ret();
