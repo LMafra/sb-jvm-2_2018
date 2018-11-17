@@ -4,6 +4,8 @@
 #include <stack>
 #include "UsingUs.hpp"
 #include "ClassFileStructures/ClassFile.hpp"
+#define popcat1 pop_cat1
+#define popcat2 pop_cat2
 
 class Instancia{
 	ClassFile * classe;
@@ -16,8 +18,27 @@ class Frame_type{
 	u4 * variaveis_locais;
 };
 
-u1 * PC;
-std::stack<Frame_type> frame_stack;
-std::stack<u4> stack;
-ClassFile * method_area;
-int class_counter;
+union cat1 {
+	u4 val;
+	void * ref_val;
+};
+
+extern u1 * PC;
+extern std::stack<Frame_type> frame_stack;
+extern std::stack<cat1> jvm_stack;
+extern ClassFile * method_area;  // vetor de ClassFile
+
+extern bool global_path_set;  // indica que "global_path" foi ou nao inicializado
+extern char * global_path;
+
+extern int class_counter;
+
+u4 pop_cat1();
+u8 pop_cat2();
+void * pop_address();
+
+template <class T>
+T jvm_push(T val);
+
+void * jvm_push();
+#include  "VMGlobals.cpp"

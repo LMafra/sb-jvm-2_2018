@@ -6,3 +6,5 @@ tst/
 *.png
 
 *.jpg
+
+.vscode

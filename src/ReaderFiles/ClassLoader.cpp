@@ -1,7 +1,10 @@
 #pragma once
 #include <cstring>
+#include <string>
+#include <algorithm>
 #include "../ClassFileStructures/ClassFile.hpp"
 #include "read_us.hpp"
+#include "../VMGlobals.hpp"
 
 att_name_result ClassLoader :: which_att(CONSTANT_Utf8_info & name){
   int size = name.length+1;
@@ -117,7 +120,7 @@ void ClassLoader :: load_constant_pool(FILE *f, ClassFile * cf){
   }
 }
 
-void ClassLoader :: load_attribute(FILE *f, ClassFile * cf, attribute_info * & atributos, int n){
+void ClassLoader :: load_attribute(FILE *f, ClassFile * cf, attribute_info * atributos, int n){
   for(size_t i = 0; i < n; i++){
     u2 tag;
     read_us(&tag, sizeof(tag), f);
@@ -188,29 +191,50 @@ void ClassLoader :: load_attribute(FILE *f, ClassFile * cf, attribute_info * & a
   }
 }
 
-void ClassLoader :: load(FILE* f, ClassFile * cf) {
+void ClassLoader :: load_classfile(FILE* f, ClassFile * cf = NULL, const char * path="double_aritmetica.class") {
+  // int aux = 0;
+  // for(aux = strlen(path)-1; aux > 0 and path[aux] != '/'; aux--);
+  
+  // // if(aux == 0)  throw "Nome invalido";
+  // char * _path = (char*)calloc( strlen(path) - aux , sizeof(char));
+  // for(int i = 0; i < strlen(path) - aux; i++) _path[i] = path[aux+i];
+  
+  // for(int i = 0; i < class_counter; i++){
+  //   CONSTANT_Utf8_info tmp = *(CONSTANT_Utf8_info*)&(method_area[i].constant_pool[method_area[i].this_class]);
+  //   char * t = (char*) tmp.bytes;
+  //   string a(t);
+  //   string b(path);
+  //   if( a.compare(b) ) throw "class already loaded";
+  // }
 
+  bool flag = !cf;
+  if(flag){
+    cf = &method_area[class_counter];
+  }
+  // // cf vai apontar para o endereço do próximo ClassFile
+  // fclose(f);
+  // f = fopen(path, "rb");
   read_us(&cf->magic, sizeof(cf->magic),f);
   if(cf->magic != 0xCAFEBABE){
     throw "Não é um .class válido (Not cafebabe).\n";
-  }  
+  }
   read_us(&cf->minor_version, sizeof(cf->minor_version), f);
   read_us(&cf->major_version, sizeof(cf->major_version), f);
   read_us(&cf->constant_pool_count, sizeof(cf->constant_pool_count), f);
   ClassLoader :: load_constant_pool(f,cf);
-  // TODO: le perfeitamente bem o contant pool
 
-  //
   read_us(&cf->access_flags, sizeof(cf->access_flags), f);
   read_us(&cf->this_class, sizeof(cf->this_class), f);
+
+  // Checar consistência nome da classe e arquivo
   read_us(&cf->super_class, sizeof(cf->super_class), f);
   read_us(&cf->interfaces_count, sizeof(cf->interfaces_count), f);
-  
+
   //  Implementar leitura do vetor interfaces  //
   cf->interfaces = (u2*)malloc( cf->interfaces_count * sizeof(u2) );
   for(int i = 0; i < cf->interfaces_count; i++)
     read_us(&cf->interfaces[i], sizeof(u2), f);
-  
+
   read_us(&cf->fields_count, sizeof(cf->fields_count), f);
   cf->fields = (field_info*)malloc( cf->fields_count * sizeof(field_info) );
   //  Implementar leitura do vetor fields  //
@@ -237,4 +261,8 @@ void ClassLoader :: load(FILE* f, ClassFile * cf) {
   read_us(&cf->attributes_count, sizeof(cf->attributes_count), f);
   cf->attributes = (attribute_info*)malloc( cf->attributes_count * sizeof( attribute_info ) );
   ClassLoader :: load_attribute(f, cf, cf->attributes, cf->attributes_count);
+  if (flag){
+    class_counter ++;
+  }
+  return;
 }

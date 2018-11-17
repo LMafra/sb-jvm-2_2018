@@ -1,4 +1,6 @@
+#pragma once
 #include "Exibidor.hpp"
+
 void Exibidor::set_print_vet(){
   print_vet[0] = &Exibidor::print_jvm_nop;
   print_vet[1] = &Exibidor::print_jvm_aconst_null;
@@ -704,6 +706,7 @@ void Exibidor::displaymethods(ClassFile & theclass){
 		}
 	}
 }
+
 att_name_result Exibidor::attributenamecompare(CONSTANT_Utf8_info & name){
 	int size = name.length+1;
 	int i;
