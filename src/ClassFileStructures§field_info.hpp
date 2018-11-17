@@ -1,8 +1,12 @@
 #pragma once
+#ifndef FIELD_INFO_HPP
+#define FIELD_INFO_HPP
+
+
 #include <vector>
 #include <iostream>
-#include "../UsingUs.hpp"
-#include "attribute_info.hpp"
+#include "UsingUs.hpp"
+#include "ClassFileStructures§attribute_info.hpp"
 
 using namespace std;
 
@@ -38,3 +42,5 @@ class field_info {
 
 		attribute_info* attributes;
 };
+
+#endif 

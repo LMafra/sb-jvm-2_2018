@@ -1,11 +1,14 @@
 #pragma once
+#ifndef CLASSLOADER_CPP
+#define CLASSLOADER_CPP
+
 #include <cstring>
 #include <string>
 #include <algorithm>
-#include "../ClassFileStructures/ClassFile.hpp"
-#include "read_us.hpp"
-#include "../VMGlobals.hpp"
-
+#include "ClassFileStructures§ClassFile.hpp"
+#include "ReaderFiles§read_us.hpp"
+#include "VMGlobals.hpp"
+#include "ReaderFiles§ClassLoader.hpp"
 att_name_result ClassLoader :: which_att(CONSTANT_Utf8_info & name){
   int size = name.length+1;
   int i;
@@ -191,7 +194,7 @@ void ClassLoader :: load_attribute(FILE *f, ClassFile * cf, attribute_info * atr
   }
 }
 
-void ClassLoader :: load_classfile(FILE* f, ClassFile * cf = NULL, const char * path="double_aritmetica.class") {
+void ClassLoader :: load_classfile(FILE* f, ClassFile * cf, const char * path) {
   // int aux = 0;
   // for(aux = strlen(path)-1; aux > 0 and path[aux] != '/'; aux--);
   
@@ -266,3 +269,5 @@ void ClassLoader :: load_classfile(FILE* f, ClassFile * cf = NULL, const char * 
   }
   return;
 }
+
+#endif

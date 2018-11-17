@@ -1,5 +1,8 @@
 #pragma once
-#include "../UsingUs.hpp"
+#ifndef ATTRIBUTE_INFO_HPP
+#define ATTRIBUTE_INFO_HPP
+
+#include "UsingUs.hpp"
 #include <stdlib.h>
 #include <stdio.h>
 using namespace std;
@@ -148,7 +151,8 @@ enum enum_inner_class_access_flags {
   ACC_ENUM = 0x4000// Declared as an enum type.
 };
 
-#include "attribute_info.cpp"
+// #include "attribute_info.cpp"
 
 /// \brief Esta classe é usada pela classes ClassFile,
 /// field_info, method_info e Code_attributes.
+#endif

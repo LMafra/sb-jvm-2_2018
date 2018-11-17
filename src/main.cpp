@@ -1,7 +1,7 @@
 
-#include "ReaderFiles/ClassLoader.hpp"
-#include "ClassFileStructures/ClassFile.hpp"
-#include "ViewerFiles/Exibidor.hpp"
+#include "ReaderFiles§ClassLoader.hpp"
+#include "ClassFileStructures§ClassFile.hpp"
+#include "ViewerFiles§Exibidor.hpp"
 #include "VMGlobals.hpp"
 #include <string>
 

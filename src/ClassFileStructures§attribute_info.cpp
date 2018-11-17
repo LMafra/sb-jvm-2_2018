@@ -1,6 +1,10 @@
+#pragma once
+#ifndef ATTRIBUTE_INFO_CPP
+#define ATTRIBUTE_INFO_CPP
+
 #include <stdio.h>
-#include "attribute_info.hpp"
-#include "../ReaderFiles/read_us.hpp"
+#include "ClassFileStructures§attribute_info.hpp"
+#include "ReaderFiles§read_us.hpp"
 
 void ConstantValue_attribute  :: fill_from(FILE * f) {
 	read_us(&attribute_length, sizeof(attribute_length), f);
@@ -100,3 +104,4 @@ void InnerClasses_attribute :: fill_from(FILE * f){
 
 
 
+#endif

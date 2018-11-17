@@ -1,6 +1,9 @@
 #pragma once
-#include "../UsingUs.hpp"
-#include "attribute_info.hpp"
+#ifndef METHOD_INFO_HPP
+#define METHOD_INFO_HPP
+
+#include "UsingUs.hpp"
+// #include "ClassFileStructures§attribute_info.hpp"
 
 class method_info {public:
   u2 access_flags;
@@ -22,3 +25,5 @@ enum enum_method_access_flags {
   ACC_ABSTRACT = 0x0400,// Marked or implicitly abstract in source.
   ACC_STRICT = 0x0800,// Marked final in source.
 };}
+
+#endif

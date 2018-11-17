@@ -1,4 +1,6 @@
 #pragma once
+#ifndef INSTRUCTIONS_HPP
+#define INSTRUCTIONS_HPP
 void exec_jvm_nop();
 void exec_jvm_aconst_null();
 void exec_jvm_iconst_m1();
@@ -212,3 +214,5 @@ void exec_jvm_jsr_w();
 void exec_jvm_breakpoint();
 void exec_jvm_impdep1();
 void exec_jvm_impdep2();
+
+#endif

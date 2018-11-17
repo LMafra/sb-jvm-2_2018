@@ -1,9 +1,12 @@
 #pragma once
-#include "../UsingUs.hpp"
-#include "../VMGlobals.hpp"
-#include "../ClassFileStructures/ClassFile.hpp"
-#include "../ClassFileStructures/cp_info.hpp"
-#include "../ClassFileStructures/attribute_info.hpp"
+#ifndef EXIBIDOR_HPP
+#define EXIBIDOR_HPP
+
+#include "UsingUs.hpp"
+#include "VMGlobals.hpp"
+#include "ClassFileStructures§ClassFile.hpp"
+#include "ClassFileStructures§cp_info.hpp"
+#include "ClassFileStructures§attribute_info.hpp"
 #include <iostream>
 #include <cstring>
 #include <cstdio>
@@ -331,4 +334,6 @@ public:
 	}
 };
 
-#include "Exibidor.cpp"
+// #include "Exibidor.cpp"
+
+#endif

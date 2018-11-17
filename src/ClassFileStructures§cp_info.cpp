@@ -1,5 +1,8 @@
-#include "cp_info.hpp"
-#include "../ReaderFiles/read_us.hpp"
+#pragma once
+#ifndef CP_INFO_CPP
+#define CP_INFO_CPP
+
+#include "ReaderFiles§read_us.hpp"
 #include <cstdio>
 void CONSTANT_Class_info :: fill_from(FILE * f) {
   read_us(&this->name_index, sizeof(this->name_index), f);
@@ -43,3 +46,5 @@ void CONSTANT_Utf8_info :: fill_from(FILE * f) {
   bytes = (u1*)malloc(sizeof(u1) * length);
   read_usstring(bytes, length, f);
 }
+
+#endif

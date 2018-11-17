@@ -1,9 +1,12 @@
 #pragma once
-#include "../UsingUs.hpp"
-#include "field_info.hpp"
-#include "attribute_info.hpp"
-#include "method_info.hpp"
-#include "cp_info.hpp"
+#ifndef CLASSFILE_HPP
+#define CLASSFILE_HPP
+
+#include "UsingUs.hpp"
+#include "ClassFileStructures§field_info.hpp"
+#include "ClassFileStructures§attribute_info.hpp"
+#include "ClassFileStructures§method_info.hpp"
+#include "ClassFileStructures§cp_info.hpp"
 #include <iostream>
 
 /// definicoes temporarias, soh pra compilar
@@ -99,3 +102,5 @@ public:
   attribute_info* attributes;
 
 };
+
+#endif

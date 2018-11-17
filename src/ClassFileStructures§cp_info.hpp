@@ -1,5 +1,8 @@
 #pragma once
-#include "../UsingUs.hpp"
+#ifndef CP_INFO_HPP
+#define CP_INFO_HPP
+
+#include "UsingUs.hpp"
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
@@ -114,4 +117,6 @@ enum enum_cp_tags {
 
 //std::memcpy(&constant_pool[1],&Class_info,sizeof(help));
 //displayCONSTANT_Class_info(TO_CLASS_INFO constant_pool[1]);
-#include "cp_info.cpp"
+// #include "cp_info.cpp"
+
+#endif
