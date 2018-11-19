@@ -1,4 +1,5 @@
 #pragma once
+// 0
 void exec_jvm_nop();
 void exec_jvm_aconst_null();
 void exec_jvm_iconst_m1();
@@ -19,6 +20,7 @@ void exec_jvm_bipush();
 void exec_jvm_sipush();
 void exec_jvm_ldc();
 
+// 1
 void exec_jvm_ldc_w();
 void exec_jvm_ldc2_w();
 void exec_jvm_iload();
@@ -41,6 +43,7 @@ void exec_jvm_fload_3();
 void exec_jvm_dload_0();
 void exec_jvm_dload_1();
 
+// 2
 void exec_jvm_dload_2();
 void exec_jvm_dload_3();
 void exec_jvm_aload_0();
@@ -53,6 +56,7 @@ void exec_jvm_daload();
 void exec_jvm_aaload();
 void exec_jvm_baload();
 
+// 3
 void exec_jvm_caload();
 void exec_jvm_saload();
 void exec_jvm_istore();
@@ -85,6 +89,7 @@ void exec_jvm_lastore();
 void exec_jvm_fastore();
 void exec_jvm_dastore();
 
+// 4
 void exec_jvm_aastore();
 void exec_jvm_bastore();
 void exec_jvm_castore();
@@ -107,6 +112,7 @@ void exec_jvm_lsub();
 void exec_jvm_fsub();
 void exec_jvm_dsub();
 
+// 5
 void exec_jvm_imul();
 void exec_jvm_lmul();
 void exec_jvm_fmul();
@@ -129,6 +135,7 @@ void exec_jvm_ishr();
 void exec_jvm_lshr();
 void exec_jvm_iushr();
 
+// 6
 void exec_jvm_lushr();
 void exec_jvm_iand();
 void exec_jvm_land();
@@ -150,6 +157,7 @@ void exec_jvm_d2i();
 void exec_jvm_d2l();
 void exec_jvm_d2f();
 
+// 7
 void exec_jvm_i2b();
 void exec_jvm_i2c();
 void exec_jvm_i2s();
@@ -172,6 +180,7 @@ void exec_jvm_if_icmpgt();
 void exec_jvm_if_icmple();
 void exec_jvm_if_acmpeq();
 
+// 8
 void exec_jvm_if_acmpne();
 void exec_jvm_goto();
 void exec_jvm_jsr();
@@ -194,6 +203,7 @@ void exec_jvm_invokestatic();
 void exec_jvm_invokeinterface();
 void exec_jvm_invokedynamic();
 
+// 9
 void exec_jvm_new();
 void exec_jvm_newarray();
 void exec_jvm_anewarray();

@@ -3,6 +3,7 @@
 #include "ClassFileStructures/ClassFile.hpp"
 #include "ViewerFiles/Exibidor.hpp"
 #include "VMGlobals.hpp"
+#include "Instance/Instance.hpp"
 #include <string>
 
 unsigned int only_ones32(int x) {
