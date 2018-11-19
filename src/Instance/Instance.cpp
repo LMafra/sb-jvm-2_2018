@@ -4,6 +4,8 @@
 #include "../ClassFileStructures/field_info.hpp"
 #include "../ClassFileStructures/method_info.hpp"
 #include <map>
+#include <string>
+
 std::map <char, int> FieldTypeSizeDict;
 
 bool Instance :: initDict = false;
@@ -34,5 +36,14 @@ void * Instance :: field_allocator(int idx) {
 				(CONSTANT_NameAndType_info*) &class_pointer->constant_pool[idx2];
 	int idx3 = aux2->descriptor_index;
 	CONSTANT_Utf8_info * has_field_descriptor  = (CONSTANT_Utf8_info *)&class_pointer->constant_pool[idx3] ;
-// Falta aidna retornar o espaço necessário de memória que deve ser alocado
+	std::string FieldDescriptor((const char*)has_field_descriptor->bytes , has_field_descriptor->length);
+	char c = FieldDescriptor[0];
+	// Falta aidna retornar o espaço necessário de memória que deve ser alocado
+	if( c != 'L' and c != '[')
+		return calloc(1, FieldTypeSizeDict[c]);
+	else {
+		// processamento para alocar espaço necessario para arrays e 
+		// objetos.
+	}
+
 }
