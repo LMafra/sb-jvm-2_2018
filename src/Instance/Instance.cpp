@@ -42,6 +42,7 @@ void * Instance :: field_allocator(int idx) {
 	if( c != 'L' and c != '[')
 		return calloc(1, FieldTypeSizeDict[c]);
 	else {
+		return NULL;
 		// processamento para alocar espaço necessario para arrays e 
 		// objetos.
 	}
