@@ -4,10 +4,12 @@
 
 class Instance {public:
   static bool initDict;
+  void * field_allocator(int);
+  void * instance_allocator(int);
+  
   ClassFile * class_pointer;
   void init_dict();
   void * atributos;
-  void * field_allocator(int);
   Instance();
 };
 #include "Instance.cpp"

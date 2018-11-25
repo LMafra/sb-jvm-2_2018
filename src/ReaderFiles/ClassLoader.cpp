@@ -1,11 +1,13 @@
 #pragma once
+#include <cstdio>
 #include <cstring>
 #include <string>
 #include <algorithm>
 #include "../ClassFileStructures/ClassFile.hpp"
 #include "read_us.hpp"
 #include "../VMGlobals.hpp"
-
+#define ff first 
+#define ss second 
 att_name_result ClassLoader :: which_att(CONSTANT_Utf8_info & name){
   int size = name.length+1;
   int i;
@@ -191,29 +193,26 @@ void ClassLoader :: load_attribute(FILE *f, ClassFile * cf, attribute_info * atr
   }
 }
 
-void ClassLoader :: load_classfile(FILE* f, ClassFile * cf = NULL, const char * path="double_aritmetica.class") {
-  // int aux = 0;
-  // for(aux = strlen(path)-1; aux > 0 and path[aux] != '/'; aux--);
-  
-  // // if(aux == 0)  throw "Nome invalido";
-  // char * _path = (char*)calloc( strlen(path) - aux , sizeof(char));
-  // for(int i = 0; i < strlen(path) - aux; i++) _path[i] = path[aux+i];
-  
-  // for(int i = 0; i < class_counter; i++){
-  //   CONSTANT_Utf8_info tmp = *(CONSTANT_Utf8_info*)&(method_area[i].constant_pool[method_area[i].this_class]);
-  //   char * t = (char*) tmp.bytes;
-  //   string a(t);
-  //   string b(path);
-  //   if( a.compare(b) ) throw "class already loaded";
-  // }
+ClassFile * ClassLoader :: load_classfile(const char * path="./double_aritmetica.class") {
 
-  bool flag = !cf;
-  if(flag){
-    cf = &method_area[class_counter];
+  string spath(path);  // variavel auxiliar, do tipo string, para facilitar operacoes
+  FILE* f = fopen( path , "rb");
+  const char * class_name = (spath.find('/') ? spath.substr( spath.rfind('/') ) : spath).c_str();
+  
+  if ( *(jvm_loaded_classes.find( "double_aritmetica" ) ) ) {
+    int idx = jvm_class_method_area_index["double_aritmetica"];
+    return printf("Already loaded at index ... %d\n", idx), method_area[ idx ];
   }
-  // // cf vai apontar para o endereço do próximo ClassFile
-  // fclose(f);
-  // f = fopen(path, "rb");
+
+  method_area[class_counter] = (ClassFile*)calloc(1, sizeof(ClassFile));
+  ClassFile * cf = method_area[class_counter]; 
+
+  jvm_loaded_classes.insert( class_name );
+  jvm_class_method_area_index[class_name] = class_counter;
+
+  // cf vai apontar para o endereço do próximo ClassFile
+  class_counter++;
+
   read_us(&cf->magic, sizeof(cf->magic),f);
   if(cf->magic != 0xCAFEBABE){
     throw "Não é um .class válido (Not cafebabe).\n";
@@ -261,8 +260,7 @@ void ClassLoader :: load_classfile(FILE* f, ClassFile * cf = NULL, const char * 
   read_us(&cf->attributes_count, sizeof(cf->attributes_count), f);
   cf->attributes = (attribute_info*)malloc( cf->attributes_count * sizeof( attribute_info ) );
   ClassLoader :: load_attribute(f, cf, cf->attributes, cf->attributes_count);
-  if (flag){
-    class_counter ++;
-  }
-  return;
+
+  fclose(f);
+  return cf;
 }
