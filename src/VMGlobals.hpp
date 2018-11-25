@@ -6,16 +6,14 @@
 #include <map>
 #include "UsingUs.hpp"
 #include "ClassFileStructures/ClassFile.hpp"
+#include "Instance/Instance.hpp"
 #define popcat1 pop_cat1
 #define popcat2 pop_cat2
 
-struct Instancia{
-	ClassFile * classe;
-	void * atributos;
-};
+struct Instance;
 
 struct Frame_type{
-	Instancia * inst;
+	Instance * inst;
 	u1 * PC_retorno;
 	u4 * variaveis_locais;
 };
