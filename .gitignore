@@ -8,4 +8,5 @@
 
 _*
 
-jclasslib
+jclasslib*
+*.out

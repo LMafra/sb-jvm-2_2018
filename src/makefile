@@ -1,5 +1,5 @@
 main: main.cpp
-	g++ -std=c++11 main.cpp -g -o ____ -Wformat=0 -Wpointer-arith
+	g++ -std=c++11  main.cpp -g -o ____ -Wformat=0 -Wpointer-arith
 # default: main
 
 # HEADERS_MAIN = ReaderFiles/ClassLoader.hpp ClassFileStructures/ClassFile.hpp ViewerFiles/Exibidor.hpp VMGlobals.hpp

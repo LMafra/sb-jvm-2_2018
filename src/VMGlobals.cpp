@@ -7,7 +7,9 @@ u1 * PC;
 
 bool global_path_set = 0;
 extern char * global_path;
-ClassFile * method_area;
+ClassFile ** method_area ;
+std::set<const char*> jvm_loaded_classes;
+std::map<const char*, int> jvm_class_method_area_index;
 
 int class_counter = 0;
 u4 pop_cat1() {
