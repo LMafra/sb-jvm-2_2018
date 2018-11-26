@@ -3,16 +3,20 @@
 
 
 void exec_jvm_iadd(){
-	u4 value2 = popcat1();
-    u4 value1 = popcat1();
-	u4 result = value1+value2;
+	int32_t value2 = popcat1();
+    int32_t value1 = popcat1();
+	int32_t aux = value1+value2;
+    u4 result;
+    memcpy(&result,&aux,sizeof(u4));
     pushcat1(result);
     incpc(1);
 }
 void exec_jvm_ladd(){
-	u8 value2 = popcat2();
-    u8 value1 = popcat2();
-	u8 result = value1+value2;
+	int64_t value2 = popcat2();
+    int64_t value1 = popcat2();
+    int64_t aux = value1+value2;
+	u8 result;
+    memcpy(&result,&aux,sizeof(u8));
     pushcat2(result);
     incpc(1);	
 }
@@ -43,16 +47,20 @@ void exec_jvm_dadd(){
     incpc(1);		
 }
 void exec_jvm_isub(){
-	u4 value2 = popcat1();
-    u4 value1 = popcat1();
-	u4 result = value1-value2;
+	int32_t value2 = popcat1();
+    int32_t value1 = popcat1();
+    int32_t aux = value1-value2;
+	u4 result;
+    memcpy(&result,&aux,sizeof(u4));
     pushcat1(result);
     incpc(1);
 }
 void exec_jvm_lsub(){
-	u8 value2 = popcat2();
-    u8 value1 = popcat2();
-	u8 result = value1-value2;
+	int64_t value2 = popcat2();
+    int64_t value1 = popcat2();
+    int64_t aux = value1-value2;
+	u8 result;
+    memcpy(&result,&aux,sizeof(u8));
     pushcat2(result);
     incpc(1);	
 }
@@ -83,16 +91,20 @@ void exec_jvm_dsub(){
     incpc(1);
 }
 void exec_jvm_imul(){
-	u4 value2 = popcat1();
-    u4 value1 = popcat1();
-	u4 result = value1*value2;
+	int32_t value2 = popcat1();
+    int32_t value1 = popcat1();
+    int32_t aux = value1*value2;
+	u4 result;
+    memcpy(&result,&aux,sizeof(u4));
     pushcat1(result);
     incpc(1);
 }
 void exec_jvm_lmul(){
-	u8 value2 = popcat2();
-    u8 value1 = popcat2();
-	u8 result = value1*value2;
+	int64_t value2 = popcat2();
+    int64_t value1 = popcat2();
+    int64_t aux = value1*value2;
+	u8 result;
+    memcpy(&result,&aux,sizeof(u8));
     pushcat2(result);
     incpc(1);	
 }
@@ -123,16 +135,20 @@ void exec_jvm_dmul(){
     incpc(1);	
 }
 void exec_jvm_idiv(){
-	u4 value2 = popcat1();
-    u4 value1 = popcat1();
-	u4 result = value1/value2;
+	int32_t value2 = popcat1();
+    int32_t value1 = popcat1();
+    int32_t aux = value1/value2;
+	u4 result;
+    memcpy(&result,&aux,sizeof(u4));
     pushcat1(result);
     incpc(1);	
 }
 void exec_jvm_ldiv(){
-	u8 value2 = popcat2();
-    u8 value1 = popcat2();
-	u8 result = value1/value2;
+	int64_t value2 = popcat2();
+    int64_t value1 = popcat2();
+    int64_t aux = value1/value2;
+	u8 result;
+    memcpy(&result,&aux,sizeof(u8));
     pushcat2(result);
     incpc(1);		
 }
@@ -163,16 +179,20 @@ void exec_jvm_ddiv(){
     incpc(1);		
 }
 void exec_jvm_irem(){
-	u4 value2 = popcat1();
-    u4 value1 = popcat1();
-	u4 result = value1%value2;
+	int32_t value2 = popcat1();
+    int32_t value1 = popcat1();
+    int32_t aux = value1%value2;
+	u4 result;
+    memcpy(&result,&aux,sizeof(u4));
     pushcat1(result);
     incpc(1);	
 }
 void exec_jvm_lrem(){
-	u8 value2 = popcat2();
-    u8 value1 = popcat2();
-	u8 result = value1%value2;
+	int64_t value2 = popcat2();
+    int64_t value1 = popcat2();
+    int64_t aux = value1%value2;
+	u8 result;
+    memcpy(&result,&aux,sizeof(u8));
     pushcat2(result);
     incpc(1);	
 }
@@ -203,14 +223,18 @@ void exec_jvm_drem(){
     incpc(1);	
 }
 void exec_jvm_ineg(){
-    u4 value = popcat1();
-	u4 result = ~value
+    int32_t value = popcat1();
+    int32_t aux = ~value;
+	u4 result;
+    memcpy(&result,&aux,sizeof(u4));
     pushcat1(result);
     incpc(1);	
 }
 void exec_jvm_lneg(){
-    u8 value = popcat2();
-	u8 result = ~value
+    int64_t value = popcat2();
+    int64_t aux = ~value;
+	u8 result;
+    memcpy(&result,&aux,sizeof(u8));
     pushcat2(result);
     incpc(1);	
 }
@@ -235,7 +259,7 @@ void exec_jvm_dneg(){
     incpc(1);	
 }
 void exec_jvm_ishl(){
-	u4 value = popcat1();
+	int32_t value = popcat1();
     u4 shift = popcat1() &0x1F;
     value = (value << shift);
     u4 result;
@@ -244,7 +268,7 @@ void exec_jvm_ishl(){
     incpc(1);	
 }
 void exec_jvm_lshl(){
-	u8 value = popcat2();
+	int64_t value = popcat2();
     u4 shift = popcat1() &0x1F;
     value = (value << shift);
     u8 result;
@@ -253,7 +277,7 @@ void exec_jvm_lshl(){
     incpc(1);		
 }
 void exec_jvm_ishr(){
-	u4 value = popcat1();
+	int32_t value = popcat1();
     u4 shift = popcat1() &0x1F;
     value = (value >> shift);
     u4 result;
@@ -262,7 +286,7 @@ void exec_jvm_ishr(){
     incpc(1);		
 }
 void exec_jvm_lshr(){
-	u8 value = popcat2();
+	int64_t value = popcat2();
     u4 shift = popcat1() &0x1F;
     value = (value >> shift);
     u8 result;
