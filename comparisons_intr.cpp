@@ -2,17 +2,20 @@
 #include "exec_instr.hpp"
 
 void exec_jvm_lcmp(){
-	u8 value2 = popcat2();
-	u8 value1 = popcat2();
+	int64_t value2 = popcat2();
+	int64_t value1 = popcat2();
 	u4 result = 0;
 	if(value1 == value2){
 		pushcat1(result);
+		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
 		pushcat1(result);
+		incpc(1);
 	}else{
 		result = -1;
 		pushcat1(result);
+		incpc(1);
 	}
 }
 
@@ -25,12 +28,15 @@ void exec_jvm_fcmpl(){
 	memcpy(&value2, &f2, sizeof(u4));
 	if(value1 == value2){
 		pushcat1(result);
+		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
 		pushcat1(result);
+		incpc(1);
 	}else{
 		result = -1;
 		pushcat1(result);
+		incpc(1);
 	}
 }
 
@@ -43,15 +49,19 @@ void exec_jvm_fcmpg(){
 	memcpy(&value2, &f2, sizeof(u4));
 	if(value1 == value2){
 		pushcat1(result);
+		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
 		pushcat1(result);
+		incpc(1);
 	}else if(value1 < value2){
 		result = -1;
 		pushcat1(result);
+		incpc(1);
 	}else{
 		result = -1;
 		pushcat1(result);
+		incpc(1);
 	}
 }
 
@@ -64,12 +74,15 @@ void exec_jvm_dcmpl(){
 	memcpy(&value2, &f2, sizeof(u8));
 	if(value1 == value2){
 		pushcat1(result);
+		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
 		pushcat1(result);
+		incpc(1);
 	}else{
 		result = -1;
 		pushcat1(result);
+		incpc(1);
 	}
 }
 void exec_jvm_dcmpg(){
@@ -81,36 +94,176 @@ void exec_jvm_dcmpg(){
 	memcpy(&value2, &f2, sizeof(u8));
 	if(value1 == value2){
 		pushcat1(result);
+		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
 		pushcat1(result);
+		incpc(1);
 	}else if(value1 < value2){
 		result = -1;
 		pushcat1(result);
+		incpc(1);
 	}else{
 		result = -1;
 		pushcat1(result);
+		incpc(1);
 	}
 }
 
 void exec_jvm_ifeq(){
-    u4 result = popcat1();
+    int32_t result = popcat1();
     if(result == 0){
-		u2 offset = (((u2)index1)<<8)+index2;
-		frame->pc += (offset - 3);
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);
+    }
+    else{
+    	incpc(1);
     }
 }
 
-void exec_jvm_ifne();
-void exec_jvm_iflt();
-void exec_jvm_ifge();
-void exec_jvm_ifgt();
-void exec_jvm_ifle();
-void exec_jvm_if_icmpeq();
-void exec_jvm_if_icmpne();
-void exec_jvm_if_icmplt();
-void exec_jvm_if_icmpge();
-void exec_jvm_if_icmpgt();
-void exec_jvm_if_icmple();
-void exec_jvm_if_acmpeq();
-void exec_jvm_if_acmpne();
+void exec_jvm_ifne(){
+    int32_t result = popcat1();
+    if(result != 0){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);
+    }
+    else{
+    	incpc(1);
+    }	
+}
+void exec_jvm_iflt(){
+    int32_t result = popcat1();
+    if(result < 0){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);
+    }
+    else{
+    	incpc(1);
+    }
+}
+
+void exec_jvm_ifge(){
+    int32_t result = popcat1();
+    if(result >= 0){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);
+    }
+    else{
+    	incpc(1);
+    }
+}
+
+void exec_jvm_ifgt(){
+    int32_t result = popcat1();
+    if(result > 0){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);
+    }
+    else{
+    	incpc(1);
+    }
+}
+
+void exec_jvm_ifle(){
+    int32_t result = popcat1();
+    if(result <= 0){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);
+    }
+    else{
+    	incpc(1);
+    }
+}
+
+void exec_jvm_if_icmpeq(){
+	int32_t value2 = popcat1();
+	int32_t value1 = popcat1();
+	if (value1 == value2){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);		
+	}
+	else{
+		incpc(1);
+	}
+}
+void exec_jvm_if_icmpne(){
+	int32_t value2 = popcat1();
+	int32_t value1 = popcat1();
+	if (value1 != value2){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);		
+	}
+	else{
+		incpc(1);
+	}	
+}
+
+void exec_jvm_if_icmplt(){
+	int32_t value2 = popcat1();
+	int32_t value1 = popcat1();
+	if (value1 < value2){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);		
+	}
+	else{
+		incpc(1);
+	}
+}
+
+void exec_jvm_if_icmpge(){
+	int32_t value2 = popcat1();
+	int32_t value1 = popcat1();
+	if (value1 >= value2){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);		
+	}
+	else{
+		incpc(1);
+	}
+}
+
+void exec_jvm_if_icmpgt(){
+	int32_t value2 = popcat1();
+	int32_t value1 = popcat1();
+	if (value1 > value2){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);		
+	}
+	else{
+		incpc(1);
+	}
+}
+
+void exec_jvm_if_icmple(){
+	int32_t value2 = popcat1();
+	int32_t value1 = popcat1();
+	if (value1 <= value2){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);		
+	}
+	else{
+		incpc(1);
+	}
+}
+void exec_jvm_if_acmpeq(){
+	int32_t value2 = popcat1();
+	int32_t value1 = popcat1();
+	if (value1 == value2){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);		
+	}
+	else{
+		incpc(1);
+	}
+}
+void exec_jvm_if_acmpne(){
+	int32_t value2 = popcat1();
+	int32_t value1 = popcat1();
+	if (value1 != value2){
+		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
+		incpc(offset - 3);		
+	}
+	else{
+		incpc(1);
+	}
+}
