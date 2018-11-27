@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "../ClassFileStructures/ClassFile.hpp"
 
-struct Instance {
+class Instance {public:
   static bool initDict;
   void init_dict();
   

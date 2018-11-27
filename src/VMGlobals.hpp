@@ -10,9 +10,9 @@
 #define popcat1 pop_cat1
 #define popcat2 pop_cat2
 
-struct Instance;
+extern class Instance;
 
-struct Frame_type{
+class Frame_type{public:
 	Instance * inst;
 	u1 * PC_retorno;
 	u4 * variaveis_locais;
