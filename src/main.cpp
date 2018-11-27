@@ -34,7 +34,6 @@ int main(int argc, char ** argv ) {
   }catch(const char * e){
     return std::cerr << e << std::endl, -1;
   }
-  // return 0;
   Exibidor exib(*cf);
   exib.show();
 }

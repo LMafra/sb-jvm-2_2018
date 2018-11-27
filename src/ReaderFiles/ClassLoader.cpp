@@ -1,4 +1,5 @@
 #pragma once
+#include <set>
 #include <cstdio>
 #include <cstring>
 #include <string>
@@ -197,11 +198,17 @@ ClassFile * ClassLoader :: load_classfile(const char * path="./double_aritmetica
 
   string spath(path);  // variavel auxiliar, do tipo string, para facilitar operacoes
   FILE* f = fopen( path , "rb");
-  const char * class_name = (spath.find('/') ? spath.substr( spath.rfind('/') ) : spath).c_str();
-  
-  if ( *(jvm_loaded_classes.find( "double_aritmetica" ) ) ) {
+  printf("opened file\n");
+  cout << spath << endl;
+  const char * class_name = (spath.find('/') != string::npos ? spath.substr( spath.rfind('/') ) : spath).c_str();
+
+  if ( *jvm_loaded_classes.find( "double_aritmetica" )) {
     int idx = jvm_class_method_area_index["double_aritmetica"];
-    return printf("Already loaded at index ... %d\n", idx), method_area[ idx ];
+    printf("Already loaded at index ... %d\n", idx), method_area[ idx ];
+    #if DEBUG
+      printf("Tecle ENTER  para continuar... [REMOVER DA VERSÃO FINAL!]\n"); getchar();
+    #endif
+    return method_area[ idx ];
   }
 
   method_area[class_counter] = (ClassFile*)calloc(1, sizeof(ClassFile));
