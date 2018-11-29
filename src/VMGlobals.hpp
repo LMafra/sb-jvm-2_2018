@@ -17,7 +17,7 @@ class Instance {public:
   void * field_allocator(int);
   void * instance_allocator(int);
   Instance();
-  ClassFile * my_class_pointer;
+  ClassFile * my_class_ptr;
   void * my_attributes;
 };
 

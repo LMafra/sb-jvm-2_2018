@@ -70,17 +70,27 @@ void Instance :: init_dict() {
 	FieldTypeSizeDict['Z'] = sizeof(u4); //sizeof(bool);  // duvida: JVM nao trata bools como fossem inteiros? a menos de vetor deles
 	FieldTypeSizeDict['['] = sizeof(void*); //sizeof(void*); // tamanho de uma referencia
 }
-
+/// Recebe um índice para a constant pool da classe base para field_ref_info
+/// e ponteiro com espaço alocado para o field em questão.
 void * Instance :: field_allocator(int idx) {
-	CONSTANT_Fieldref_info * aux = 
-				(CONSTANT_Fieldref_info *)&my_class_pointer->constant_pool[idx];
-	int idx2 = aux->name_and_type_index;
-	CONSTANT_NameAndType_info * aux2 = 
-				(CONSTANT_NameAndType_info*) &my_class_pointer->constant_pool[idx2];
-	int idx3 = aux2->descriptor_index;
 	
-	CONSTANT_Utf8_info * has_field_descriptor  = 
-	(CONSTANT_Utf8_info *)&my_class_pointer->constant_pool[idx3] ;
+	CONSTANT_Utf8_info * has_field_descriptor;
+
+	CONSTANT_Fieldref_info * aux = 
+				(CONSTANT_Fieldref_info *)&this->my_class_ptr->constant_pool[idx];
+	
+	if(aux->tag == enum_cp_tags::CONSTANT_Fieldref){
+		int idx2 = aux->name_and_type_index;
+		CONSTANT_NameAndType_info * aux2 = 
+					(CONSTANT_NameAndType_info*) &this->my_class_ptr->constant_pool[idx2];
+		int idx3 = aux2->descriptor_index;
+		has_field_descriptor = 
+			(CONSTANT_Utf8_info *)&this->my_class_ptr->constant_pool[idx3] ;
+	}
+	else {
+		has_field_descriptor = (CONSTANT_Utf8_info*)&my_class_ptr->constant_pool[idx];
+	}
+	
 	std::string FieldDescriptor((const char*)has_field_descriptor->bytes , has_field_descriptor->length);
 	
 	char c = FieldDescriptor[0];
@@ -108,29 +118,38 @@ void * Instance :: field_allocator(int idx) {
 void * Instance :: instance_allocator(int class_info_index ) {
 	Frame_type * aux = &frame_stack.top();	// pega contexto corrente
 	
-	ClassFile * class_pointer = aux->inst->my_class_pointer;
+	ClassFile * class_current_frame = aux->inst->my_class_ptr;
+
 	CONSTANT_Class_info * class_info = 
-	(CONSTANT_Class_info*)&class_pointer->constant_pool[class_info_index];
+	(CONSTANT_Class_info*)&class_current_frame->constant_pool[class_info_index];
 	
 	CONSTANT_Utf8_info * class_name = 
-	(CONSTANT_Utf8_info *)&class_pointer->constant_pool[class_info->name_index];
+	(CONSTANT_Utf8_info *)&class_current_frame->constant_pool[class_info->name_index];
 	
 	string str( (char*)class_name->bytes, class_name->length );
 	std::cerr << " Allocating space for instance of ==> " << str << std::endl;
 
-	my_class_pointer = method_area[ jvm_class_method_area_index[str.c_str()] ];
+	if(method_area[ jvm_class_method_area_index[str.c_str()] ] != class_current_frame) {
+		printf("DEU RUIM NO INSTANCE ALLOCATOR!! Ponteiro do frame corrente não bate com method_area\n");
+		1;  // para setar breakpoints
+		1;
+		throw "DEU RUIM NO INSTANCE ALLOCATOR!! Ponteiro do frame corrente não bate com method_area\n";
+	}
+	this->my_class_ptr = method_area[ jvm_class_method_area_index[str.c_str()] ];
 
 	field_info * fields_pointer = 
-		(field_info*)calloc( my_class_pointer->fields_count, sizeof(field_info) );
-	field_info * my_class_fields = (field_info *)my_class_pointer->fields;
+		(field_info*)calloc( this->my_class_ptr->fields_count, sizeof(field_info) );
+	field_info * my_class_fields = (field_info *)this->my_class_ptr->fields;
 
-	for(auto i = 0 ; i < my_class_pointer->fields_count; i++) {
+	for(auto i = 0 ; i < this->my_class_ptr->fields_count; i++) {
 		// fields_pointer[i] = (field_info*) calloc(1, sizeof(field_info));
 
-		memcpy( &fields_pointer[i], &my_class_pointer[i],  sizeof(field_info));
-
+		memcpy( &fields_pointer[i], &this->my_class_ptr->fields[i],  sizeof(field_info));
+		
 		fields_pointer[i].attributes = 
 		(attribute_info*) calloc(my_class_fields[i].attributes_count, sizeof(attribute_info));
+		
+	
 		for(int jj = 0; jj < my_class_fields[i].attributes_count; jj++) {
 			memcpy(&fields_pointer[i].attributes[jj], &my_class_fields[i].attributes[jj], sizeof(attribute_info));
 			// fields_pointer[i].attributes[jj].info = 
