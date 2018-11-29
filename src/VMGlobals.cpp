@@ -1,5 +1,12 @@
 #pragma once
-#include "VMGlobals.hpp"
+
+#include "ClassFileStructures/attribute_info.hpp"
+#include "ClassFileStructures/cp_info.hpp"
+#include "ClassFileStructures/field_info.hpp"
+#include "ClassFileStructures/method_info.hpp"
+#include <map>
+#include <string>
+
 
 std::stack<Frame_type> frame_stack;
 std::stack<cat1> jvm_stack;
@@ -40,17 +47,6 @@ void * jvm_push_reference(T * ref_val) {
 	cat1 top; top.ref_val = ref_val;
 	jvm_stack.push( top );
 }
-
-// Estava no Instance.cpp
-// #include "Instance.hpp"
-// #include "../VMGlobals.hpp"
-#pragma once
-#include "../ClassFileStructures/attribute_info.hpp"
-#include "../ClassFileStructures/cp_info.hpp"
-#include "../ClassFileStructures/field_info.hpp"
-#include "../ClassFileStructures/method_info.hpp"
-#include <map>
-#include <string>
 
 std::map <char, int> FieldTypeSizeDict;
 
@@ -133,12 +129,12 @@ void * Instance :: instance_allocator(int class_info_index ) {
 
 		memcpy( &fields_pointer[i], &my_class_pointer[i],  sizeof(field_info));
 
-		fields_pointer[i]->attributes = 
-		(attribute_info*) calloc(my_class_fields[i]->attributes_count, sizeof(attribute_info));
-		for(int jj = 0; jj < my_class_fields[i]->attributes_count; jj++) {
-			memcpy(&fields_pointer[i]->attributes[jj], &my_class_fields[i]->attributes[jj], sizeof(attribute_info));
-			fields_pointer[i]->attributes[jj].info = 
-			(u1*)calloc(fields_pointer[i]->attributes[jj].attribute_length, sizeof(u1));
+		fields_pointer[i].attributes = 
+		(attribute_info*) calloc(my_class_fields[i].attributes_count, sizeof(attribute_info));
+		for(int jj = 0; jj < my_class_fields[i].attributes_count; jj++) {
+			memcpy(&fields_pointer[i].attributes[jj], &my_class_fields[i].attributes[jj], sizeof(attribute_info));
+			// fields_pointer[i].attributes[jj].info = 
+			// (u1*)calloc(fields_pointer[i].attributes[jj].attribute_length, sizeof(u1));
 		}
 	}
 	my_attributes = fields_pointer;

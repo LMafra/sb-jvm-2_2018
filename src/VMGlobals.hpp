@@ -6,11 +6,20 @@
 #include <map>
 #include "UsingUs.hpp"
 #include "ClassFileStructures/ClassFile.hpp"
-#include "Instance/Instance.hpp"
 #define popcat1 pop_cat1
 #define popcat2 pop_cat2
 
-extern class Instance;
+// extern class Instance;
+class Instance {public:
+  static bool initDict;
+  void init_dict();
+  
+  void * field_allocator(int);
+  void * instance_allocator(int);
+  Instance();
+  ClassFile * my_class_pointer;
+  void * my_attributes;
+};
 
 class Frame_type{public:
 	Instance * inst;
