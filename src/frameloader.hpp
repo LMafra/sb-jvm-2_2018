@@ -47,6 +47,12 @@ bool namescomp(CONSTANT_Utf8_info & nametry, char* metname){
 	while(i < nametry.length && metname[i]!='\0' && metname[i]==(char)nametry.bytes[i]){
 		i++;
 	}
+	if(i == nametry.length && metname[i]=='\0'){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 method_info * findmethodinclass(Instance * inst,char* metname){
 	int index = 0;
