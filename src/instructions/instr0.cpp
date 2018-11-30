@@ -104,8 +104,7 @@ void exec_jvm_ldc(){
     case enum_cp_tags::CONSTANT_Float:
       jvm_push( (CONSTANT_Float_info*)cp_entry->bytes ); break;
     case enum_cp_tags::CONSTANT_String: {
-      // push reference to that instance
-      jvm_push( &  ); break;
+      jvm_push( & (CONSTANT_String_info*)cp_entry->string_index); break;
     case enum_cp_tags::CONSTANT_Class:
       jvm_push( & );
       // resolver nome 

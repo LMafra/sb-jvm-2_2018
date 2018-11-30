@@ -1,4 +1,5 @@
 #pragma once
+#include "../UsingUs.hpp"
 // 0
 void exec_jvm_nop();
 void exec_jvm_aconst_null();
@@ -18,16 +19,15 @@ void exec_jvm_dconst_0();
 void exec_jvm_dconst_1();
 void exec_jvm_bipush();
 void exec_jvm_sipush();
-void exec_jvm_ldc();
 
-// 1
+// 1. Maffei. Testar
+void exec_jvm_ldc();
 void exec_jvm_ldc_w();
 void exec_jvm_ldc2_w();
-void exec_jvm_iload();
-void exec_jvm_lload();
-void exec_jvm_fload();
-void exec_jvm_dload();
-void exec_jvm_aload();
+void exec_jvm_iload(u1);
+void exec_jvm_lload(u1);
+void exec_jvm_fload(u1);
+void exec_jvm_dload(u1);
 void exec_jvm_iload_0();
 void exec_jvm_iload_1();
 void exec_jvm_iload_2();
@@ -42,10 +42,11 @@ void exec_jvm_fload_2();
 void exec_jvm_fload_3();
 void exec_jvm_dload_0();
 void exec_jvm_dload_1();
-
-// 2
 void exec_jvm_dload_2();
 void exec_jvm_dload_3();
+
+// 2
+void exec_jvm_aload(u1);
 void exec_jvm_aload_0();
 void exec_jvm_aload_1();
 void exec_jvm_aload_2();
@@ -55,10 +56,10 @@ void exec_jvm_faload();
 void exec_jvm_daload();
 void exec_jvm_aaload();
 void exec_jvm_baload();
-
-// 3
 void exec_jvm_caload();
 void exec_jvm_saload();
+
+// 3
 void exec_jvm_istore();
 void exec_jvm_lstore();
 void exec_jvm_fstore();

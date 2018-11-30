@@ -50,7 +50,6 @@ u8 pop_cat2();
 void * pop_address();
 
 template <class T>
-T jvm_push(T val);
+void jvm_push(T val);
 
-void * jvm_push();
 #include  "VMGlobals.cpp"
