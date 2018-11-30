@@ -1,5 +1,9 @@
 #include <math.h>
 #include "exec_instr.hpp"
+#include "src/UsingUs.hpp"
+//#include "src/VMGlobals.cpp"
+#include <stdint.h>
+
 
 void exec_jvm_lcmp(){
 	int64_t value2 = popcat2();
@@ -113,65 +117,78 @@ void exec_jvm_dcmpg(){
 void exec_jvm_ifeq(){
     int32_t result = popcat1();
     if(result == 0){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);
     }
     else{
-    	incpc(1);
+    	incpc(3);
     }
 }
 
 void exec_jvm_ifne(){
     int32_t result = popcat1();
     if(result != 0){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);
     }
     else{
-    	incpc(1);
+    	incpc(3);
     }	
 }
+
 void exec_jvm_iflt(){
     int32_t result = popcat1();
     if(result < 0){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);
     }
     else{
-    	incpc(1);
+    	incpc(3);
     }
 }
 
 void exec_jvm_ifge(){
     int32_t result = popcat1();
     if(result >= 0){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);
     }
     else{
-    	incpc(1);
+    	incpc(3);
     }
 }
 
 void exec_jvm_ifgt(){
     int32_t result = popcat1();
     if(result > 0){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);
     }
     else{
-    	incpc(1);
+    	incpc(3);
     }
 }
 
 void exec_jvm_ifle(){
     int32_t result = popcat1();
     if(result <= 0){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);
     }
     else{
-    	incpc(1);
+    	incpc(3);
     }
 }
 
@@ -179,22 +196,26 @@ void exec_jvm_if_icmpeq(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
 	if (value1 == value2){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);		
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);	
 	}
 	else{
-		incpc(1);
+		incpc(3);
 	}
 }
 void exec_jvm_if_icmpne(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
 	if (value1 != value2){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);		
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);	
 	}
 	else{
-		incpc(1);
+		incpc(3);
 	}	
 }
 
@@ -202,11 +223,13 @@ void exec_jvm_if_icmplt(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
 	if (value1 < value2){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);		
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);	
 	}
 	else{
-		incpc(1);
+		incpc(3);
 	}
 }
 
@@ -214,11 +237,13 @@ void exec_jvm_if_icmpge(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
 	if (value1 >= value2){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);		
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);	
 	}
 	else{
-		incpc(1);
+		incpc(3);
 	}
 }
 
@@ -226,11 +251,13 @@ void exec_jvm_if_icmpgt(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
 	if (value1 > value2){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);		
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);	
 	}
 	else{
-		incpc(1);
+		incpc(3);
 	}
 }
 
@@ -238,32 +265,38 @@ void exec_jvm_if_icmple(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
 	if (value1 <= value2){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);		
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);	
 	}
 	else{
-		incpc(1);
+		incpc(3);
 	}
 }
 void exec_jvm_if_acmpeq(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
 	if (value1 == value2){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);		
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);	
 	}
 	else{
-		incpc(1);
+		incpc(3);
 	}
 }
 void exec_jvm_if_acmpne(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
 	if (value1 != value2){
-		int16_t offset = (((u2)instrparam(1))<<8)+instrparam(2);
-		incpc(offset - 3);		
+    	int16_t offset;
+    	((u1 *)&offset)[0]=instrparam(2);
+		((u1 *)&offset)[1]=instrparam(1);
+		incpc(offset);	
 	}
 	else{
-		incpc(1);
+		incpc(3);
 	}
 }

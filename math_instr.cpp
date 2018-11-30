@@ -1,5 +1,8 @@
 #include <math.h>
 #include "exec_instr.hpp"
+#include "src/UsingUs.hpp"
+//#include "src/VMGlobals.cpp"
+#include <stdint.h>
 
 
 void exec_jvm_iadd(){
