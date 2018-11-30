@@ -4,15 +4,20 @@
 #include <stack>
 #include <set>
 #include <map>
+#include <string>
 #include "UsingUs.hpp"
 #include "ClassFileStructures/ClassFile.hpp"
 #include  "VMGlobals.hpp"
 
 bool condjavaclass(char* classname){
-	return true;
+	std::string name(classname);
+	if ( name.find("/java/") != name.npos ) 
+		return true;
+	return false;
 }
 bool condnotprintln(char* methodname){
-	return true;
+	std::string name(methodname);
+	return !name.compare("println");
 }
 int ammountofparams(char* descriptor){
 	return 0;
@@ -25,12 +30,13 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 	Frame_type topush;
 	topush.inst=inst;
 	topush.PC_retorno=PC;
-	CONSTANT_Methodref_info * method = frame_stack.top().class_pointer->constant_pool[index];
-	CONSTANT_Class_info * methodclass = frame_stack.top().class_pointer->constant_pool[method->class_index];
-	CONSTANT_NameAndType_info * methodnat = frame_stack.top().class_pointer->constant_pool[method->name_and_type_index];
-	CONSTANT_Utf8_info * methodtype = frame_stack.top().class_pointer->constant_pool[methodnat->descriptor_index];
-	CONSTANT_Utf8_info * methodname = frame_stack.top().class_pointer->constant_pool[methodnat->name_index];
-	CONSTANT_Utf8_info * methodclassname = frame_stack.top().class_pointer->constant_pool[methodclass->nameindex];
+	CONSTANT_Methodref_info * method = 
+	(CONSTANT_Methodref_info *)&frame_stack.top().inst->my_class_ptr->constant_pool[index];
+	CONSTANT_Class_info * methodclass = (CONSTANT_Class_info *)&frame_stack.top().inst->my_class_ptr->constant_pool[method->class_index];
+	CONSTANT_NameAndType_info * methodnat = (CONSTANT_NameAndType_info *)&frame_stack.top().inst->my_class_ptr->constant_pool[method->name_and_type_index];
+	CONSTANT_Utf8_info * methodtype = (CONSTANT_Utf8_info *)&frame_stack.top().inst->my_class_ptr->constant_pool[methodnat->descriptor_index];
+	CONSTANT_Utf8_info * methodname = (CONSTANT_Utf8_info *)&frame_stack.top().inst->my_class_ptr->constant_pool[methodnat->name_index];
+	CONSTANT_Utf8_info * methodclassname = (CONSTANT_Utf8_info *)frame_stack.top().inst->my_class_ptr->constant_pool[methodclass->nameindex];
 	char mettype[methodtype->length+1];
 	char metname[methodname->length+1];
 	char classname[methodclassname->length+1];
