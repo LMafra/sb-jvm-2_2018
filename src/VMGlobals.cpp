@@ -129,10 +129,12 @@ void * Instance :: field_allocator(int idx) {
 
 // WARNING :: UNTESTED!!!
 // Testar assim que possível!!!!!!!!!!!!!!!!!
-void * Instance :: instance_allocator(int class_info_index ) {
+Instance * Instance::instance_allocator(int class_info_index ) {
 	Frame_type * aux = &frame_stack.top();	// pega contexto corrente
-	
 	ClassFile * class_current_frame = aux->inst->my_class_ptr;
+	
+	Instance * neww = (Instance *)calloc(1, sizeof(Instance));
+	neww->my_class_ptr = class_current_frame;
 
 	CONSTANT_Class_info * class_info = 
 	(CONSTANT_Class_info*)&class_current_frame->constant_pool[class_info_index];
@@ -149,27 +151,24 @@ void * Instance :: instance_allocator(int class_info_index ) {
 		1;
 		throw "DEU RUIM NO INSTANCE ALLOCATOR!! Ponteiro do frame corrente não bate com method_area\n";
 	}
-	this->my_class_ptr = method_area[ jvm_class_method_area_index[str.c_str()] ];
+	neww->my_class_ptr = method_area[ jvm_class_method_area_index[str.c_str()] ];
 
-	field_info * fields_pointer = 
-		(field_info*)calloc( this->my_class_ptr->fields_count, sizeof(field_info) );
-	field_info * my_class_fields = (field_info *)this->my_class_ptr->fields;
+	field_info * neww_fields = 
+		(field_info*)calloc( neww->my_class_ptr->fields_count, sizeof(field_info) );
+	field_info * my_class_fields = (field_info *)neww->my_class_ptr->fields;
 
-	for(auto i = 0 ; i < this->my_class_ptr->fields_count; i++) {
-		// fields_pointer[i] = (field_info*) calloc(1, sizeof(field_info));
+	for(auto i = 0 ; i < neww->my_class_ptr->fields_count; i++) {
+		// neww_fields[i] = (field_info*) calloc(1, sizeof(field_info));
 
-		memcpy( &fields_pointer[i], &this->my_class_ptr->fields[i],  sizeof(field_info));
+		memcpy( &neww_fields[i], &neww->my_class_ptr->fields[i],  sizeof(field_info));
 		
-		fields_pointer[i].attributes = 
+		neww_fields[i].attributes = 
 		(attribute_info*) calloc(my_class_fields[i].attributes_count, sizeof(attribute_info));
 		
-	
 		for(int jj = 0; jj < my_class_fields[i].attributes_count; jj++) {
-			memcpy(&fields_pointer[i].attributes[jj], &my_class_fields[i].attributes[jj], sizeof(attribute_info));
-			// fields_pointer[i].attributes[jj].info = 
-			// (u1*)calloc(fields_pointer[i].attributes[jj].attribute_length, sizeof(u1));
+			memcpy(&neww_fields[i].attributes[jj], &my_class_fields[i].attributes[jj], sizeof(attribute_info));
 		}
 	}
-	my_attributes = fields_pointer;
-
+	neww->my_attributes = neww_fields;
+	return neww;
 }
