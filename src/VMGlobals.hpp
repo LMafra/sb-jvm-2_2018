@@ -8,6 +8,9 @@
 #include "ClassFileStructures/ClassFile.hpp"
 #define popcat1 pop_cat1
 #define popcat2 pop_cat2
+#define pushcat1 push_cat1
+#define pushcat2 push_cat2
+#define incpc increment_pc
 
 // extern class Instance;
 class Instance {public:
@@ -47,9 +50,18 @@ extern int class_counter;
 
 u4 pop_cat1();
 u8 pop_cat2();
+void push_cat1(u4);
+void push_cat2(u8);
 void * pop_address();
+
 
 template <class T>
 void jvm_push(T val);
 
+template <class T>
+void jvm_push_reference(T * val);
+
+void increment_pc(int);
+
+// #############################
 #include  "VMGlobals.cpp"
