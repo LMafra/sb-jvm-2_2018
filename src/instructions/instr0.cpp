@@ -94,21 +94,20 @@ void exec_jvm_sipush(){
 /// Push item from run-time constant pool.
 // maffei
 void exec_jvm_ldc(){
+  cat1 auxie;
   Instance * current_instance = frame_stack.top().inst;
   ClassFile * my_class = current_instance->my_class_ptr;
   u1 index = instrparam(1);
   cp_info * cp_entry = &my_class->constant_pool[index];
-  u1 tag = (CONSTANT_Class*)cp_entry->tag; // vale ressaltar que nao se sabe qual o tipo de fato, mas
+  u1 tag = ((CONSTANT_Class_info*)cp_entry)->tag;
   switch (tag):
     case enum_cp_tags::CONSTANT_Integer:
+      jvm_push( ((CONSTANT_Integer_info*)cp_entry)->bytes ); break;
     case enum_cp_tags::CONSTANT_Float:
       jvm_push( (CONSTANT_Float_info*)cp_entry->bytes ); break;
     case enum_cp_tags::CONSTANT_String: {
-      // push reference to that instance
-      jvm_push( &  ); break;
-    case enum_cp_tags::CONSTANT_Class:
-      jvm_push( & );
-      // resolver nome 
+      auxie.ref_val = (my_class->constant_pool[(CONSTANT_String_info*)cp_entry->string_index].bytes);
+      jvm_stack.push(auxie);
     
 
 
