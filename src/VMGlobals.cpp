@@ -31,6 +31,16 @@ u8 pop_cat2() {
 	return (*(u8*)&first) << 32 | *(u8*)&second;
 }
 
+void push_cat1(u4 val) {
+	cat1 cat; cat.val = val;
+	jvm_stack.push( cat );
+}
+
+void push_cat2(u8 val) {
+	u4 low = val, high = val >> 32;
+	push_cat1(low); push_cat1( high );
+}
+
 void * pop_address() {
 	void * addr = jvm_stack.top().ref_val;	jvm_stack.pop();
 	return addr;
@@ -47,6 +57,10 @@ void * jvm_push_reference(T * ref_val) {
 	cat1 top; top.ref_val = ref_val;
 	jvm_stack.push( top );
 }
+
+void increment_pc(int n) {PC = &PC[n];}
+
+// #############################
 
 std::map <char, int> FieldTypeSizeDict;
 

@@ -105,13 +105,11 @@ void exec_jvm_ldc(){
       jvm_push( ((CONSTANT_Integer_info*)cp_entry)->bytes ); break;
     case enum_cp_tags::CONSTANT_Float:
       jvm_push( (CONSTANT_Float_info*)cp_entry->bytes ); break;
-    case enum_cp_tags::CONSTANT_String: {
+    case enum_cp_tags::CONSTANT_String:
       auxie.ref_val = (my_class->constant_pool[(CONSTANT_String_info*)cp_entry->string_index].bytes);
-      jvm_stack.push(auxie);
-    
-
-
-
+      jvm_stack.push(auxie); break;
+    default:
+      throw "ERROR! where: exec_jvm_ldc";
 }
  
 void exec_jvm_ldc_w(){
