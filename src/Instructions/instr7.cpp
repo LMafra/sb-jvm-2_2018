@@ -1,9 +1,8 @@
-#include "exec_instr.hpp"
-#include "src/UsingUs.hpp"
-#include "src/VMGlobals.hpp"
+#include "../UsingUs.hpp"
+#include "../VMGlobals.hpp"
 #include <string.h>
 
-
+// Rodrigo
 void exec_jvm_lcmp(){
 	int64_t value2 = popcat2();
 	int64_t value1 = popcat2();
@@ -22,6 +21,7 @@ void exec_jvm_lcmp(){
 	}
 }
 
+// Rodrigo
 void exec_jvm_fcmpl(){
 	u4 f2 = popcat1();
 	u4 f1 = popcat1();
@@ -43,6 +43,7 @@ void exec_jvm_fcmpl(){
 	}
 }
 
+// Rodrigo
 void exec_jvm_fcmpg(){
 	u4 f2 = popcat1();
 	u4 f1 = popcat1();
@@ -68,6 +69,7 @@ void exec_jvm_fcmpg(){
 	}
 }
 
+// Rodrigo
 void exec_jvm_dcmpl(){
 	u8 f2 = popcat2();
 	u8 f1 = popcat2();
@@ -88,6 +90,8 @@ void exec_jvm_dcmpl(){
 		incpc(1);
 	}
 }
+
+// Rodrigo
 void exec_jvm_dcmpg(){
 	u8 f2 = popcat2();
 	u8 f1 = popcat2();
@@ -113,6 +117,7 @@ void exec_jvm_dcmpg(){
 	}
 }
 
+// Rodrigo
 void exec_jvm_ifeq(){
     int32_t result = popcat1();
     if(result == 0){
@@ -126,6 +131,7 @@ void exec_jvm_ifeq(){
     }
 }
 
+// Rodrigo
 void exec_jvm_ifne(){
     int32_t result = popcat1();
     if(result != 0){
@@ -136,9 +142,10 @@ void exec_jvm_ifne(){
     }
     else{
     	incpc(3);
-    }	
+    }
 }
 
+// Rodrigo
 void exec_jvm_iflt(){
     int32_t result = popcat1();
     if(result < 0){
@@ -152,6 +159,7 @@ void exec_jvm_iflt(){
     }
 }
 
+// Rodrigo
 void exec_jvm_ifge(){
     int32_t result = popcat1();
     if(result >= 0){
@@ -165,6 +173,7 @@ void exec_jvm_ifge(){
     }
 }
 
+// Rodrigo
 void exec_jvm_ifgt(){
     int32_t result = popcat1();
     if(result > 0){
@@ -178,6 +187,7 @@ void exec_jvm_ifgt(){
     }
 }
 
+// Rodrigo
 void exec_jvm_ifle(){
     int32_t result = popcat1();
     if(result <= 0){
@@ -191,6 +201,7 @@ void exec_jvm_ifle(){
     }
 }
 
+// Rodrigo
 void exec_jvm_if_icmpeq(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
@@ -198,12 +209,14 @@ void exec_jvm_if_icmpeq(){
     	int16_t offset;
     	((u1 *)&offset)[0]=instrparam(2);
 		((u1 *)&offset)[1]=instrparam(1);
-		incpc(offset);	
+		incpc(offset);
 	}
 	else{
 		incpc(3);
 	}
 }
+
+// Rodrigo
 void exec_jvm_if_icmpne(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
@@ -211,13 +224,14 @@ void exec_jvm_if_icmpne(){
     	int16_t offset;
     	((u1 *)&offset)[0]=instrparam(2);
 		((u1 *)&offset)[1]=instrparam(1);
-		incpc(offset);	
+		incpc(offset);
 	}
 	else{
 		incpc(3);
-	}	
+	}
 }
 
+// Rodrigo
 void exec_jvm_if_icmplt(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
@@ -225,13 +239,14 @@ void exec_jvm_if_icmplt(){
     	int16_t offset;
     	((u1 *)&offset)[0]=instrparam(2);
 		((u1 *)&offset)[1]=instrparam(1);
-		incpc(offset);	
+		incpc(offset);
 	}
 	else{
 		incpc(3);
 	}
 }
 
+// Rodrigo
 void exec_jvm_if_icmpge(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
@@ -239,13 +254,14 @@ void exec_jvm_if_icmpge(){
     	int16_t offset;
     	((u1 *)&offset)[0]=instrparam(2);
 		((u1 *)&offset)[1]=instrparam(1);
-		incpc(offset);	
+		incpc(offset);
 	}
 	else{
 		incpc(3);
 	}
 }
 
+// Rodrigo
 void exec_jvm_if_icmpgt(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
@@ -253,13 +269,14 @@ void exec_jvm_if_icmpgt(){
     	int16_t offset;
     	((u1 *)&offset)[0]=instrparam(2);
 		((u1 *)&offset)[1]=instrparam(1);
-		incpc(offset);	
+		incpc(offset);
 	}
 	else{
 		incpc(3);
 	}
 }
 
+// Rodrigo
 void exec_jvm_if_icmple(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
@@ -267,12 +284,14 @@ void exec_jvm_if_icmple(){
     	int16_t offset;
     	((u1 *)&offset)[0]=instrparam(2);
 		((u1 *)&offset)[1]=instrparam(1);
-		incpc(offset);	
+		incpc(offset);
 	}
 	else{
 		incpc(3);
 	}
 }
+
+// Rodrigo
 void exec_jvm_if_acmpeq(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
@@ -280,12 +299,14 @@ void exec_jvm_if_acmpeq(){
     	int16_t offset;
     	((u1 *)&offset)[0]=instrparam(2);
 		((u1 *)&offset)[1]=instrparam(1);
-		incpc(offset);	
+		incpc(offset);
 	}
 	else{
 		incpc(3);
 	}
 }
+
+// Rodrigo
 void exec_jvm_if_acmpne(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
@@ -293,7 +314,7 @@ void exec_jvm_if_acmpne(){
     	int16_t offset;
     	((u1 *)&offset)[0]=instrparam(2);
 		((u1 *)&offset)[1]=instrparam(1);
-		incpc(offset);	
+		incpc(offset);
 	}
 	else{
 		incpc(3);

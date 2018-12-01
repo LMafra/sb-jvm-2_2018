@@ -1,16 +1,14 @@
-void exec_jvm_if_acmpne(){
-
-}
+#include "../UsingUs.hpp"
 
 void exec_jvm_goto(){
-    u1 offset1 = frame->code[frame->pc +1];
-    u1 offset2 = frame->code[frame->pc +2];
+    // u1 offset1 = frame->code[frame->pc +1];
+    // u1 offset2 = frame->code[frame->pc +2];
 
-    u2 offset = offset1;
-    offset <<= 8;
-    offset |= offset2; 
+    // u2 offset = offset1;
+    // offset <<= 8;
+    // offset |= offset2; 
 
-    frame->pc += offset;
+    // frame->pc += offset;
 }
 
 void exec_jvm_jsr(){

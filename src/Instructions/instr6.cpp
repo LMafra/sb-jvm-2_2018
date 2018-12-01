@@ -1,13 +1,15 @@
-#include "exec_instr.hpp"
-#include "src/UsingUs.hpp"
-#include "src/VMGlobals.hpp"
+#include "../UsingUs.hpp"
+#include "../VMGlobals.hpp"
 #include <string.h>
 
+// Rodrigo
 void exec_jvm_i2l(){
 	u8 result = popcat1();
 	pushcat2(result);
 	incpc(1);
 }
+
+// Rodrigo
 void exec_jvm_i2f(){
 	u4 aux = popcat1();
 	float aux2 = (float)aux;
@@ -17,21 +19,24 @@ void exec_jvm_i2f(){
 	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_i2d(){
 	u4 aux = popcat1();
 	double aux2 = (double)aux;
 	u8 result;
 	memcpy(&result,&aux2,sizeof(u8));
 	pushcat2(result);
-	incpc(1);	
-}
-
-void exec_jvm_l2i(){
-	u4 result = popcat2();
-	pushcat1(result);	
 	incpc(1);
 }
 
+// Rodrigo
+void exec_jvm_l2i(){
+	u4 result = popcat2();
+	pushcat1(result);
+	incpc(1);
+}
+
+// Rodrigo
 void exec_jvm_l2f(){
 	u8 aux = popcat2();
 	double aux2;
@@ -43,15 +48,17 @@ void exec_jvm_l2f(){
 	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_l2d(){
 	u8 aux = popcat2();
 	double aux2 = (double) aux;
 	u8 result;
 	memcpy(&result,&aux2,sizeof(u8));
 	pushcat2(result);
-	incpc(1);	
+	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_f2i(){
 	u4 aux = popcat1();
 	float aux2;
@@ -61,6 +68,7 @@ void exec_jvm_f2i(){
 	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_f2l(){
 	u4 aux = popcat1();
 	float aux2;
@@ -70,6 +78,7 @@ void exec_jvm_f2l(){
 	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_f2d(){
 	u4 aux = popcat1();
 	float aux2;
@@ -81,6 +90,7 @@ void exec_jvm_f2d(){
 	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_d2i(){
 	u8 aux = popcat2();
 	double aux2;
@@ -90,6 +100,7 @@ void exec_jvm_d2i(){
 	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_d2l(){
 	u8 aux = popcat2();
 	double aux2;
@@ -99,6 +110,7 @@ void exec_jvm_d2l(){
 	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_d2f(){
 	double aux = popcat2();
 	float aux2 = aux;
@@ -108,6 +120,7 @@ void exec_jvm_d2f(){
 	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_i2b(){
 	u4 aux = popcat1();
 	u1 aux2 = (u1)aux;
@@ -116,6 +129,7 @@ void exec_jvm_i2b(){
 	incpc(1);
 }
 
+// Rodrigo
 void exec_jvm_i2c(){
 	u4 aux =  popcat1();
 	u2 aux2 = (u2)aux;
@@ -123,6 +137,8 @@ void exec_jvm_i2c(){
 	pushcat1(result);
 	incpc(1);
 }
+
+// Rodrigo
 void exec_jvm_i2s(){
 	u4 aux =  popcat1();
 	u2 aux2 = (u2)aux;

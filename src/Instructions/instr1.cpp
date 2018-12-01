@@ -1,20 +1,48 @@
 #include "instructions.hpp"
 #include "../VMGlobals.hpp"
 
-void exec_jvm_ldc() {
+
+// maffei & arthur
+/// Push item from run-time constant pool.
+void exec_jvm_ldc(){
+  cat1 auxie;
+  Instance * current_instance = frame_stack.top().inst;
+  ClassFile * my_class = current_instance->my_class_ptr;
+  u1 index = instrparam(1);
+  cp_info * cp_entry = &my_class->constant_pool[index];
+  u1 tag = ((CONSTANT_Class_info*)cp_entry)->tag;
+  switch (tag) {
+    case enum_cp_tags::CONSTANT_Integer:
+      jvm_push( ((CONSTANT_Integer_info*)cp_entry)->bytes ); break;
+    case enum_cp_tags::CONSTANT_Float:
+      jvm_push( ((CONSTANT_Float_info*)cp_entry)->bytes ); break;
+    case enum_cp_tags::CONSTANT_String:
+      auxie.ref_val = ((CONSTANT_Utf8_info*)
+        &my_class->constant_pool[((CONSTANT_String_info*)cp_entry)->string_index ] 
+      )->bytes;
+      jvm_stack.push(auxie); break;
+    default:
+      throw "ERROR! where: exec_jvm_ldc";
+  }
+}
+
+void exec_jvm_ldc_w(){
 
 }
 
-void exec_jvm_ldc_w() {
+void exec_jvm_ldc2_w(){
 
 }
-void exec_jvm_ldc2_w() {
+
+void exec_jvm_iload(){
 
 }
+
 
 // maffei
-/// Empilha em jvm_stack a variável na N-ehsima posicao do vetor de variaveis locais
-void exec_jvm_iload(u1 N) {jvm_push( frame_stack.top()->variaveis_locais[N] );}
+/// Empilha em jvm_stack a variável na N-ehsima posicao do vetor de variaveis locais.
+/// É chamada pelas instruções iload_<n> da jvm.
+void exec_jvm_iload(u1 N) {jvm_push( frame_stack.top().variaveis_locais[N] );}
 void exec_jvm_iload_0() {exec_jvm_iload(0);}
 void exec_jvm_iload_1() {exec_jvm_iload(1);}
 void exec_jvm_iload_2() {exec_jvm_iload(2);}
