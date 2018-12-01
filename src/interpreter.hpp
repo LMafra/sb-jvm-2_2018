@@ -8,12 +8,21 @@ void instructions_Loop(){
 	printf("debug instrloop1\n");
 	while(PC!=NULL && ((long long int)(frame_stack.top().PC_final))>((long long int)(&PC[0]))){
 		u1 aux = PC[0];
+		printf("%lli\n", (long long int)PC);
 		printf("debug instropcode %d\n", aux);
 		(*(exec_vet[aux]))();
 	}
+	if (PC==NULL){
+		printf("debug instr int nullpc\n");
+	}
+	if (((long long int)(frame_stack.top().PC_final))>=((long long int)(&PC[0]))){
+		printf("debug instr int overflow\n");
+	}
+	printf("debug endinstr\n");
 }
 
 void interpret(ClassFile * firstclass){
+	set_exec_vet();
 	PC=NULL;
 	Frame_type firstframe;
 	Instance firstinstance;
@@ -45,6 +54,8 @@ void interpret(ClassFile * firstclass){
 	printf("debug int1\n");
 	{
 		char metname[5] = "main";
+		cat1 * params =  (cat1*)malloc(sizeof(cat1));
+		params[0].ref_val=metname;
 		int index = 0;
 		while(namescomp(*(CONSTANT_Utf8_info *)&executed_object->my_class_ptr->constant_pool[executed_object->my_class_ptr->methods[index].name_index],metname)==false && index<executed_object->my_class_ptr->methods_count-1){
 			index++;
@@ -52,7 +63,7 @@ void interpret(ClassFile * firstclass){
 		if (namescomp(*(CONSTANT_Utf8_info *)&executed_object->my_class_ptr->constant_pool[executed_object->my_class_ptr->methods[index].name_index],metname)==false){
 			return;
 		}
-		instance_frame_loader(index,executed_object,NULL);
+		instance_frame_loader_interpreter(executed_object->my_class_ptr->methods[index].name_index, executed_object->my_class_ptr->methods[index].descriptor_index, executed_object->my_class_ptr->this_class,executed_object,params);
 		instructions_Loop();
 	}
 	printf("debug int2\n");

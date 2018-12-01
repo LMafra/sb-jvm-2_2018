@@ -51,7 +51,11 @@ void exec_jvm_areturn(){
 
 }
 void exec_jvm_return(){
-
+	PC = frame_stack.top().PC_retorno;
+	if(PC==NULL){
+		printf("debug null pointer return\n");
+	}
+	frame_stack.pop();
 }
 void exec_jvm_getstatic(){
 
@@ -112,6 +116,7 @@ void exec_jvm_invokevirtual(){
 	cat1 * argstopass = argument_prepare(mettype);
 
 	Instance * objectref = (Instance *)pop_address();
+	incpc(3);
 	instance_frame_loader(index, objectref, argstopass);
 
 }
@@ -135,6 +140,7 @@ void exec_jvm_invokespecial(){
 	cat1 * argstopass = argument_prepare(mettype);
 
 	Instance * objectref = (Instance *)pop_address();
+	incpc(3);
 	instance_frame_loader(index, objectref, argstopass);
 }
 void exec_jvm_invokestatic(){

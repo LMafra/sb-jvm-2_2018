@@ -11,7 +11,7 @@
 
 bool condjavaclass(char* classname){
 	std::string name(classname);
-	if ( name.find("/java/") != name.npos ) 
+	if ( name.find("java/") != name.npos ) 
 		return true;
 	return false;
 }
@@ -70,10 +70,13 @@ method_info * findmethodinclass(Instance * inst,char* metname){
 	int index = 0;
 	while(namescomp(*(CONSTANT_Utf8_info *)&(inst->my_class_ptr->constant_pool[inst->my_class_ptr->methods[index].name_index]),metname)==false && index<inst->my_class_ptr->methods_count-1){
 		index++;
+		printf("debug find method didnt find at %d, will look at %d\n", index-1, index);
 	}
 	if (namescomp(*(CONSTANT_Utf8_info *)&(inst->my_class_ptr->constant_pool[inst->my_class_ptr->methods[index].name_index]),metname)==true){
+		printf("debug find method found at %d\n", index);
 		return &(inst->my_class_ptr->methods[index]);
 	}
+	printf("debug find method didnt find anything\n");
 	return NULL;
 }
 
@@ -142,12 +145,16 @@ void instance_frame_loader_interpreter(int indexname, int indextype, int indexcl
 	topush.variaveis_locais = (cat1*)malloc( (*(Code_attribute *)&calledinfo->attributes[0]).max_locals * sizeof(cat1) );
 
 	printf("debug fl7\n");
+	calledinfo;
+	printf("debug fl7 2\n");
 	if (calledinfo->access_flags & enum_method_access_flags::ACC_STATIC){
+		printf("debug fl static\n");
 		for(int i=0;i<paramnum;i++){
 			topush.variaveis_locais[i]=args[i];
 		}
 	}
 	else{
+		printf("debug fl no static\n");
 		cat1 firstparam;
 		firstparam.ref_val=inst;
 		topush.variaveis_locais[0] = firstparam;
@@ -202,6 +209,7 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 	mettype[methodtype->length]='\0';
 	classname[methodclassname->length]='\0';
 	if(condjavaclass(classname)&&condnotprintln(metname)){
+		printf("debug java not println\n");
 		return;
 	}
 	printf("debug fl5\n");
@@ -231,12 +239,16 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 	topush.variaveis_locais = (cat1*)malloc( (*(Code_attribute *)&calledinfo->attributes[0]).max_locals * sizeof(cat1) );
 
 	printf("debug fl7\n");
+	calledinfo;
+	printf("debug fl7 2\n");
 	if (calledinfo->access_flags & enum_method_access_flags::ACC_STATIC){
+		printf("debug fl static\n");
 		for(int i=0;i<paramnum;i++){
 			topush.variaveis_locais[i]=args[i];
 		}
 	}
 	else{
+		printf("debug fl no static\n");
 		cat1 firstparam;
 		firstparam.ref_val=inst;
 		topush.variaveis_locais[0] = firstparam;
