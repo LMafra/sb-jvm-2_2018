@@ -35,12 +35,12 @@ void exec_jvm_lload_0();  // Ok, not tested.
 void exec_jvm_lload_1();  // Ok, not tested.
 void exec_jvm_lload_2();  // Ok, not tested.
 void exec_jvm_lload_3();  // Ok, not tested.
-void exec_jvm_fload(u1);  // Ok, not tested.
+void exec_jvm_fload();  // Ok, not tested.
 void exec_jvm_fload_0();  // Ok, not tested.
 void exec_jvm_fload_1();  // Ok, not tested.
 void exec_jvm_fload_2();  // Ok, not tested.
 void exec_jvm_fload_3();  // Ok, not tested.
-void exec_jvm_dload(u1);  // Ok, not tested.
+void exec_jvm_dload();  // Ok, not tested.
 void exec_jvm_dload_0();  // Ok, not tested.
 void exec_jvm_dload_1();  // Ok, not tested.
 void exec_jvm_dload_2();  // Ok, not tested.
@@ -48,7 +48,7 @@ void exec_jvm_dload_3();  // Ok, not tested.
 #include "instr1.cpp"
 
 // 2
-void exec_jvm_aload(u1);
+void exec_jvm_aload();
 void exec_jvm_aload_0();
 void exec_jvm_aload_1();
 void exec_jvm_aload_2();

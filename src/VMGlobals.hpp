@@ -61,6 +61,7 @@ extern int class_counter;
 u1 instrparam(int);
 void increment_pc(int);
 
+cat1 pop_cat1raw();
 u4 pop_cat1();
 u8 pop_cat2();
 void push_cat1(u4);

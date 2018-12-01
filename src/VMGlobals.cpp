@@ -25,6 +25,12 @@ u1 instrparam(int n) {return PC[n];}
 void incpc(int n) {PC = &PC[n];}
 
 
+cat1 pop_cat1raw() {
+	cat1 top = jvm_stack.top();
+	jvm_stack.pop();
+	return top;
+}
+
 u4 pop_cat1() {
 	u4 top = jvm_stack.top().val;
 	jvm_stack.pop();
