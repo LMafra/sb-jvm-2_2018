@@ -86,7 +86,7 @@ cat1 * argument_prepare(char * descriptor){
 		}
 		index++;
 	}
-	cat1 * args = malloc(count*sizeof(cat1));
+	cat1 * args = (cat1 *)malloc(count*sizeof(cat1));
 	for (int i=1;i<=count;i++){
 		args[count-i]=pop_cat1raw();
 	}
@@ -111,7 +111,7 @@ void exec_jvm_invokevirtual(){
 
 	cat1 * argstopass = argument_prepare(mettype);
 
-	Instance * objectref = pop_address();
+	Instance * objectref = (Instance *)pop_address();
 	instance_frame_loader(index, objectref, argstopass);
 
 }
@@ -134,7 +134,7 @@ void exec_jvm_invokespecial(){
 
 	cat1 * argstopass = argument_prepare(mettype);
 
-	Instance * objectref = pop_address();
+	Instance * objectref = (Instance *)pop_address();
 	instance_frame_loader(index, objectref, argstopass);
 }
 void exec_jvm_invokestatic(){

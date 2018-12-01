@@ -5,8 +5,10 @@
 
 //returns when out of bounds or return instruction sends to null
 void instructions_Loop(){
+	printf("debug instrloop1\n");
 	while(PC!=NULL && ((long long int)(frame_stack.top().PC_final))>((long long int)(&PC[0]))){
 		u1 aux = PC[0];
+		printf("debug instropcode %d\n", aux);
 		(*(exec_vet[aux]))();
 	}
 }
