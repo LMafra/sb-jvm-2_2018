@@ -11,7 +11,6 @@
 #define pushcat1 push_cat1
 #define pushcat2 push_cat2
 #define incpc increment_pc
-#define or ||
 // extern class Instance;
 
 

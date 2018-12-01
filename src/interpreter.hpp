@@ -22,18 +22,25 @@ void interpret(ClassFile * firstclass){
 	frame_stack.pop();
 	firstframe.inst=executed_object;
 	frame_stack.push(firstframe);
+	printf("debug int3\n");
 	{
 		char metname[7] = "<init>";
+		printf("debug int4\n");
 		int index = 0;
 		while(namescomp(*(CONSTANT_Utf8_info *)&executed_object->my_class_ptr->constant_pool[executed_object->my_class_ptr->methods[index].name_index],metname)==false && index<executed_object->my_class_ptr->methods_count-1){
 			index++;
 		}
+		printf("debug int5\n");
 		if (namescomp(*(CONSTANT_Utf8_info *)&executed_object->my_class_ptr->constant_pool[executed_object->my_class_ptr->methods[index].name_index],metname)==false){
 			return;
 		}
-		instance_frame_loader(index,executed_object,NULL);
+		printf("debug int6\n");
+		instance_frame_loader_interpreter(executed_object->my_class_ptr->methods[index].name_index, executed_object->my_class_ptr->methods[index].descriptor_index, executed_object->my_class_ptr->this_class,executed_object,NULL);
+		printf("debug int7\n");
 		instructions_Loop();
+		printf("debug int8\n");
 	}
+	printf("debug int1\n");
 	{
 		char metname[5] = "main";
 		int index = 0;
@@ -46,4 +53,5 @@ void interpret(ClassFile * firstclass){
 		instance_frame_loader(index,executed_object,NULL);
 		instructions_Loop();
 	}
+	printf("debug int2\n");
 }
