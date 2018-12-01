@@ -4,6 +4,7 @@
 #include <stack>
 #include <set>
 #include <map>
+#include <cmath>
 #include "UsingUs.hpp"
 #include "ClassFileStructures/ClassFile.hpp"
 #define popcat1 pop_cat1
@@ -16,6 +17,8 @@
 #define jvm_pop_reference pop_reference 
 #define jvm_pop_address pop_reference 
 #define pop_address pop_reference
+
+const double NaN = nan("");
 // extern class Instance;
 
 

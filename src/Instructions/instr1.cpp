@@ -77,9 +77,16 @@ void exec_jvm_fload_3() {exec_jvm_fload_X(3);incpc(1);}
 
 // maffei
 /// empilha um double do vetor de variaveis locais
-void exec_jvm_dload_X(u1 N){exec_jvm_iload_X(N);exec_jvm_iload_X(N+1);}
-void exec_jvm_dload(){}
-void exec_jvm_dload_0(){exec_jvm_dload_X(0);}
-void exec_jvm_dload_1(){exec_jvm_dload_X(1);}
-void exec_jvm_dload_2(){exec_jvm_dload_X(2);}
-void exec_jvm_dload_3(){exec_jvm_dload_X(3);}
+void exec_jvm_dload_X(u1 N){
+  exec_jvm_iload_X(N);
+  exec_jvm_iload_X(N+1);
+}
+void exec_jvm_dload(){
+  u1 index = instrparam(1);
+  exec_jvm_dload_X(index);
+  incpc(1 + 1);
+}
+void exec_jvm_dload_0(){exec_jvm_dload_X(0);incpc(1);}
+void exec_jvm_dload_1(){exec_jvm_dload_X(1);incpc(1);}
+void exec_jvm_dload_2(){exec_jvm_dload_X(2);incpc(1);}
+void exec_jvm_dload_3(){exec_jvm_dload_X(3);incpc(1);}
