@@ -26,6 +26,10 @@ class Instance {public:
   void * my_attributes;
 };
 
+union cat1 {
+	u4 val;
+	void * ref_val;
+};
 
 class Frame_type{public:
 	Instance * inst;
@@ -35,10 +39,6 @@ class Frame_type{public:
 	u1 * PC_final;
 };
 
-union cat1 {
-	u4 val;
-	void * ref_val;
-};
 
 extern u1 * PC;
 extern std::stack<Frame_type> frame_stack;

@@ -3,7 +3,7 @@
 
 void exec_jvm_aload(u1) {
   u4 index = instrparam(1);
-  cat1 cat; cat.val = frame_stack.top().variaveis_locais[index];
+  cat1 cat; cat.val = frame_stack.top().variaveis_locais[index].val;
   jvm_stack.push( cat );
 }
 void exec_jvm_aload_0() {}
