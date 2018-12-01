@@ -1,4 +1,8 @@
-#include "instructions.cpp"
+#include "instructions.hpp"
+#include "exec_instr.hpp"
+#include "src/UsingUs.hpp"
+#include "src/VMGlobals.hpp"
+#include <string.h>
 
 void exec_jvm_nop(){
 }
@@ -54,32 +58,33 @@ void exec_jvm_lconst_1(){
 }
  
 void exec_jvm_fconst_0(){
-  jvm_push(0.0);
+  jvm_push((float)0.0);
   incpc(1);
 }
  
 void exec_jvm_fconst_1(){
-  jvm_push(1.0);
+  jvm_push((float)1.0);
   incpc(1);
 }
  
 void exec_jvm_fconst_2(){
-  jvm_push(2.0);
+  jvm_push((float)2.0);
   incpc(1);
 }
  
 void exec_jvm_dconst_0(){
-  jvm_push(0.0);
+  jvm_push((double)0.0);
   incpc(1);
 }
  
 void exec_jvm_dconst_1(){
-  jvm_push(1.0);
+  jvm_push((double)1.0);
   incpc(1);
 }
  
 void exec_jvm_bipush(){
-  jvm_push((int) char)
+  u1 par = instrparam(1);
+  jvm_push((int) par);
   incpc(1);
 }
  
@@ -100,16 +105,17 @@ void exec_jvm_ldc(){
   u1 index = instrparam(1);
   cp_info * cp_entry = &my_class->constant_pool[index];
   u1 tag = ((CONSTANT_Class_info*)cp_entry)->tag;
-  switch (tag):
+  switch (tag) {
     case enum_cp_tags::CONSTANT_Integer:
       jvm_push( ((CONSTANT_Integer_info*)cp_entry)->bytes ); break;
     case enum_cp_tags::CONSTANT_Float:
-      jvm_push( (CONSTANT_Float_info*)cp_entry->bytes ); break;
+      jvm_push( ((CONSTANT_Float_info*)cp_entry)->bytes ); break;
     case enum_cp_tags::CONSTANT_String:
       auxie.ref_val = (my_class->constant_pool[(CONSTANT_String_info*)cp_entry->string_index].bytes);
       jvm_stack.push(auxie); break;
     default:
       throw "ERROR! where: exec_jvm_ldc";
+  }
 }
  
 void exec_jvm_ldc_w(){

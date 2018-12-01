@@ -13,16 +13,20 @@
 #define incpc increment_pc
 
 // extern class Instance;
+  
+
+
 class Instance {public:
+  static Instance * instance_allocator(int);
+
+  void * field_allocator(int);
   static bool initDict;
   void init_dict();
-  
-  void * field_allocator(int);
-  void * instance_allocator(int);
   Instance();
   ClassFile * my_class_ptr;
   void * my_attributes;
 };
+
 
 class Frame_type{public:
 	Instance * inst;
