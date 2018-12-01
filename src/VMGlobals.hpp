@@ -27,7 +27,9 @@ class Instance {public:
 class Frame_type{public:
 	Instance * inst;
 	u1 * PC_retorno;
+	u1 * PC_base;
 	u4 * variaveis_locais;
+	u1 * PC_final;
 };
 
 union cat1 {

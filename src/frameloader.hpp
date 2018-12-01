@@ -122,6 +122,8 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 		}
 	}
 	topush.PC_base = calledinfo->attributes[0].code;
+	PC = topush.PC_base;
+	topush.PC_final = PC_base[calledinfo->attributes[0].code_length];
 	frame_stack.push(topush);
 	return;
 }
