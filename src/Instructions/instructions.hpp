@@ -30,7 +30,7 @@ void exec_jvm_iload_0();  // Ok, not tested.
 void exec_jvm_iload_1();  // Ok, not tested.
 void exec_jvm_iload_2();  // Ok, not tested.
 void exec_jvm_iload_3();  // Ok, not tested.
-void exec_jvm_lload(u1);  // Ok, not tested.
+void exec_jvm_lload();  // Ok, not tested.
 void exec_jvm_lload_0();  // Ok, not tested.
 void exec_jvm_lload_1();  // Ok, not tested.
 void exec_jvm_lload_2();  // Ok, not tested.
