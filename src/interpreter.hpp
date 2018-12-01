@@ -1,6 +1,6 @@
 #include "frameloader.hpp"
 #include "VMGlobals.hpp"
-#include "./instructions/exec_vet.hpp"
+#include "Instructions/exec_vet.hpp"
 
 
 //returns when out of bounds or return instruction sends to null
