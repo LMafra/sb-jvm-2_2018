@@ -2,7 +2,7 @@
 #include "..//UsingUs.hpp"
 #include <stdint.h>
 #include <string.h>
-
+#include <cmath>
 
 void exec_jvm_iadd(){
 	int32_t value2 = popcat1();
@@ -213,17 +213,17 @@ void exec_jvm_frem(){
     // incpc(1);
 }
 void exec_jvm_drem(){
-	// u8 aux2 = popcat2();
-    // u8 aux1 = popcat2();
-    // double dvalue2;
-    // double dvalue1;
-    // memcpy(&dvalue2,&aux2,sizeof(u8));
-    // memcpy(&dvalue1,&aux1,sizeof(u8));
-    // double dresult = dvalue1%dvalue2;
-	// u8 result;
-	// memcpy(&result,&dresult,sizeof(u8));
-    // pushcat2(result);
-    // incpc(1);
+	u8 aux2 = popcat2();
+    u8 aux1 = popcat2();
+    double dvalue2;
+    double dvalue1;
+    memcpy(&dvalue2,&aux2,sizeof(u8));
+    memcpy(&dvalue1,&aux1,sizeof(u8));
+    double dresult = fmod(dvalue1,dvalue2);
+	u8 result;
+	memcpy(&result,&dresult,sizeof(u8));
+    pushcat2(result);
+    incpc(1);
 }
 void exec_jvm_ineg(){
     int32_t value = popcat1();

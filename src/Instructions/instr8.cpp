@@ -1,5 +1,6 @@
 #include "../UsingUs.hpp"
 #include "../VMGlobals.hpp"
+#include "../frameloader.hpp"
 
 void exec_jvm_goto(){
   incpc( offset16_from_instr() );
