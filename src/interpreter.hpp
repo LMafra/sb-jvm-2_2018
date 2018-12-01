@@ -1,7 +1,7 @@
 #include "frameloader.hpp"
 #include "VMGlobals.hpp"
+#include "./instructions/exec_vet.hpp"
 
-void (*exec_vet[256])(void);
 
 //returns when out of bounds or return instruction sends to null
 void instructions_Loop(){
