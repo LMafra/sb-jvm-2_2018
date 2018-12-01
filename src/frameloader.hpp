@@ -56,11 +56,11 @@ bool namescomp(CONSTANT_Utf8_info & nametry, char* metname){
 }
 method_info * findmethodinclass(Instance * inst,char* metname){
 	int index = 0;
-	while(namescomp(inst->my_class_ptr.constant_pool[inst->my_class_ptr.methods[index].name_index],metname)==false && index<inst->my_class_ptr.methods_count-1){
+	while(namescomp(*(CONSTANT_Utf8_info *)&(inst->my_class_ptr->constant_pool[inst->my_class_ptr->methods[index].name_index]),metname)==false && index<inst->my_class_ptr->methods_count-1){
 		index++;
 	}
-	if (namescomp(inst->my_class_ptr.constant_pool[inst->my_class_ptr.methods[index].name_index],metname)==true){
-		return &(inst->my_class_ptr.methods[index]);
+	if (namescomp(*(CONSTANT_Utf8_info *)&(inst->my_class_ptr->constant_pool[inst->my_class_ptr->methods[index].name_index]),metname)==true){
+		return &(inst->my_class_ptr->methods[index]);
 	}
 	return NULL;
 }
@@ -75,7 +75,7 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 	CONSTANT_NameAndType_info * methodnat = (CONSTANT_NameAndType_info *)&frame_stack.top().inst->my_class_ptr->constant_pool[method->name_and_type_index];
 	CONSTANT_Utf8_info * methodtype = (CONSTANT_Utf8_info *)&frame_stack.top().inst->my_class_ptr->constant_pool[methodnat->descriptor_index];
 	CONSTANT_Utf8_info * methodname = (CONSTANT_Utf8_info *)&frame_stack.top().inst->my_class_ptr->constant_pool[methodnat->name_index];
-	CONSTANT_Utf8_info * methodclassname = (CONSTANT_Utf8_info *)frame_stack.top().inst->my_class_ptr->constant_pool[methodclass->name_index];
+	CONSTANT_Utf8_info * methodclassname = (CONSTANT_Utf8_info *)&frame_stack.top().inst->my_class_ptr->constant_pool[methodclass->name_index];
 	char mettype[methodtype->length+1];
 	char metname[methodname->length+1];
 	char classname[methodclassname->length+1];
@@ -96,9 +96,9 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 	}
 	if (condnotprintln(metname)==false){
 		double auxing;
-		((u4*)auxing)[0]=args[1].val;
-		((u4*)auxing)[1]=args[0].val;
-		printf("%d\n", auxing);
+		((u4*)&auxing)[0]=args[1].val;
+		((u4*)&auxing)[1]=args[0].val;
+		printf("%lf\n", auxing);
 		return;
 	}
 
@@ -106,9 +106,9 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 
 	method_info * calledinfo = findmethodinclass(inst,metname);
 
-	topush.variaveis_locais = (cat1*)malloc( calledinfo->attributes[0].max_locals * sizeof(cat1) );
+	topush.variaveis_locais = (cat1*)malloc( (*(Code_attribute *)&calledinfo->attributes[0]).max_locals * sizeof(cat1) );
 
-	if (accflags & enum_method_access_flags::ACC_STATIC){
+	if (calledinfo->access_flags & enum_method_access_flags::ACC_STATIC){
 		for(int i=0;i<paramnum;i++){
 			topush.variaveis_locais[i]=args[i];
 		}
@@ -121,9 +121,9 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 			topush.variaveis_locais[i+1]=args[i];
 		}
 	}
-	topush.PC_base = calledinfo->attributes[0].code;
+	topush.PC_base = (*(Code_attribute *)&calledinfo->attributes[0]).code;
 	PC = topush.PC_base;
-	topush.PC_final = PC_base[calledinfo->attributes[0].code_length];
+	topush.PC_final = &topush.PC_base[(*(Code_attribute *)&calledinfo->attributes[0]).code_length];
 	frame_stack.push(topush);
 	return;
 }

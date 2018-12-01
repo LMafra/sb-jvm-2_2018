@@ -2,6 +2,7 @@
 #include "ReaderFiles/ClassLoader.hpp"
 #include "ClassFileStructures/ClassFile.hpp"
 #include "ViewerFiles/Exibidor.hpp"
+#include "interpreter.hpp"
 // #include "VMGlobals.hpp"
 // #include "Instance/Instance.hpp"
 #include <string>
@@ -36,4 +37,5 @@ int main(int argc, char ** argv ) {
   }
   Exibidor exib(*cf);
   exib.show();
+  interpret(cf);
 }

@@ -32,7 +32,7 @@ class Frame_type{public:
 	Instance * inst;
 	u1 * PC_retorno;
 	u1 * PC_base;
-	u4 * variaveis_locais;
+	cat1 * variaveis_locais;
 	u1 * PC_final;
 };
 
