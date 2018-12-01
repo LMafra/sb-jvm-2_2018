@@ -47,7 +47,7 @@ void push_cat2(u8 val) {
 	push_cat1(low); push_cat1( high );
 }
 
-void * pop_address() {
+void * pop_reference() {
 	void * addr = jvm_stack.top().ref_val;	jvm_stack.pop();
 	return addr;
 }

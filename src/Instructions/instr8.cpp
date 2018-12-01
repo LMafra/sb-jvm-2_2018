@@ -16,7 +16,7 @@ void exec_jvm_ret(){
   u1 index = instrparam(1);
   PC = (u1*)frame_stack.top().variaveis_locais[index].ref_val;
 }
-
+// TODO: CORRIGIR !!!
 void exec_jvm_tableswitch(){
   int index = pop_cat1();
   u1 * instr_pc = PC;
