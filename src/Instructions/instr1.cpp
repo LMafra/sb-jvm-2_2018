@@ -31,7 +31,11 @@ void exec_jvm_ldc_w(){
 }
 
 void exec_jvm_ldc2_w(){
-
+  cp_info * cp = (cp_info *)frame_stack.top().inst->my_class_ptr->constant_pool;
+  u2 index = offset16_from_instr();
+  CONSTANT_Double_info * double_info = (CONSTANT_Double_info *)&cp[index];
+  push_cat1(double_info->low_bytes);  push_cat1(double_info->high_bytes);
+  incpc(3);
 }
 
 

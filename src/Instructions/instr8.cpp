@@ -75,6 +75,7 @@ void exec_jvm_getstatic(){
 
   // gambiarra pq essa porcaria tá mal descrita e bem ruim de entender
   jvm_push_reference((void*)NULL);
+  incpc(1 + 2);
 }
 void exec_jvm_putstatic(){
 
