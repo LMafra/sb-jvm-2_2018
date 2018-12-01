@@ -152,8 +152,6 @@ Instance * Instance::instance_allocator(int class_info_index ) {
 
 	if(method_area[ jvm_class_method_area_index[str.c_str()] ] != class_current_frame) {
 		printf("DEU RUIM NO INSTANCE ALLOCATOR!! Ponteiro do frame corrente não bate com method_area\n");
-		1;  // para setar breakpoints
-		1;
 		throw "DEU RUIM NO INSTANCE ALLOCATOR!! Ponteiro do frame corrente não bate com method_area\n";
 	}
 	neww->my_class_ptr = method_area[ jvm_class_method_area_index[str.c_str()] ];

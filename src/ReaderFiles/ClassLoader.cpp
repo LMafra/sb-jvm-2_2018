@@ -204,7 +204,7 @@ ClassFile * ClassLoader :: load_classfile(const char * path="./double_aritmetica
 
   if ( *jvm_loaded_classes.find( "double_aritmetica" )) {
     int idx = jvm_class_method_area_index["double_aritmetica"];
-    printf("Already loaded at index ... %d\n", idx), method_area[ idx ];
+    printf("Already loaded at index ... %d\n", idx);
     #if DEBUG
       printf("Tecle ENTER  para continuar... [REMOVER DA VERSÃO FINAL!]\n"); getchar();
     #endif
