@@ -1,5 +1,6 @@
 #pragma once
 
+#include "VMGlobals.hpp"
 #include "ClassFileStructures/attribute_info.hpp"
 #include "ClassFileStructures/cp_info.hpp"
 #include "ClassFileStructures/field_info.hpp"
@@ -38,9 +39,9 @@ u4 pop_cat1() {
 }
 
 u8 pop_cat2() {
-	u4 first = jvm_stack.top().val; jvm_stack.pop();
-	u4 second = jvm_stack.top().val; jvm_stack.pop();
-	return (*(u8*)&first) << 32 | *(u8*)&second;
+	u4 low = jvm_stack.top().val; jvm_stack.pop();
+	u4 high = jvm_stack.top().val; jvm_stack.pop();
+	return (*(u8*)&high) << 32 | *(u8*)&low;
 }
 
 void push_cat1(u4 val) {
@@ -50,7 +51,7 @@ void push_cat1(u4 val) {
 
 void push_cat2(u8 val) {
 	u4 low = val, high = val >> 32;
-	push_cat1(low); push_cat1( high );
+	push_cat1(high); push_cat1( low );
 }
 
 void * pop_reference() {
