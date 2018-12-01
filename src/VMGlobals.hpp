@@ -61,8 +61,8 @@ u8 pop_cat2();
 void push_cat1(u4);
 void push_cat2(u8);
 void * pop_address();
-
-
+u2 offset16_from_stack();u4 offset32_from_stack();
+u2 offset16_from_instr();u4 offset32_from_instr();
 template <class T>
 void jvm_push(T val);
 

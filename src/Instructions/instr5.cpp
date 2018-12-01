@@ -6,7 +6,7 @@
 
 void exec_jvm_iadd(){
 	int32_t value2 = popcat1();
-    int32_t value1 = popcat1();
+	int32_t value1 = popcat1();
 	int32_t aux = value1+value2;
     u4 result;
     memcpy(&result,&aux,sizeof(u4));
@@ -353,9 +353,22 @@ void exec_jvm_lxor(){
     pushcat2(result);
     incpc(1);
 }
+
+
+
+// maffei
+// Formato : 
+// iinc
+// index
+// const_immediate
+// The index is an unsigned byte that must be an index into the
+// local variable array of the current frame (§2.6). The const is an
+// immediate signed byte. The local variable at index must contain
+// an int . The value const is first sign-extended to an int , and then
+// the local variable at index is incremented by that amount.
 void exec_jvm_iinc(){
-    u4 value = popcat1();
-	u4 result = value++;
-    pushcat1(result);
-    incpc(1);
+	u4 index = instrparam(1);
+	u4 const_immediate = instrparam(2); 
+	index += const_immediate;
+	frame_stack.top().variaveis_locais[index].val += 1;
 }
