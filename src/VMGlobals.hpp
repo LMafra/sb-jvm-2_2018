@@ -10,7 +10,12 @@
 #define popcat2 pop_cat2
 #define pushcat1 push_cat1
 #define pushcat2 push_cat2
+#define jvm_push_cat1 push_cat1
+#define jvm_push_cat2 push_cat2
 #define incpc increment_pc
+#define jvm_pop_reference pop_reference 
+#define jvm_pop_address pop_reference 
+#define pop_address pop_reference
 // extern class Instance;
 
 
@@ -61,9 +66,10 @@ u4 pop_cat1();
 u8 pop_cat2();
 void push_cat1(u4);
 void push_cat2(u8);
-void * pop_address();
+void * pop_reference();
 u2 offset16_from_stack();u4 offset32_from_stack();
-u2 offset16_from_instr();u4 offset32_from_instr();
+u2 offset16_from_instr(int);u4 offset32_from_instr(int);
+
 template <class T>
 void jvm_push(T val);
 

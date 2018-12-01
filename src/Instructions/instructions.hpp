@@ -192,8 +192,8 @@ void exec_jvm_if_acmpne();  // Ok, not tested.
 
 // 8
 void exec_jvm_goto(); // Ok, not tested
-void exec_jvm_jsr();
-void exec_jvm_ret();
+void exec_jvm_jsr();  // Ok, not tested
+void exec_jvm_ret();  // Ok, not tested
 void exec_jvm_tableswitch();
 void exec_jvm_lookupswitch();
 void exec_jvm_ireturn();

@@ -49,6 +49,7 @@ void exec_jvm_ifnonnull() {
 
 }
 
+// maffei
 void exec_jvm_goto_w() { 
   incpc( offset32_from_instr() );
 }

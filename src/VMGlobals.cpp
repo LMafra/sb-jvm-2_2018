@@ -53,7 +53,7 @@ void push_cat2(u8 val) {
 	push_cat1(low); push_cat1( high );
 }
 
-void * pop_address() {
+void * pop_reference() {
 	void * addr = jvm_stack.top().ref_val;	jvm_stack.pop();
 	return addr;
 }
@@ -69,12 +69,12 @@ u4 offset32_from_stack() {
   return pop_cat1()<<24|pop_cat1()<<16|pop_cat1()<<8|pop_cat1();
 }
 
-u2 offset16_from_instr() {
+u2 offset16_from_instr(int add = 0) {
   // u1 branchbyte1 = pop_cat1();u1 branchbyte2 = pop_cat1(); 
   return instrparam(1) << 8|instrparam(2);
 }
 
-u4 offset32_from_instr() {
+u4 offset32_from_instr(int add = 0) {
   // u1 branchbyte1 = pop_cat1();u1 branchbyte2 = pop_cat1(); 
   // u1 branchbyte3 = pop_cat1();u1 branchbyte4 = pop_cat1(); 
   return instrparam(1)<<24|instrparam(1)<<16|instrparam(2)<<8|instrparam(4);
@@ -88,7 +88,7 @@ void jvm_push(T val) {
 }
 
 template <typename T>
-void * jvm_push_reference(T * ref_val) {
+void jvm_push_reference(T * ref_val) {
 	cat1 top; top.ref_val = ref_val;
 	jvm_stack.push( top );
 }
