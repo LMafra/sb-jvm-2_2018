@@ -147,7 +147,7 @@ void exec_jvm_ior();  // Ok, not tested.
 void exec_jvm_lor();  // Ok, not tested.
 void exec_jvm_ixor();  // Ok, not tested.
 void exec_jvm_lxor();  // Ok, not tested.
-void exec_jvm_iinc();  // Ok, not tested.
+void exec_jvm_iinc();  // Ok, not tested. [Fixed 2443]
 #include "instr5.cpp"
 
 // 6
@@ -191,7 +191,7 @@ void exec_jvm_if_acmpne();  // Ok, not tested.
 #include "instr7.cpp"
 
 // 8
-void exec_jvm_goto();
+void exec_jvm_goto(); // Ok, not tested
 void exec_jvm_jsr();
 void exec_jvm_ret();
 void exec_jvm_tableswitch();
@@ -225,9 +225,9 @@ void exec_jvm_monitorenter();
 void exec_jvm_monitorexit();
 void exec_jvm_wide();
 void exec_jvm_multianewarray();
-void exec_jvm_ifnull();
-void exec_jvm_ifnonnull();
-void exec_jvm_goto_w();
+void exec_jvm_ifnull(); // Ok, not tested
+void exec_jvm_ifnonnull();  // Ok, not tested
+void exec_jvm_goto_w(); // Ok, not tested
 void exec_jvm_jsr_w();
 void exec_jvm_breakpoint();
 void exec_jvm_impdep1();
