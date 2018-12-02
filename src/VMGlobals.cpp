@@ -93,7 +93,7 @@ void jvm_push(T val) {
 }
 
 template <typename T>
-void jvm_push_reference(T * ref_val) {
+void push_reference(T * ref_val) {
 	cat1 top; top.ref_val = ref_val;
 	jvm_stack.push( top );
 }

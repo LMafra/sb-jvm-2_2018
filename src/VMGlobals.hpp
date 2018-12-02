@@ -5,6 +5,7 @@
 #include <set>
 #include <map>
 #include <cmath>
+#include <array>
 #include "UsingUs.hpp"
 #include "ClassFileStructures/ClassFile.hpp"
 #define popcat1 pop_cat1
@@ -17,11 +18,15 @@
 #define jvm_pop_reference pop_reference 
 #define jvm_pop_address pop_reference 
 #define pop_address pop_reference
-
+#define jvm_push_reference push_reference
 const double NaN = nan("");
 // extern class Instance;
 
-
+struct Array_instance {
+  int size;
+  void * data;
+  Array_instance(int qtd, int ){size=qtd; data = calloc(size, sizeof(void*));}
+};
 
 class Instance {public:
   static Instance * instance_allocator(int);
@@ -77,8 +82,7 @@ template <class T>
 void jvm_push(T val);
 
 template <class T>
-void jvm_push_reference(T * val);
-
+void push_reference(T * val);
 
 // #############################
 #include  "VMGlobals.cpp"

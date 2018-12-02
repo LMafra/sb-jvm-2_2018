@@ -23,9 +23,9 @@ void exec_jvm_sipush(); // Ok, not tested.
 
 // 1. Maffei. Testar
 void exec_jvm_ldc();  // Ok, not tested.
-void exec_jvm_ldc_w();
-void exec_jvm_ldc2_w();
-void exec_jvm_iload();
+void exec_jvm_ldc_w();  // Ok, not tested.
+void exec_jvm_ldc2_w(); // Ok, worked.
+void exec_jvm_iload();  // Ok, not tested.
 void exec_jvm_iload_0();  // Ok, not tested.
 void exec_jvm_iload_1();  // Ok, not tested.
 void exec_jvm_iload_2();  // Ok, not tested.
@@ -48,12 +48,12 @@ void exec_jvm_dload_3();  // Ok, not tested.
 #include "instr1.cpp"
 
 // 2
-void exec_jvm_aload();
-void exec_jvm_aload_0();
-void exec_jvm_aload_1();
-void exec_jvm_aload_2();
-void exec_jvm_aload_3();
-void exec_jvm_iaload();
+void exec_jvm_aload();  // Ok, not tested.
+void exec_jvm_aload_0();  // Ok, not tested.
+void exec_jvm_aload_1();  // Ok, not tested.
+void exec_jvm_aload_2();  // Ok, not tested.
+void exec_jvm_aload_3();  // Ok, not tested.
+void exec_jvm_iaload(); // Ok, tested.
 void exec_jvm_faload();
 void exec_jvm_daload();
 void exec_jvm_aaload();

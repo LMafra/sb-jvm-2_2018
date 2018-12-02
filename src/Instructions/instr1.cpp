@@ -4,11 +4,11 @@
 
 // maffei & arthur
 /// Push item from run-time constant pool.
-void exec_jvm_ldc(){
+static void ldc_X(u2 index) {
   cat1 auxie;
   Instance * current_instance = frame_stack.top().inst;
   ClassFile * my_class = current_instance->my_class_ptr;
-  u1 index = instrparam(1);
+
   cp_info * cp_entry = &my_class->constant_pool[index];
   u1 tag = ((CONSTANT_Class_info*)cp_entry)->tag;
   switch (tag) {
@@ -26,8 +26,17 @@ void exec_jvm_ldc(){
   }
 }
 
-void exec_jvm_ldc_w(){
+void exec_jvm_ldc(){
+  u1 index = instrparam(1);
+  ldc_X(index);
+  incpc(1+1);
+}
 
+void exec_jvm_ldc_w(){
+  u2 index = instrparam(1);
+  index = index << 8 | instrparam(2);
+  ldc_X(index);
+  incpc(1+2);
 }
 
 void exec_jvm_ldc2_w(){
@@ -43,20 +52,22 @@ void exec_jvm_ldc2_w(){
 // maffei
 /// Empilha em jvm_stack a variável na N-ehsima posicao do vetor de variaveis locais.
 /// É chamada pelas instruções iload_<n> da jvm.
-inline static void exec_jvm_iload_X(u1 N) {
+inline static void iload_X(u1 N) {
   jvm_push( frame_stack.top().variaveis_locais[N] );
 }
 void exec_jvm_iload() {
-
+  u1 index = instrparam(1);
+  iload_X(index);
+  incpc(1 + 1);
 }
-void exec_jvm_iload_0() {exec_jvm_iload_X((u1)0);incpc(1);}
-void exec_jvm_iload_1() {exec_jvm_iload_X((u1)1);incpc(1);}
-void exec_jvm_iload_2() {exec_jvm_iload_X((u1)2);incpc(1);}
-void exec_jvm_iload_3() {exec_jvm_iload_X((u1)3);incpc(1);}
+void exec_jvm_iload_0() {iload_X((u1)0);incpc(1);}
+void exec_jvm_iload_1() {iload_X((u1)1);incpc(1);}
+void exec_jvm_iload_2() {iload_X((u1)2);incpc(1);}
+void exec_jvm_iload_3() {iload_X((u1)3);incpc(1);}
 
 // maffei
 /// empilha um long do vetor de variaveis locais
-inline static void exec_jvm_lload_X(u1 N) {exec_jvm_iload_X(N); exec_jvm_iload_X(N+1);}
+inline static void exec_jvm_lload_X(u1 N) {iload_X(N); iload_X(N+1);}
 
 void exec_jvm_lload() {
 }
@@ -67,7 +78,7 @@ void exec_jvm_lload_3(){exec_jvm_lload_X((u1)3);incpc(1);}
 
 // maffei
 /// empilha um float do vetor de variaveis locais
-inline static void exec_jvm_fload_X(u1 N) {exec_jvm_iload_X(N);}
+inline static void exec_jvm_fload_X(u1 N) {iload_X(N);}
 void exec_jvm_fload() {
 
 }
@@ -83,8 +94,8 @@ void exec_jvm_dload_X(u1 N){
   ((u4*)&auxdb)[1]=frame_stack.top().variaveis_locais[N].val;
   ((u4*)&auxdb)[0]=frame_stack.top().variaveis_locais[N+1].val;
   Dprintf("%lf\n", auxdb);
-  exec_jvm_iload_X(N);
-  exec_jvm_iload_X(N+1);
+  iload_X(N);
+  iload_X(N+1);
 }
 void exec_jvm_dload(){
   u1 index = instrparam(1);
