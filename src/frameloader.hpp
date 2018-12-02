@@ -157,7 +157,6 @@ void instance_frame_loader_interpreter(int indexname, int indextype, int indexcl
 
 	topush.variaveis_locais = (cat1*)malloc( (*(Code_attribute *)&calledinfo->attributes[0]).max_locals * sizeof(cat1) );
 	
-	calledinfo;
 	
 	Dprintf("debug fl7 2\n");
 	if (calledinfo->access_flags & enum_method_access_flags::ACC_STATIC){
@@ -261,7 +260,6 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 
 	
 	DDprintf("debug fl7\n");
-	calledinfo;
 	
 	if (calledinfo->access_flags & enum_method_access_flags::ACC_STATIC){
 		DDprintf("debug fl static\n");
