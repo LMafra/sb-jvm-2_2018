@@ -33,7 +33,7 @@ void exec_jvm_ldc_w(){
 void exec_jvm_ldc2_w(){
   cp_info * cp = (cp_info *)frame_stack.top().inst->my_class_ptr->constant_pool;
   u2 index = offset16_from_instr();
-  printf("debug ldc2_w index %d\n", index);
+  Dprintf("debug ldc2_w index %d\n", index);
   CONSTANT_Double_info * double_info = (CONSTANT_Double_info *)&cp[index];
   push_cat1(double_info->high_bytes);  push_cat1(double_info->low_bytes);
   incpc(3);
@@ -82,7 +82,7 @@ void exec_jvm_dload_X(u1 N){
   double auxdb;
   ((u4*)&auxdb)[1]=frame_stack.top().variaveis_locais[N].val;
   ((u4*)&auxdb)[0]=frame_stack.top().variaveis_locais[N+1].val;
-  printf("%lf\n", auxdb);
+  Dprintf("%lf\n", auxdb);
   exec_jvm_iload_X(N);
   exec_jvm_iload_X(N+1);
 }

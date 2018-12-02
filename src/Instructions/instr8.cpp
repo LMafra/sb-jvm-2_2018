@@ -52,7 +52,7 @@ void exec_jvm_areturn(){
 void exec_jvm_return(){
 	PC = frame_stack.top().PC_retorno;
 	if(PC==NULL){
-		printf("debug null pointer return\n");
+		Dprintf("debug null pointer return\n");
 	}
 	frame_stack.pop();
 }
@@ -115,7 +115,7 @@ cat1 * argument_prepare(char * descriptor){
 	return args;
 }
 void exec_jvm_invokevirtual(){
-	printf("debug invokespecial\n");
+	Dprintf("debug invokespecial\n");
 	u1 indexbyte1 = instrparam(1);
 	u1 indexbyte2 = instrparam(2);
 	u2 index;
@@ -139,7 +139,7 @@ void exec_jvm_invokevirtual(){
 
 }
 void exec_jvm_invokespecial(){
-	printf("debug invokespecial\n");
+	Dprintf("debug invokespecial\n");
 	u1 indexbyte1 = instrparam(1);
 	u1 indexbyte2 = instrparam(2);
 	u2 index;

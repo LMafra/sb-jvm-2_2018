@@ -34,7 +34,7 @@ static void dstore(int index) {
 	double auxiedb;
 	((u4*)&auxiedb)[0]=value2;
 	((u4*)&auxiedb)[1]=value1;
-	printf("debug dstore %lf\n", auxiedb);
+	Dprintf("debug dstore %lf\n", auxiedb);
 }
 void exec_jvm_dstore(){
   u1 index = instrparam(1);
