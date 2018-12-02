@@ -41,7 +41,11 @@ u4 pop_cat1() {
 u8 pop_cat2() {
 	u4 low = jvm_stack.top().val; jvm_stack.pop();
 	u4 high = jvm_stack.top().val; jvm_stack.pop();
-	return (*(u8*)&high) << 32 | *(u8*)&low;
+	u8 buffer;
+	((u4*)&buffer)[0]=low;
+	((u4*)&buffer)[1]=high;
+
+	return buffer;
 }
 
 void push_cat1(u4 val) {

@@ -43,6 +43,7 @@ void exec_jvm_dadd(){
     memcpy(&dvalue2,&aux2,sizeof(u8));
     memcpy(&dvalue1,&aux1,sizeof(u8));
     double dresult = dvalue1+dvalue2;
+    printf("%lf = %lf + %lf\n", dresult,dvalue1,dvalue2);
 	u8 result;
 	memcpy(&result,&dresult,sizeof(u8));
     pushcat2(result);
@@ -86,7 +87,7 @@ void exec_jvm_dsub(){
     double dvalue1;
     memcpy(&dvalue2,&aux2,sizeof(u8));
     memcpy(&dvalue1,&aux1,sizeof(u8));
-    double dresult = dvalue1+dvalue2;
+    double dresult = dvalue1-dvalue2;
 	u8 result;
 	memcpy(&result,&dresult,sizeof(u8));
     pushcat2(result);

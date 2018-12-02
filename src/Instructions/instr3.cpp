@@ -25,11 +25,16 @@ void exec_jvm_fstore_2(){}
 void exec_jvm_fstore_3(){}
 
 static void dstore(int index) {
-  cp_info * cp = frame_stack.top().inst->my_class_ptr->constant_pool;
-  CONSTANT_Double_info * doublee = (CONSTANT_Double_info *)&cp[index];
-  u8 res = doublee->high_bytes;
-  res = res << 32 | doublee->low_bytes;
-  push_cat2(res);
+	u4 value1;
+	u4 value2;
+	value2 = pop_cat1();
+	value1 = pop_cat1();
+	frame_stack.top().variaveis_locais[index].val=value1;
+	frame_stack.top().variaveis_locais[index+1].val=value2;
+	double auxiedb;
+	((u4*)&auxiedb)[0]=value2;
+	((u4*)&auxiedb)[1]=value1;
+	printf("debug dstore %lf\n", auxiedb);
 }
 void exec_jvm_dstore(){
   u1 index = instrparam(1);
