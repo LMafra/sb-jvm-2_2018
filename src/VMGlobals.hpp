@@ -17,14 +17,7 @@
 #define jvm_pop_reference pop_reference 
 #define jvm_pop_address pop_reference 
 #define pop_address pop_reference
-#if DEBUG
-  #ifndef DEBUG_PRINT
-    #define DEBUG_PRINT
-    auto Dprintf = printf;
-  #endif
-#else
-  #define Dprintf 
-#endif
+
 const double NaN = nan("");
 // extern class Instance;
 

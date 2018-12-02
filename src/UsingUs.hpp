@@ -3,6 +3,8 @@
 #pragma once
 #include <cstdint>
 #include <stdio.h>
+void inline _(const char * x, ...)noexcept{}
+
 
 #ifdef DEBUG
   #ifndef DDEBUG_PRINT
@@ -10,7 +12,7 @@
     auto DDprintf = printf;
   #endif
 #else
-  #define Dprintf 
+  #define Dprintf _
 #endif
 
 
@@ -20,7 +22,7 @@
     auto Dprintf = printf;
   #endif
 #else
-  #define DDprintf 
+  #define DDprintf _
 #endif
 
 
