@@ -1,5 +1,31 @@
 #pragma once
 #include "../UsingUs.hpp"
+#include "../VMGlobals.hpp"
+// Obs: _wide é para adicionar suporte à execução da instrução modificadora wide.
+enum Helper{
+  ZERO = 0,
+  ONE = 1,
+  TWO = 2,
+  THREE = 3,
+  NOT_WIDE = 4,
+  WIDE = 5
+};
+
+void load_addr(Helper, cat1 * );
+void load_64(Helper, cat1 * );
+void load_32(Helper, cat1 * );
+auto load_16 = load_32;
+auto load_8 = load_32;
+
+void store_addr(Helper, cat1 * );
+void store_64(Helper, cat1 * );
+void store_32(Helper, cat1 * );
+auto store_16 = store_32;
+auto store_8 = store_32;
+
+
+#include "instructions.cpp"
+
 // 0
 void exec_jvm_nop();  // Ok, not tested
 void exec_jvm_aconst_null();  // Ok, not tested.
@@ -54,47 +80,47 @@ void exec_jvm_aload_1();  // Ok, not tested.
 void exec_jvm_aload_2();  // Ok, not tested.
 void exec_jvm_aload_3();  // Ok, not tested.
 void exec_jvm_iaload(); // Ok, tested.
-void exec_jvm_faload();
-void exec_jvm_daload();
-void exec_jvm_aaload();
-void exec_jvm_baload();
-void exec_jvm_caload();
-void exec_jvm_saload();
+void exec_jvm_faload(); // Ok, not tested.
+void exec_jvm_daload(); // Ok, not tested.
+void exec_jvm_aaload(); // Ok, not tested.
+void exec_jvm_baload(); // Ok, not tested.
+void exec_jvm_caload(); // Ok, not tested.
+void exec_jvm_saload(); // Ok, not tested.
 #include "instr2.cpp"
 
 // 3
-void exec_jvm_istore();
-void exec_jvm_lstore();
-void exec_jvm_fstore();
-void exec_jvm_dstore();
-void exec_jvm_astore();
-void exec_jvm_istore_0();
-void exec_jvm_istore_1();
-void exec_jvm_istore_2();
-void exec_jvm_istore_3();
-void exec_jvm_lstore_0();
-void exec_jvm_lstore_1();
-void exec_jvm_lstore_2();
-void exec_jvm_lstore_3();
-void exec_jvm_fstore_0();
-void exec_jvm_fstore_1();
-void exec_jvm_fstore_2();
-void exec_jvm_fstore_3();
-void exec_jvm_dstore_0();
-void exec_jvm_dstore_1();
-void exec_jvm_dstore_2();
-void exec_jvm_dstore_3();
-void exec_jvm_astore_0();
-void exec_jvm_astore_1();
-void exec_jvm_astore_2();
-void exec_jvm_astore_3();
-void exec_jvm_iastore();
-void exec_jvm_lastore();
-void exec_jvm_fastore();
-void exec_jvm_dastore();
+void exec_jvm_istore(); // Ok, not tested.
+void exec_jvm_istore_0(); // Ok, not tested.
+void exec_jvm_istore_1(); // Ok, not tested.
+void exec_jvm_istore_2(); // Ok, not tested.
+void exec_jvm_istore_3(); // Ok, not tested.
+void exec_jvm_lstore(); // Ok, not tested.
+void exec_jvm_lstore_0(); // Ok, not tested.
+void exec_jvm_lstore_1(); // Ok, not tested.
+void exec_jvm_lstore_2(); // Ok, not tested.
+void exec_jvm_lstore_3(); // Ok, not tested.
+void exec_jvm_fstore(); // Ok, not tested.
+void exec_jvm_fstore_0(); // Ok, not tested.
+void exec_jvm_fstore_1(); // Ok, not tested.
+void exec_jvm_fstore_2(); // Ok, not tested.
+void exec_jvm_fstore_3(); // Ok, not tested.
+void exec_jvm_astore();  // Ok, not tested.
+void exec_jvm_astore_0();  // Ok, not tested.
+void exec_jvm_astore_1();  // Ok, not tested.
+void exec_jvm_astore_2();  // Ok, not tested.
+void exec_jvm_astore_3();  // Ok, not tested.
+void exec_jvm_dstore(); // Ok, not tested.
+void exec_jvm_dstore_0(); // Ok, not tested.
+void exec_jvm_dstore_1(); // Ok, not tested.
+void exec_jvm_dstore_2(); // Ok, not tested.
+void exec_jvm_dstore_3(); // Ok, not tested.
 #include "instr3.cpp"
 
 // 4
+void exec_jvm_iastore();  // Ok, not tested.
+void exec_jvm_lastore();  // Ok, not tested.
+void exec_jvm_fastore();  // Ok, not tested.
+void exec_jvm_dastore();  // Ok, not tested.
 void exec_jvm_aastore();
 void exec_jvm_bastore();
 void exec_jvm_castore();
