@@ -207,8 +207,8 @@ void exec_jvm_frem(){
     memcpy(&fvalue2,&aux2,sizeof(u4));
     memcpy(&fvalue1,&aux1,sizeof(u4));
     float fresult = fmodf(fvalue1,fvalue2);
-    memcpy(&result,&fresult,sizeof(u4));
-    pushcat1(result);
+    memcpy(&aux1,&fresult,sizeof(u4));
+    pushcat1(aux1);
     incpc(1);
 }
 
