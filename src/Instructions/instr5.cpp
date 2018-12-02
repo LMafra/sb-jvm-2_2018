@@ -200,19 +200,18 @@ void exec_jvm_lrem(){
     incpc(1);
 }
 void exec_jvm_frem(){
-	// u4 aux2 = popcat1();
-    // u4 aux1 = popcat1();
-    // float fvalue2;
-    // float fvalue1;
-    // memcpy(&fvalue2,&aux2,sizeof(u4));
-    // memcpy(&fvalue1,&aux1,sizeof(u4));
-    
-    // float fresult = fvalue1%fvalue2;
-	// u4 result;
-	// memcpy(&result,&fresult,sizeof(u4));
-    // pushcat1(result);
-    // incpc(1);
+    u4 aux2 = popcat1();
+    u4 aux1 = popcat1();
+    float fvalue2;
+    float fvalue1;
+    memcpy(&fvalue2,&aux2,sizeof(u4));
+    memcpy(&fvalue1,&aux1,sizeof(u4));
+    float fresult = fmodf(fvalue1,fvalue2);
+    memcpy(&result,&fresult,sizeof(u4));
+    pushcat1(result);
+    incpc(1);
 }
+
 void exec_jvm_drem(){
 	u8 aux2 = popcat2();
     u8 aux1 = popcat2();
