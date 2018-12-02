@@ -182,23 +182,34 @@ Instance * Instance::instance_allocator(int class_info_index ) {
 	(CONSTANT_Utf8_info *)&class_current_frame->constant_pool[class_info->name_index];
 
 	string str( (char*)class_name->bytes, class_name->length );
+	#ifdef DEBUG
 	std::cerr << " Allocating space for instance of ==> " << str << std::endl;
+	#endif
 
+	#ifdef DEBUG
 	printf("debug seg1\n");
+	#endif
 
 	if(method_area[ jvm_class_method_area_index[str.c_str()] ] != class_current_frame) {
+	#ifdef DEBUG
 	printf("debug seg2\n");
 		printf("DEU RUIM NO INSTANCE ALLOCATOR!! Ponteiro do frame corrente não bate com method_area\n");
+		#endif
 		throw "DEU RUIM NO INSTANCE ALLOCATOR!! Ponteiro do frame corrente não bate com method_area\n";
+
 	}
+	#ifdef DEBUG
 	printf("debug seg3\n");
+	#endif
 	neww->my_class_ptr = method_area[ jvm_class_method_area_index[str.c_str()] ];
 
 	field_info * neww_fields =
 		(field_info*)calloc( neww->my_class_ptr->fields_count, sizeof(field_info) );
 	field_info * my_class_fields = (field_info *)neww->my_class_ptr->fields;
 
+	#ifdef DEBUG
 	printf("debug seg4\n");
+	#endif
 	for(auto i = 0 ; i < neww->my_class_ptr->fields_count; i++) {
 		// neww_fields[i] = (field_info*) calloc(1, sizeof(field_info));
 
@@ -211,9 +222,13 @@ Instance * Instance::instance_allocator(int class_info_index ) {
 			memcpy(&neww_fields[i].attributes[jj], &my_class_fields[i].attributes[jj], sizeof(attribute_info));
 		}
 	}
+	#ifdef DEBUG
 	printf("debug seg5\n");
+	#endif
 	neww->my_attributes = neww_fields;
 
+	#ifdef DEBUG
 	printf("debug seg6\n");
+	#endif
 	return neww;
 }
