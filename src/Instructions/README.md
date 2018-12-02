@@ -1,4 +1,4 @@
-Nesta pasta, encontram-se os arquivos nos quais estão implementadas as instruções informadas no arquivo header [instrucoes.hpp](instrucoes.hpp).
+Nesta pasta, encontram-se os arquivos nos quais estão implementadas as instruções informadas no arquivo header [instructions.hpp](instructions.hpp).
 
 As implementações das funções do referido arquivo estão nos arquivos abaixo:
 
