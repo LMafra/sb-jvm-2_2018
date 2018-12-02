@@ -99,18 +99,19 @@ void exec_jvm_dconst_1(){
   incpc(1);
 }
 
-// Gabiel Bessa
+// Gabiel Bessa [fixed maffei]
 void exec_jvm_bipush(){
   u1 par = instrparam(1);
   jvm_push((int) par);
-  incpc(1);
+  incpc(1 + 1);
 }
 
-// Gabiel Bessa
+// Gabiel Bessa [fixed maffei]
 void exec_jvm_sipush(){
-  unsigned int b1 = 0, b2 = 0;
-  short intermediate;
-  intermediate = short (b1 << 8) | b2;
-  jvm_push(intermediate);
-  incpc(1);
+  u1 b1 = instrparam(1), b2 = instrparam(2);
+  u2 intermediate = b1;
+  intermediate = intermediate << 8 | b2;
+  int result = (int)intermediate;
+  jvm_push(result);
+  incpc(1 + 2);
 }
