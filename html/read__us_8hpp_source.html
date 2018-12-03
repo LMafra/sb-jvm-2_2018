@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>Java Virtual Machine: Código-Fonte de src/ReaderFiles/read_us.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Java Virtual Machine
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="pages.html"><span>Páginas&#160;relacionadas</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Membros&#160;dos&#160;Ficheiros</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_bb8379bb5f792ac5b28152a9c22b0d50.html">ReaderFiles</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">read_us.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="read__us_8hpp.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cstdio&gt;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="read__us_8hpp.html#a4e9e1e86741ccbe5c87f80ef0d0e16fd">    6</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="read__us_8hpp.html#a4e9e1e86741ccbe5c87f80ef0d0e16fd">read_us</a>(<span class="keywordtype">void</span>* buf, <span class="keywordtype">int</span> n , FILE * <a class="code" href="namespacefill__from.html#aa13f4bb9d9a35c64b3cc85ccfab13824">f</a>) {</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  <a class="code" href="UsingUs_8hpp.html#a162f47a77ee24f6f77cd8c82ccd40ab7">u1</a>* ptr = (<a class="code" href="UsingUs_8hpp.html#a162f47a77ee24f6f77cd8c82ccd40ab7">u1</a>*)buf;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="keywordflow">for</span>(<span class="keywordtype">int</span> <a class="code" href="namespacefill__from.html#ac4b3c3f96ea17758df3f1de658c15314">i</a> = n-1; <a class="code" href="namespacefill__from.html#ac4b3c3f96ea17758df3f1de658c15314">i</a> &gt;= 0; <a class="code" href="namespacefill__from.html#ac4b3c3f96ea17758df3f1de658c15314">i</a>--) {</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    fread( &amp;ptr[<a class="code" href="namespacefill__from.html#ac4b3c3f96ea17758df3f1de658c15314">i</a>], 1, 1, f );</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  }</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div><div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="read__us_8hpp.html#a9ee22dacad80ca4c1c8480ace2096650">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="read__us_8hpp.html#a9ee22dacad80ca4c1c8480ace2096650">read_usstring</a>(<span class="keywordtype">void</span>* buf, <span class="keywordtype">int</span> n , FILE * <a class="code" href="namespacefill__from.html#aa13f4bb9d9a35c64b3cc85ccfab13824">f</a>) {</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <a class="code" href="UsingUs_8hpp.html#a162f47a77ee24f6f77cd8c82ccd40ab7">u1</a>* ptr = (<a class="code" href="UsingUs_8hpp.html#a162f47a77ee24f6f77cd8c82ccd40ab7">u1</a>*)buf;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keywordflow">for</span>(<span class="keywordtype">int</span> <a class="code" href="namespacefill__from.html#ac4b3c3f96ea17758df3f1de658c15314">i</a> = 0; <a class="code" href="namespacefill__from.html#ac4b3c3f96ea17758df3f1de658c15314">i</a> &lt;= n-1; <a class="code" href="namespacefill__from.html#ac4b3c3f96ea17758df3f1de658c15314">i</a>++) {</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    fread( &amp;ptr[<a class="code" href="namespacefill__from.html#ac4b3c3f96ea17758df3f1de658c15314">i</a>], 1, 1, f );</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  }</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div><div class="ttc" id="read__us_8hpp_html_a4e9e1e86741ccbe5c87f80ef0d0e16fd"><div class="ttname"><a href="read__us_8hpp.html#a4e9e1e86741ccbe5c87f80ef0d0e16fd">read_us</a></div><div class="ttdeci">void read_us(void *buf, int n, FILE *f)</div><div class="ttdoc">Lê quantidade n de bytes do arquivo f e salva no buffer buf. </div><div class="ttdef"><b>Definition:</b> read_us.hpp:6</div></div>
+<div class="ttc" id="namespacefill__from_html_aa13f4bb9d9a35c64b3cc85ccfab13824"><div class="ttname"><a href="namespacefill__from.html#aa13f4bb9d9a35c64b3cc85ccfab13824">fill_from.f</a></div><div class="ttdeci">f</div><div class="ttdef"><b>Definition:</b> fill_from.py:6</div></div>
+<div class="ttc" id="read__us_8hpp_html_a9ee22dacad80ca4c1c8480ace2096650"><div class="ttname"><a href="read__us_8hpp.html#a9ee22dacad80ca4c1c8480ace2096650">read_usstring</a></div><div class="ttdeci">void read_usstring(void *buf, int n, FILE *f)</div><div class="ttdef"><b>Definition:</b> read_us.hpp:13</div></div>
+<div class="ttc" id="UsingUs_8hpp_html_a162f47a77ee24f6f77cd8c82ccd40ab7"><div class="ttname"><a href="UsingUs_8hpp.html#a162f47a77ee24f6f77cd8c82ccd40ab7">u1</a></div><div class="ttdeci">uint8_t u1</div><div class="ttdef"><b>Definition:</b> UsingUs.hpp:32</div></div>
+<div class="ttc" id="namespacefill__from_html_ac4b3c3f96ea17758df3f1de658c15314"><div class="ttname"><a href="namespacefill__from.html#ac4b3c3f96ea17758df3f1de658c15314">fill_from.i</a></div><div class="ttdeci">int i</div><div class="ttdef"><b>Definition:</b> fill_from.py:11</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>
