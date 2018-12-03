@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>Java Virtual Machine: Referência ao ficheiro src/ClassFileStructures/cp_info.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Java Virtual Machine
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="pages.html"><span>Páginas&#160;relacionadas</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Membros&#160;dos&#160;Ficheiros</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_db3fd4f390019c976624da3cdfb6c5f1.html">ClassFileStructures</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Componentes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerações</a>  </div>
+  <div class="headertitle">
+<div class="title">Referência ao ficheiro cp_info.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="UsingUs_8hpp_source.html">../UsingUs.hpp</a>&quot;</code><br />
+<code>#include &lt;cstdio&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &quot;<a class="el" href="cp__info_8cpp.html">cp_info.cpp</a>&quot;</code><br />
+</div>
+<p><a href="cp__info_8hpp_source.html">Ir para o código fonte deste ficheiro.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Componentes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__Class__info.html">CONSTANT_Class_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__Fieldref__info.html">CONSTANT_Fieldref_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__Methodref__info.html">CONSTANT_Methodref_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__InterfaceMethodref__info.html">CONSTANT_InterfaceMethodref_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__String__info.html">CONSTANT_String_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__Integer__info.html">CONSTANT_Integer_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__Float__info.html">CONSTANT_Float_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__Long__info.html">CONSTANT_Long_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__Double__info.html">CONSTANT_Double_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__NameAndType__info.html">CONSTANT_NameAndType_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCONSTANT__Utf8__info.html">CONSTANT_Utf8_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcp__info.html">cp_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a2e774cea8d981217d938363ff791b505"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#a2e774cea8d981217d938363ff791b505">TO_CLASS_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Class__info.html">CONSTANT_Class_info</a>*)&amp;</td></tr>
+<tr class="separator:a2e774cea8d981217d938363ff791b505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2244a4c29165231576d827a26d98981"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#ac2244a4c29165231576d827a26d98981">TO_FIELDREF_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Fieldref__info.html">CONSTANT_Fieldref_info</a>*)&amp;</td></tr>
+<tr class="separator:ac2244a4c29165231576d827a26d98981"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a413e22fcb69a0bff5048907cc63ba709"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#a413e22fcb69a0bff5048907cc63ba709">TO_METHODREF_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Methodref__info.html">CONSTANT_Methodref_info</a>*)&amp;</td></tr>
+<tr class="separator:a413e22fcb69a0bff5048907cc63ba709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8f19c38023576c6048312e9dfb09ce5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#ab8f19c38023576c6048312e9dfb09ce5">TO_INTERFACEMETHODREF_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__InterfaceMethodref__info.html">CONSTANT_InterfaceMethodref_info</a>*)&amp;</td></tr>
+<tr class="separator:ab8f19c38023576c6048312e9dfb09ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee9f233df8397551571c5399f65f3aa6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#aee9f233df8397551571c5399f65f3aa6">TO_STRING_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__String__info.html">CONSTANT_String_info</a>*)&amp;</td></tr>
+<tr class="separator:aee9f233df8397551571c5399f65f3aa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e39f7ec4e0db595bb381b4087731cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#ae3e39f7ec4e0db595bb381b4087731cf">TO_INTEGER_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Integer__info.html">CONSTANT_Integer_info</a>*)&amp;</td></tr>
+<tr class="separator:ae3e39f7ec4e0db595bb381b4087731cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fabb668abdd5e15bef49a582cf87872"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#a6fabb668abdd5e15bef49a582cf87872">TO_FLOAT_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Float__info.html">CONSTANT_Float_info</a>*)&amp;</td></tr>
+<tr class="separator:a6fabb668abdd5e15bef49a582cf87872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c07c3a4014edcc2d35a50585759e1d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#a2c07c3a4014edcc2d35a50585759e1d6">TO_LONG_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Long__info.html">CONSTANT_Long_info</a>*)&amp;</td></tr>
+<tr class="separator:a2c07c3a4014edcc2d35a50585759e1d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcec18c25ca3cc346a22fbd8828ddd00"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#adcec18c25ca3cc346a22fbd8828ddd00">TO_UTF8_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Utf8__info.html">CONSTANT_Utf8_info</a>*)&amp;</td></tr>
+<tr class="separator:adcec18c25ca3cc346a22fbd8828ddd00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c94f5435af83f0d4b131b1d14b068e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#a1c94f5435af83f0d4b131b1d14b068e5">TO_NAMEANDTYPE_INFO</a>&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__NameAndType__info.html">CONSTANT_NameAndType_info</a>*)&amp;</td></tr>
+<tr class="separator:a1c94f5435af83f0d4b131b1d14b068e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb4cd2476aceaf88a9be2b1e89f8dc85"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#afb4cd2476aceaf88a9be2b1e89f8dc85">DOUBLE_FREE</a>&#160;&#160;&#160;&quot;error: <a class="el" href="instr4_8cpp.html#a1d1cfd8ffb84e947f82999c682b666a7a33465d1d419b1074fb259ef444609e92">DOUBLE</a> FREE AT &quot;</td></tr>
+<tr class="separator:afb4cd2476aceaf88a9be2b1e89f8dc85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerações</h2></td></tr>
+<tr class="memitem:a81920fcfb31f08f41cf8cedfe811eb23"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23">enum_cp_tags</a> { <br />
+&#160;&#160;<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a0c47012a59af298b394855447822a7e3">CONSTANT_Class</a> = 7, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a6f435c620d73f5e9366149665dc8ec6e">CONSTANT_Fieldref</a> = 9, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a74af7140e84140c938fbf89e0c33eea8">CONSTANT_Methodref</a> = 10, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a49962b9b17bc2ab27647a398b8083828">CONSTANT_InterfaceMethodref</a> = 11, 
+<br />
+&#160;&#160;<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a2c4493d41b4f7ff5cf9f2846e1bb92e0">CONSTANT_String</a> = 8, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a211cf9d5f5f1416862052d4671ad440f">CONSTANT_Integer</a> = 3, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23aaef0ceec2622d1d49b45fbe54e406f21">CONSTANT_Float</a> = 4, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a1d98ddfe1f9abb18cf43bc2c1b74bdd5">CONSTANT_Long</a> = 5, 
+<br />
+&#160;&#160;<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a728b77a24433c54f6c8a0f613e50a2c5">CONSTANT_Double</a> = 6, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a80805f21212baf2079b2ab767e2ab061">CONSTANT_NameAndType</a> = 12, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a4100a823f09e364338e42951035432ed">CONSTANT_Utf8</a> = 1, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23ac9fdca41420c578c73fadfa67d4ae26a">CONSTANT_MethodHandle</a> = 15, 
+<br />
+&#160;&#160;<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a52dbe317b7b19ea9d13a8b185842d245">CONSTANT_MethodType</a> = 16, 
+<a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23a914abae8d35d480c7856e97ca4fc00e0">CONSTANT_InvokeDynamic</a> = 18
+<br />
+ }</td></tr>
+<tr class="separator:a81920fcfb31f08f41cf8cedfe811eb23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentação das macros</h2>
+<a class="anchor" id="afb4cd2476aceaf88a9be2b1e89f8dc85"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DOUBLE_FREE&#160;&#160;&#160;&quot;error: <a class="el" href="instr4_8cpp.html#a1d1cfd8ffb84e947f82999c682b666a7a33465d1d419b1074fb259ef444609e92">DOUBLE</a> FREE AT &quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2e774cea8d981217d938363ff791b505"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_CLASS_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Class__info.html">CONSTANT_Class_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac2244a4c29165231576d827a26d98981"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_FIELDREF_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Fieldref__info.html">CONSTANT_Fieldref_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6fabb668abdd5e15bef49a582cf87872"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_FLOAT_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Float__info.html">CONSTANT_Float_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae3e39f7ec4e0db595bb381b4087731cf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_INTEGER_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Integer__info.html">CONSTANT_Integer_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab8f19c38023576c6048312e9dfb09ce5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_INTERFACEMETHODREF_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__InterfaceMethodref__info.html">CONSTANT_InterfaceMethodref_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2c07c3a4014edcc2d35a50585759e1d6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_LONG_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Long__info.html">CONSTANT_Long_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a413e22fcb69a0bff5048907cc63ba709"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_METHODREF_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Methodref__info.html">CONSTANT_Methodref_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1c94f5435af83f0d4b131b1d14b068e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_NAMEANDTYPE_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__NameAndType__info.html">CONSTANT_NameAndType_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aee9f233df8397551571c5399f65f3aa6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_STRING_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__String__info.html">CONSTANT_String_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adcec18c25ca3cc346a22fbd8828ddd00"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TO_UTF8_INFO&#160;&#160;&#160;*(<a class="el" href="classCONSTANT__Utf8__info.html">CONSTANT_Utf8_info</a>*)&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Documentação dos valores da enumeração</h2>
+<a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="cp__info_8hpp.html#a81920fcfb31f08f41cf8cedfe811eb23">enum_cp_tags</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumerações</th></tr><tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a0c47012a59af298b394855447822a7e3"></a>CONSTANT_Class&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a6f435c620d73f5e9366149665dc8ec6e"></a>CONSTANT_Fieldref&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a74af7140e84140c938fbf89e0c33eea8"></a>CONSTANT_Methodref&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a49962b9b17bc2ab27647a398b8083828"></a>CONSTANT_InterfaceMethodref&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a2c4493d41b4f7ff5cf9f2846e1bb92e0"></a>CONSTANT_String&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a211cf9d5f5f1416862052d4671ad440f"></a>CONSTANT_Integer&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23aaef0ceec2622d1d49b45fbe54e406f21"></a>CONSTANT_Float&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a1d98ddfe1f9abb18cf43bc2c1b74bdd5"></a>CONSTANT_Long&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a728b77a24433c54f6c8a0f613e50a2c5"></a>CONSTANT_Double&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a80805f21212baf2079b2ab767e2ab061"></a>CONSTANT_NameAndType&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a4100a823f09e364338e42951035432ed"></a>CONSTANT_Utf8&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23ac9fdca41420c578c73fadfa67d4ae26a"></a>CONSTANT_MethodHandle&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a52dbe317b7b19ea9d13a8b185842d245"></a>CONSTANT_MethodType&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a81920fcfb31f08f41cf8cedfe811eb23a914abae8d35d480c7856e97ca4fc00e0"></a>CONSTANT_InvokeDynamic&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>
