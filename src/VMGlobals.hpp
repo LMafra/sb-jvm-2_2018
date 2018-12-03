@@ -22,10 +22,10 @@
 const double NaN = nan("");
 // extern class Instance;
 
-struct Array_instance {
-  int size;
+class Array_instance {public:
+  const int size;
   void * data;
-  Array_instance(int qtd, int ){size=qtd; data = calloc(size, sizeof(void*));}
+  Array_instance(int qtd):size(qtd){data = calloc(size, sizeof(void*));}
 };
 
 class Instance {public:
