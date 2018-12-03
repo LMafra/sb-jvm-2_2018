@@ -1,20 +1,58 @@
+/*
+* @file attribute_info.cpp
+* \brief Responsável pela leitura dos atributos do arquivo .class
+* @bug No know bugs.
+*/
+
+
 #include <stdio.h>
 #include "attribute_info.hpp"
 #include "../ReaderFiles/read_us.hpp"
 
+/** \brief É um atributo de comprimento fixo na tabela de atributos de uma estrutura
+ * field_info. Representa o valor de um campo constante.
+ *  @param f
+ * 	@see read_us
+ *  @return ...
+ */
+
 void ConstantValue_attribute  :: fill_from(FILE * f) {
+
 	read_us(&attribute_length, sizeof(attribute_length), f);
 	read_us(&constantvalue_index, sizeof(constantvalue_index), f);
 }
+
+/** \brief É um atributo de tamanho fixo opcional na tabela de atributos de uma estrutura 
+ * ClassFile, field_info ou method_info. Utilizado para indicar que a classe, interface, método ou 
+ * campo foi substituído. Não altera a semântica de uma classe ou interface.
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
 
 void Deprecated_attribute  :: fill_from(FILE * f) {
 	read_us(&attribute_length, sizeof(attribute_length), f);
 }
 
+/** \brief É um atributo opcional de comprimento fixo. O valor do index deve ser válido
+ * dentro da tabela constant_pool.
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
+
 void SourceFile_attribute  :: fill_from(FILE * f) {
 	read_us(&attribute_length, sizeof(attribute_length), f);
 	read_us(&sourcefile_index, sizeof(sourcefile_index), f);
 }
+
+/** \brief É um atributo opcional de comprimento variável dentro da tabela de um atributo 
+ * Code. Usado por depuradores para determinar qual parte da matriz de códigos da JVM 
+ * representa um determinado número de linha no arquivo de origem original.
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
 
 void LineNumberTable_attribute  :: fill_from(FILE * f) {
 	read_us(&attribute_length, sizeof(attribute_length), f);
@@ -25,6 +63,14 @@ void LineNumberTable_attribute  :: fill_from(FILE * f) {
 	}
 }
 
+/** \brief É um atributo opcional de comprimento variável dentro da tabela de um atributo
+ * Code. Usado por depuradores para determinar o valor de uma determinada variável local durante 
+ * a execução de uma determinada variável local durante a execução de um método.
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
+
 void LocalVariableTable_attribute  :: fill_from(FILE * f) {
 	read_us(&attribute_length, sizeof(attribute_length), f);
 	read_us(&local_variable_table_length, sizeof(local_variable_table_length), f);
@@ -34,10 +80,22 @@ void LocalVariableTable_attribute  :: fill_from(FILE * f) {
 	}
 }
 
+/** \brief ...
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
+
 void Line_number_table  :: fill_from(FILE * f) {
 	read_us(&start_pc, sizeof(start_pc), f);
 	read_us(&line_number, sizeof(line_number), f);
 }
+
+/** \brief ...
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
 
 void Local_variable_table  :: fill_from(FILE * f) {
 	read_us(&start_pc, sizeof(start_pc), f);
@@ -47,12 +105,26 @@ void Local_variable_table  :: fill_from(FILE * f) {
 	read_us(&index, sizeof(index), f);
 }
 
+/** \brief ...
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
+
 void Exception_Table  :: fill_from(FILE * f){
 	read_us(&start_pc, sizeof(start_pc), f);
   	read_us(&end_pc, sizeof(end_pc), f);
   	read_us(&handler_pc, sizeof(handler_pc), f);
   	read_us(&catch_type, sizeof(catch_type), f);
 }
+
+/** \brief É um atributo de comprimento variável na tabela de atributos de uma estrutura
+ * method_info. Contém as instruções e informações auxiliares da JVM para: um único método;
+ * método de inicialização da instância; ou método de inicialização de classe ou interface.
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
 
 void Code_attribute :: fill_from(FILE*f){
   	read_us(&attribute_length, sizeof(attribute_length), f);
@@ -69,6 +141,12 @@ void Code_attribute :: fill_from(FILE*f){
   	read_us(&attributes_count, sizeof(attributes_count), f);
 }
 
+/** \brief ...
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
+
 
 void Exceptions_attribute :: fill_from(FILE * f){
   	read_us(&attribute_length, sizeof(attribute_length), f);
@@ -79,6 +157,12 @@ void Exceptions_attribute :: fill_from(FILE * f){
 	}
 }
 
+/** \brief ...
+ *  @param f
+ * 	@see read_us ...
+ *  @return ...
+ */
+
 
 void Classes :: fill_from(FILE * f){
   	read_us(&inner_class_info_index, sizeof(inner_class_info_index), f);
@@ -87,7 +171,17 @@ void Classes :: fill_from(FILE * f){
   	read_us(&inner_class_access_flags, sizeof(inner_class_access_flags), f);
 };
 
+/** \brief Se a constant pool de uma classe contém uma entrada CONSTANT_Class_info que representa
+ * uma classe que não é membro de um pacote, a estrutura ClassFile deverá ter um atributo
+ * InnerClasses em sua tabela. Envia o arquivo f para read_us, onde é feito a leitura
+ * do número de bytes. 
+ *  @param f
+ * 	@see read_us 
+ *  @return 
+ */
+
 void InnerClasses_attribute :: fill_from(FILE * f){
+
   	read_us(&attribute_length, sizeof(attribute_length), f);
   	read_us(&number_of_classes, sizeof(number_of_classes), f);
 	classes = (Classes *)malloc( number_of_classes * sizeof( Classes ) );
