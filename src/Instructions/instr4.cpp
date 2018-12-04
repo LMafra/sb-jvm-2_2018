@@ -15,30 +15,24 @@ static void _astore32(Type t) {
 	Array_instance * ref = (Array_instance *)pop_reference();
   u1 one_byte = value; u2 two_byte = value;
 	switch (t) {
-		case Type::BYTE: memcpy( &( (char*)(ref->data)) [index], &one_byte, sizeof(char));break;
-		case Type::CHAR: memcpy( &( (char*)(ref->data)) [index], &one_byte, sizeof(char));break;
-		case Type::SHORT: memcpy( &( (short*)(ref->data)) [index], &two_byte, sizeof(short));break;
-		case Type::INT: memcpy( &( (int*)(ref->data)) [index], &value, sizeof(int));break;
-		case Type::FLOAT: memcpy( &( (float*)(ref->data)) [index], &value, sizeof(float));break;
+		case Type::BYTE: memcpy( &( (char*)(ref->data)) [index], &one_byte, sizeof(u1));break;
+		case Type::CHAR: memcpy( &( (char*)(ref->data)) [index], &one_byte, sizeof(u1));break;
+		case Type::SHORT: memcpy( &( (short*)(ref->data)) [index], &two_byte, sizeof(u2));break;
+		case Type::INT: memcpy( &( (int*)(ref->data)) [index], &value, sizeof(u4));break;
+		case Type::FLOAT: memcpy( &( (float*)(ref->data)) [index], &value, sizeof(u4));break;
 		default:
-			throw "Shouldn't be here";
-
-		case Type::LONG: ( (long*)(ref->data)) [index] = value;break;
-		case Type::DOUBLE: ( (double*)(ref->data)) [index] = value;break;
+			throw "Shouldn't be here [_astore32]";
 	}
 }
 
 static void _astore64(Type t) {
-	int value = pop_cat1();	int index = pop_cat1();
+	u8 value = pop_cat2();	int index = pop_cat1();
 	Array_instance * ref = (Array_instance *)pop_reference();
-
 	switch (t) {
-		case Type::INT: ( (int*)(ref->data)) [index] = value;
-		case Type::LONG: ( (long*)(ref->data)) [index] = value;
-		case Type::FLOAT: ( (float*)(ref->data)) [index] = value;
-		case Type::DOUBLE: ( (double*)(ref->data)) [index] = value;
+		case Type::LONG: memcpy( &( (long*)(ref->data))[index], &value, sizeof(u8));break;
+		case Type::DOUBLE: memcpy( &( (double*)(ref->data))[index], &value, sizeof(u8));break;
 		default:
-			throw "Shouldn't be here";
+			throw "Shouldn't be here [_astore64]";
 	}
 }
 static void _astore_ref() {
@@ -63,28 +57,10 @@ void exec_jvm_iastore(){_astore(Type::INT);}  // ok
 void exec_jvm_lastore(){_astore(Type::LONG);}
 void exec_jvm_fastore(){_astore(Type::FLOAT);}
 void exec_jvm_dastore(){_astore(Type::DOUBLE);}
-
-
-
-
-void exec_jvm_aastore(){
-
-}
-
-
-void exec_jvm_bastore(){
-
-}
-
-
-void exec_jvm_castore(){
-
-}
-
-
-void exec_jvm_sastore(){
-
-}
+void exec_jvm_aastore(){_astore(Type::DOUBLE);}
+void exec_jvm_bastore(){_astore(Type::BYTE);}
+void exec_jvm_castore(){_astore(Type::CHAR);}
+void exec_jvm_sastore(){_astore(Type::SHORT);}
 
 
 void exec_jvm_pop(){

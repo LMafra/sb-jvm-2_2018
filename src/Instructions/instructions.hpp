@@ -121,10 +121,10 @@ void exec_jvm_iastore();  // Ok, not tested.
 void exec_jvm_lastore();  // Ok, not tested.
 void exec_jvm_fastore();  // Ok, not tested.
 void exec_jvm_dastore();  // Ok, not tested.
-void exec_jvm_aastore();
-void exec_jvm_bastore();
-void exec_jvm_castore();
-void exec_jvm_sastore();
+void exec_jvm_aastore();  // Ok, not tested.
+void exec_jvm_bastore();  // Ok, not tested.
+void exec_jvm_castore();  // Ok, not tested.
+void exec_jvm_sastore();  // Ok, not tested.
 void exec_jvm_pop();
 void exec_jvm_pop2();
 void exec_jvm_dup();
