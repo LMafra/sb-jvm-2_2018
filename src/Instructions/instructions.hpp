@@ -22,7 +22,7 @@ enum enum_atype {
   T_SHORT = 9, T_INT = 10, T_LONG = 11
 };
 
-std::map<enum_atype, size_t> atype_size_dict;
+std::map<int, size_t> atype_size_dict;
 // Cuidar caso específico de array de bytes.
 void _init_atype_size_dict() {
   atype_size_dict[enum_atype::T_BOOLEAN] = sizeof(u1);
