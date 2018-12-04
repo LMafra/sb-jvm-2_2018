@@ -1,5 +1,5 @@
 #pragma once
-#include "../UsingUs.hpp"
+#include "../UsingUs.h"
 #include <stdlib.h>
 #include <stdio.h>
 using namespace std;

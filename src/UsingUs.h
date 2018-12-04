@@ -1,7 +1,7 @@
 /// Header contendo as macros para
 /// utilização de inteiros com tamanho padronizado.
 #pragma once
-#include <cstdint>
+#include <stdint.h>
 #include <stdio.h>
 void inline _(const char * x, ...)noexcept{}
 
@@ -29,7 +29,12 @@ void inline _(const char * x, ...)noexcept{}
 
 
 
-using u1 = uint8_t;
-using u2 = uint16_t;
-using u4 = uint32_t;
-using u8 = uint64_t;
+typedef uint8_t u1;
+typedef uint16_t u2;
+typedef uint32_t u4;
+typedef uint64_t u8;
+
+typedef int8_t int8;
+typedef int16_t int16;
+typedef int32_t int32;
+typedef int64_t int64;

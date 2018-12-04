@@ -6,7 +6,7 @@
 #include <map>
 #include <cmath>
 #include <array>
-#include "UsingUs.hpp"
+#include "UsingUs.h"
 #include "ClassFileStructures/ClassFile.hpp"
 #define popcat1 pop_cat1
 #define popcat2 pop_cat2
@@ -76,8 +76,8 @@ u8 pop_cat2();
 void push_cat1(u4);
 void push_cat2(u8);
 void * pop_reference();
-u2 offset16_from_stack();u4 offset32_from_stack();
-u2 offset16_from_instr(int);u4 offset32_from_instr(int);
+int16_t offset16_from_stack();int32_t offset32_from_stack();
+int16_t offset16_from_instr(int);int32_t offset32_from_instr(int);
 
 template <class T>
 void jvm_push(T val);

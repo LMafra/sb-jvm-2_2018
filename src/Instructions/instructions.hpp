@@ -1,5 +1,5 @@
 #pragma once
-#include "../UsingUs.hpp"
+#include "../UsingUs.h"
 #include "../VMGlobals.hpp"
 // Obs: _wide é para adicionar suporte à execução da instrução modificadora wide.
 enum Helper{
@@ -258,7 +258,7 @@ void exec_jvm_multianewarray();
 void exec_jvm_ifnull(); // Ok, not tested
 void exec_jvm_ifnonnull();  // Ok, not tested
 void exec_jvm_goto_w(); // Ok, not tested
-void exec_jvm_jsr_w();
+void exec_jvm_jsr_w();  // O, not tested
 void exec_jvm_breakpoint();
 void exec_jvm_impdep1();
 void exec_jvm_impdep2();

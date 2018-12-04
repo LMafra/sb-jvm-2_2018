@@ -5,7 +5,7 @@
 #include <set>
 #include <map>
 #include <string>
-#include "UsingUs.hpp"
+#include "UsingUs.h"
 #include "ClassFileStructures/ClassFile.hpp"
 #include  "VMGlobals.hpp"
 

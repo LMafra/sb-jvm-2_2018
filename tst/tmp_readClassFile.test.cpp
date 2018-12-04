@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include "../src/UsingUs.hpp"
+#include "../src/UsingUs.h"
 template <class T>
 void ttt(T* buf, size_t to_read, FILE * f) {
   // f = fopen("double_aritmetica.class", "rb");

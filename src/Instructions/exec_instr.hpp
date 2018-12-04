@@ -1,5 +1,5 @@
 #pragma once
-#include "../UsingUs.hpp"
+#include "../UsingUs.h"
 void exec_jvm_nop();
 void exec_jvm_aconst_null();
 void exec_jvm_iconst_m1();

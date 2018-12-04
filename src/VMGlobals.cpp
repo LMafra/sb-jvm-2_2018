@@ -1,5 +1,6 @@
 #pragma once
 
+#include "UsingUs.h"
 #include "VMGlobals.hpp"
 #include "ClassFileStructures/attribute_info.hpp"
 #include "ClassFileStructures/cp_info.hpp"
@@ -63,26 +64,26 @@ void * pop_reference() {
 	return addr;
 }
 
-u2 offset16_from_stack() {
-  // u1 branchbyte1 = pop_cat1();u1 branchbyte2 = pop_cat1(); 
-  return pop_cat1() << 8|pop_cat1();
+int16_t offset16_from_stack() {
+	u2 branch = 0; for(int i = 0; i < 2; i++)branch = branch << 8 | pop_cat1();
+	return branch;  // u2 branch = pop_cat1(); branch = branch << 8 | pop_cat1();
 }
 
-u4 offset32_from_stack() {
-  // u1 branchbyte1 = pop_cat1();u1 branchbyte2 = pop_cat1(); 
-  // u1 branchbyte3 = pop_cat1();u1 branchbyte4 = pop_cat1(); 
-  return pop_cat1()<<24|pop_cat1()<<16|pop_cat1()<<8|pop_cat1();
+int32_t offset32_from_stack() {
+	u4 branch = 0; for(int i = 0; i < 4; i++)branch = branch << 8 | pop_cat1();
+	return branch;  // return pop_cat1()<<24|pop_cat1()<<16|pop_cat1()<<8|pop_cat1();
 }
 
-u2 offset16_from_instr(int add = 0) {
-  // u1 branchbyte1 = pop_cat1();u1 branchbyte2 = pop_cat1(); 
+int16_t offset16_from_instr(int add = 0) {
+	u2 branch = 0; for(int i = 1; i < 3; i++)branch = branch << 8 | instrparam(i);
   return instrparam(1) << 8|instrparam(2);
+  // u1 branchbyte1 = pop_cat1();u1 branchbyte2 = pop_cat1(); 
 }
 
-u4 offset32_from_instr(int add = 0) {
-  // u1 branchbyte1 = pop_cat1();u1 branchbyte2 = pop_cat1(); 
-  // u1 branchbyte3 = pop_cat1();u1 branchbyte4 = pop_cat1(); 
-  return instrparam(1)<<24|instrparam(1)<<16|instrparam(2)<<8|instrparam(4);
+int32_t offset32_from_instr(int add = 0) {
+	u4 branch = 0; for(int i = 1; i < 3; i++)branch = branch << 8 | instrparam(i);
+	return branch;
+  // return instrparam(1)<<24|instrparam(1)<<16|instrparam(2)<<8|instrparam(4);
 }
 
 

@@ -1,11 +1,11 @@
 #include "instructions.hpp"
 #include "exec_instr.hpp"
-#include "../UsingUs.hpp"
+#include "../UsingUs.h"
 #include "../VMGlobals.hpp"
 #include <string.h>
 
 static void _astore32(Type t) {
-	int value = pop_cat1();	int index = pop_cat1();
+	int32_t value = pop_cat1();	int32_t index = pop_cat1();
 	Array_instance * ref = (Array_instance *)pop_reference();
   u1 one_byte = value; u2 two_byte = value;
 	switch (t) {
@@ -20,7 +20,7 @@ static void _astore32(Type t) {
 }
 
 static void _astore64(Type t) {
-	u8 value = pop_cat2();	int index = pop_cat1();
+	u8 value = pop_cat2();	int32_t index = pop_cat1();
 	Array_instance * ref = (Array_instance *)pop_reference();
 	switch (t) {
 		case Type::LONG: memcpy( &( (long*)(ref->data))[index], &value, sizeof(u8));break;

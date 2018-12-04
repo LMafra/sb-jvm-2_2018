@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
-#include "../UsingUs.hpp"
+#include "../UsingUs.h"
 #include "attribute_info.hpp"
 
 using namespace std;

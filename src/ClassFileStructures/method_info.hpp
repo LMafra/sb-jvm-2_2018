@@ -1,5 +1,5 @@
 #pragma once
-#include "../UsingUs.hpp"
+#include "../UsingUs.h"
 #include "attribute_info.hpp"
 
 class method_info {public:

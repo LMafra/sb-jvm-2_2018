@@ -1,5 +1,5 @@
 #pragma once
-#include "../UsingUs.hpp"
+#include "../UsingUs.h"
 #include "../VMGlobals.hpp"
 #include "../ClassFileStructures/ClassFile.hpp"
 #include "../ClassFileStructures/cp_info.hpp"

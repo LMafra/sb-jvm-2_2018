@@ -1,4 +1,4 @@
-#include "../UsingUs.hpp"
+#include "../UsingUs.h"
 #include "../VMGlobals.hpp"
 
 void exec_jvm_new() { 
@@ -54,6 +54,9 @@ void exec_jvm_goto_w() {
   incpc( offset32_from_instr() );
 }
 void exec_jvm_jsr_w() { 
+  int index = offset16_from_instr();
+  jvm_push_reference( &PC[3] );
+  increment_pc( index );
 
 }
 void exec_jvm_breakpoint() { 

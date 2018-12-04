@@ -1,6 +1,6 @@
 #include "instructions.hpp"
 #include "exec_instr.hpp"
-#include "../UsingUs.hpp"
+#include "../UsingUs.h"
 #include "../VMGlobals.hpp"
 #include <string.h>
 

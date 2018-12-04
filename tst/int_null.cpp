@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../src/UsingUs.hpp"
+#include "../src/UsingUs.h"
 
 
 int main() {
