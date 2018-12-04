@@ -36,30 +36,33 @@ void exec_jvm_lookupswitch(){
 }
 
 static void _return() {
-	Frame_type * frame = &frame_stack.top();
-	PC = frame->PC_retorno;
-	size_t remove_qtd = jvm_stack.size() - frame->initial_stack_size;
+	Frame_type * frame = &frame_stack.top();	// Variavel auxiliar
+	PC = frame->PC_retorno;	// restaura pc para funcao que o chamou
+	size_t remove_qtd = jvm_stack.size() - frame->initial_stack_size;	
+	printf("Se deu segfault logo apohs essa linha, faltou inicializar o valor initial_stac_size do frame corrente :/\n");
+	printf("Esta mensagem se encontra no arquivo instr8.cpp\n");
 	for(int i = 0; i < remove_qtd; i++) jvm_stack.pop();
 	if(PC==NULL)Dprintf("debug null pointer return\n");
 	frame_stack.pop();
 }
-
-static void return32() {
+static void _return32() {
 	u4 ret = popcat1();	_return();	push_cat1(ret);
 }
-static void return64() {
+static void _return64() {
 	u8 ret = popcat2();	_return();	push_cat2(ret);
 }
-void exec_jvm_ireturn(){return32();}
-void exec_jvm_lreturn(){return64();}
-void exec_jvm_freturn(){return32();}
-void exec_jvm_dreturn(){return64();}
+
+// maffei
+void exec_jvm_ireturn(){_return32();}
+void exec_jvm_lreturn(){_return64();}
+void exec_jvm_freturn(){_return32();}
+void exec_jvm_dreturn(){_return64();}
 void exec_jvm_areturn(){
 	void * ref = pop_reference();	_return();push_reference(ref);
 }
 void exec_jvm_return(){_return();}
 
-
+//
 void exec_jvm_getstatic(){
   u2 index = offset16_from_instr();
   Frame_type * frame = &frame_stack.top();
@@ -90,6 +93,7 @@ void exec_jvm_getfield(){
 void exec_jvm_putfield(){
 
 }
+// arthur
 cat1 * argument_prepare(char * descriptor){
 	int index =0;
 	int count =0;
@@ -117,6 +121,7 @@ cat1 * argument_prepare(char * descriptor){
 	}
 	return args;
 }
+// arthur
 void exec_jvm_invokevirtual(){
 	Dprintf("debug invokespecial\n");
 	u1 indexbyte1 = instrparam(1);
@@ -129,18 +134,21 @@ void exec_jvm_invokevirtual(){
 	CONSTANT_NameAndType_info * methodnat = (CONSTANT_NameAndType_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[methodcalled->name_and_type_index]);
 	CONSTANT_Utf8_info * methodtype = (CONSTANT_Utf8_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[methodnat->descriptor_index]);
 	char mettype[methodtype->length+1];
-	for(int i=0;i<methodtype->length;i++){
-		mettype[i]=methodtype->bytes[i];
-	}
+
+	memcpy( mettype, methodtype->bytes,  sizeof(char) * methodtype->length);
+	// for(int i=0;i<methodtype->length;i++){
+	// 	mettype[i]=methodtype->bytes[i];
+	// }
 	mettype[methodtype->length]='\0';
 
-	cat1 * argstopass = argument_prepare(mettype);
+	cat1 * args_to_pass = argument_prepare(mettype);
 
-	Instance * objectref = (Instance *)pop_address();
+	Instance * object_ref = (Instance *)pop_address();
 	incpc(3);
-	instance_frame_loader(index, objectref, argstopass);
+	instance_frame_loader(index, object_ref, args_to_pass);
 
 }
+// arthur
 void exec_jvm_invokespecial(){
 	Dprintf("debug invokespecial\n");
 	u1 indexbyte1 = instrparam(1);

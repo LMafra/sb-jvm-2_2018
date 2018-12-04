@@ -224,7 +224,7 @@ void exec_jvm_if_acmpne();  // Ok, not tested.
 void exec_jvm_goto(); // Ok, not tested
 void exec_jvm_jsr();  // Ok, not tested
 void exec_jvm_ret();  // Ok, not tested
-void exec_jvm_tableswitch();
+void exec_jvm_tableswitch();  // TO FINISH
 void exec_jvm_lookupswitch();
 void exec_jvm_ireturn();  // Ok, not tested.
 void exec_jvm_lreturn();  // Ok, not tested.
@@ -232,7 +232,7 @@ void exec_jvm_freturn();  // Ok, not tested.
 void exec_jvm_dreturn();  // Ok, not tested.
 void exec_jvm_areturn();  // Ok, not tested.
 void exec_jvm_return(); // Ok, not tested.
-void exec_jvm_getstatic();
+void exec_jvm_getstatic();  // TO FIX
 void exec_jvm_putstatic();
 void exec_jvm_getfield();
 void exec_jvm_putfield();
@@ -240,7 +240,7 @@ void exec_jvm_invokevirtual();
 void exec_jvm_invokespecial();
 void exec_jvm_invokestatic();
 void exec_jvm_invokeinterface();
-void exec_jvm_invokedynamic();
+void exec_jvm_invokedynamic();  // nao precisa fazer
 #include "instr8.cpp"
 
 // 9
@@ -251,8 +251,8 @@ void exec_jvm_arraylength();
 void exec_jvm_athrow();
 void exec_jvm_checkcast();
 void exec_jvm_instanceof();
-void exec_jvm_monitorenter();
-void exec_jvm_monitorexit();
+void exec_jvm_monitorenter();  // nao precisa fazer
+void exec_jvm_monitorexit();  // nao precisa fazer
 void exec_jvm_wide();
 void exec_jvm_multianewarray();
 void exec_jvm_ifnull(); // Ok, not tested
