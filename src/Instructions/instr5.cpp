@@ -3,69 +3,71 @@
 #include <stdint.h>
 #include <string.h>
 #include <cmath>
+// Todas feitas por Lucas Mafra
+
 
 void exec_jvm_iadd(){
 	int32_t value2 = popcat1();
 	int32_t value1 = popcat1();
 	int32_t aux = value1+value2;
-    u4 result;
-    memcpy(&result,&aux,sizeof(u4));
-    pushcat1(result);
-    incpc(1);
+	u4 result;
+	memcpy(&result,&aux,sizeof(u4));
+	pushcat1(result);
+	incpc(1);
 }
 void exec_jvm_ladd(){
 	int64_t value2 = popcat2();
-    int64_t value1 = popcat2();
-    int64_t aux = value1+value2;
+	int64_t value1 = popcat2();
+	int64_t aux = value1+value2;
 	u8 result;
-    memcpy(&result,&aux,sizeof(u8));
-    pushcat2(result);
-    incpc(1);
+	memcpy(&result,&aux,sizeof(u8));
+	pushcat2(result);
+	incpc(1);
 }
 void exec_jvm_fadd(){
 	u4 aux2 = popcat1();
-    u4 aux1 = popcat1();
-    float fvalue2;
-    float fvalue1;
-    memcpy(&fvalue2,&aux2,sizeof(u4));
-    memcpy(&fvalue1,&aux1,sizeof(u4));
-    float fresult = fvalue1+fvalue2;
+	u4 aux1 = popcat1();
+	float fvalue2;
+	float fvalue1;
+	memcpy(&fvalue2,&aux2,sizeof(u4));
+	memcpy(&fvalue1,&aux1,sizeof(u4));
+	float fresult = fvalue1+fvalue2;
 	u4 result;
 	memcpy(&result,&fresult,sizeof(u4));
-    pushcat1(result);
-    incpc(1);
+	pushcat1(result);
+	incpc(1);
 }
 void exec_jvm_dadd(){
 	u8 aux2 = popcat2();
-    u8 aux1 = popcat2();
-    double dvalue2;
-    double dvalue1;
-    memcpy(&dvalue2,&aux2,sizeof(u8));
-    memcpy(&dvalue1,&aux1,sizeof(u8));
-    double dresult = dvalue1+dvalue2;
-    Dprintf("%lf = %lf + %lf\n", dresult,dvalue1,dvalue2);
+	u8 aux1 = popcat2();
+	double dvalue2;
+	double dvalue1;
+	memcpy(&dvalue2,&aux2,sizeof(u8));
+	memcpy(&dvalue1,&aux1,sizeof(u8));
+	double dresult = dvalue1+dvalue2;
+	Dprintf("%lf = %lf + %lf\n", dresult,dvalue1,dvalue2);
 	u8 result;
 	memcpy(&result,&dresult,sizeof(u8));
-    pushcat2(result);
-    incpc(1);
+	pushcat2(result);
+	incpc(1);
 }
 void exec_jvm_isub(){
 	int32_t value2 = popcat1();
-    int32_t value1 = popcat1();
-    int32_t aux = value1-value2;
+	int32_t value1 = popcat1();
+	int32_t aux = value1-value2;
 	u4 result;
-    memcpy(&result,&aux,sizeof(u4));
-    pushcat1(result);
-    incpc(1);
+	memcpy(&result,&aux,sizeof(u4));
+	pushcat1(result);
+	incpc(1);
 }
 void exec_jvm_lsub(){
 	int64_t value2 = popcat2();
-    int64_t value1 = popcat2();
-    int64_t aux = value1-value2;
+	int64_t value1 = popcat2();
+	int64_t aux = value1-value2;
 	u8 result;
-    memcpy(&result,&aux,sizeof(u8));
-    pushcat2(result);
-    incpc(1);
+	memcpy(&result,&aux,sizeof(u8));
+	pushcat2(result);
+	incpc(1);
 }
 void exec_jvm_fsub(){
 	u4 aux2 = popcat1();

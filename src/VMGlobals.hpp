@@ -21,12 +21,24 @@
 #define jvm_push_reference push_reference
 const double NaN = nan("");
 // extern class Instance;
-
 class Array_instance {public:
-  const int size;
+  const int32_t size;
   void * data;
-  Array_instance(int qtd):size(qtd){data = calloc(size, sizeof(void*));}
+  Array_instance(int32_t qtd, size_t my_type_size):size(qtd){data = calloc(size, my_type_size);}
 };
+
+class Array_ref_instance {public:
+  const int32_t size;
+  void ** data;
+  Array_ref_instance(int32_t qtd):size(qtd){data = (void**)calloc(size, sizeof(void*));}
+};
+// cuidar vetor de bool
+class Array_bool {public:
+  const int32_t size;
+  u1 * data;
+  Array_bool(int32_t qtd):size(qtd){data = (u1*)calloc(  size, sizeof(u1));}
+};
+
 
 class Instance {public:
   static Instance * instance_allocator(int);

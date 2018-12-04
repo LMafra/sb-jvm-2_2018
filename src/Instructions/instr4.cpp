@@ -30,9 +30,9 @@ static void _astore64(Type t) {
 	}
 }
 static void _astore_ref() {
-	void * value = pop_reference();	int index = pop_cat1();
-	Array_instance * ref = (Array_instance *)pop_reference();
-
+	void * value = pop_reference();	int32_t index = (int32_t)pop_cat1();
+	Array_ref_instance * arrayref = (Array_ref_instance *)pop_reference();
+	arrayref->data[index] = value;
 }
 
 static void _astore(Type t) {
@@ -51,7 +51,7 @@ void exec_jvm_iastore(){_astore(Type::INT);}  // ok
 void exec_jvm_lastore(){_astore(Type::LONG);}
 void exec_jvm_fastore(){_astore(Type::FLOAT);}
 void exec_jvm_dastore(){_astore(Type::DOUBLE);}
-void exec_jvm_aastore(){_astore(Type::DOUBLE);}
+void exec_jvm_aastore(){_astore(Type::REFERENCE);}
 void exec_jvm_bastore(){_astore(Type::BYTE);}
 void exec_jvm_castore(){_astore(Type::CHAR);}
 void exec_jvm_sastore(){_astore(Type::SHORT);}

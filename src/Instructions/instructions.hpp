@@ -1,7 +1,8 @@
 #pragma once
 #include "../UsingUs.h"
 #include "../VMGlobals.hpp"
-// Obs: _wide é para adicionar suporte à execução da instrução modificadora wide.
+#include <map>
+/// enum usada pelas instruções Xstore, para evitar replicação de código
 enum Helper{
   ZERO = 0,
   ONE = 1,
@@ -15,6 +16,24 @@ enum Type {
 	BYTE=0, CHAR, SHORT, INT,	FLOAT,	DOUBLE, LONG, REFERENCE
 };
 
+/// enum para decidir qual tipo de arrayref deve ser criado.
+enum enum_atype {
+  T_BOOLEAN = 4, T_CHAR = 5, T_FLOAT = 6, T_DOUBLE = 7, T_BYTE = 8,
+  T_SHORT = 9, T_INT = 10, T_LONG = 11
+};
+
+std::map<enum_atype, size_t> atype_size_dict;
+// Cuidar caso específico de array de bytes.
+void _init_atype_size_dict() {
+  atype_size_dict[enum_atype::T_BOOLEAN] = sizeof(u1);
+  atype_size_dict[enum_atype::T_CHAR] = sizeof(u1);
+  atype_size_dict[enum_atype::T_FLOAT] = sizeof(u4);
+  atype_size_dict[enum_atype::T_DOUBLE] = sizeof(u8);
+  atype_size_dict[enum_atype::T_BYTE] = sizeof(u1);
+  atype_size_dict[enum_atype::T_SHORT] = sizeof(u2);
+  atype_size_dict[enum_atype::T_INT] = sizeof(u4);
+  atype_size_dict[enum_atype::T_LONG] = sizeof(u8);
+}
 void load_addr(Helper, cat1 * );
 void load_64(Helper, cat1 * );
 void load_32(Helper, cat1 * );
@@ -244,10 +263,10 @@ void exec_jvm_invokedynamic();  // nao precisa fazer
 #include "instr8.cpp"
 
 // 9
-void exec_jvm_new();
-void exec_jvm_newarray();
-void exec_jvm_anewarray();
-void exec_jvm_arraylength();
+void exec_jvm_new();  // Ok, not tested
+void exec_jvm_newarray(); // Ok, not tested.
+void exec_jvm_anewarray();  // TO FINISH.
+void exec_jvm_arraylength();  // Ok, not tested.
 void exec_jvm_athrow();
 void exec_jvm_checkcast();
 void exec_jvm_instanceof();
@@ -258,8 +277,8 @@ void exec_jvm_multianewarray();
 void exec_jvm_ifnull(); // Ok, not tested
 void exec_jvm_ifnonnull();  // Ok, not tested
 void exec_jvm_goto_w(); // Ok, not tested
-void exec_jvm_jsr_w();  // O, not tested
-void exec_jvm_breakpoint();
-void exec_jvm_impdep1();
-void exec_jvm_impdep2();
+void exec_jvm_jsr_w();  // Ok, not tested
+void exec_jvm_breakpoint(); // Reservado
+void exec_jvm_impdep1();  // Reservado
+void exec_jvm_impdep2();  // Reservado
 #include "instr9.cpp"
