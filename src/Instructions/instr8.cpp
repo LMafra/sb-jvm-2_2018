@@ -34,28 +34,31 @@ void exec_jvm_tableswitch(){
 void exec_jvm_lookupswitch(){
 
 }
-void exec_jvm_ireturn(){
 
-}
-void exec_jvm_lreturn(){
-
-}
-void exec_jvm_freturn(){
-
-}
-void exec_jvm_dreturn(){
-
-}
-void exec_jvm_areturn(){
-
-}
-void exec_jvm_return(){
-	PC = frame_stack.top().PC_retorno;
-	if(PC==NULL){
-		Dprintf("debug null pointer return\n");
-	}
+static void _return() {
+	Frame_type * frame = &frame_stack.top();
+	PC = frame->PC_retorno;
+	size_t remove_qtd = jvm_stack.size() - frame->initial_stack_size;
+	for(int i = 0; i < remove_qtd; i++) jvm_stack.pop();
+	if(PC==NULL)Dprintf("debug null pointer return\n");
 	frame_stack.pop();
 }
+
+static void return32() {
+	u4 ret = popcat1();	_return();	push_cat1(ret);
+}
+static void return64() {
+	u8 ret = popcat2();	_return();	push_cat2(ret);
+}
+void exec_jvm_ireturn(){return32();}
+void exec_jvm_lreturn(){return64();}
+void exec_jvm_freturn(){return32();}
+void exec_jvm_dreturn(){return64();}
+void exec_jvm_areturn(){
+	void * ref = pop_reference();	_return();push_reference(ref);
+}
+void exec_jvm_return(){_return();}
+
 
 void exec_jvm_getstatic(){
   u2 index = offset16_from_instr();

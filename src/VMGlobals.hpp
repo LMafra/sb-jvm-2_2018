@@ -45,6 +45,7 @@ union cat1 {
 };
 
 class Frame_type{public:
+  int initial_stack_size; // tamanho da pilha quanto o frame froi criado. Utilizado pelas instrucoes de retorno.
 	Instance * inst;
 	u1 * PC_retorno;
 	u1 * PC_base;

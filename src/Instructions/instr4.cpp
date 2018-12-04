@@ -4,12 +4,6 @@
 #include "../VMGlobals.hpp"
 #include <string.h>
 
-enum Type {
-	BYTE=0, CHAR, SHORT, INT,	FLOAT,	DOUBLE, LONG, REFERENCE
-};
-
-
-
 static void _astore32(Type t) {
 	int value = pop_cat1();	int index = pop_cat1();
 	Array_instance * ref = (Array_instance *)pop_reference();

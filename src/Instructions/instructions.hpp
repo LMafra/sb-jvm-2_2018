@@ -11,6 +11,10 @@ enum Helper{
   WIDE = 5
 };
 
+enum Type {
+	BYTE=0, CHAR, SHORT, INT,	FLOAT,	DOUBLE, LONG, REFERENCE
+};
+
 void load_addr(Helper, cat1 * );
 void load_64(Helper, cat1 * );
 void load_32(Helper, cat1 * );
@@ -222,12 +226,12 @@ void exec_jvm_jsr();  // Ok, not tested
 void exec_jvm_ret();  // Ok, not tested
 void exec_jvm_tableswitch();
 void exec_jvm_lookupswitch();
-void exec_jvm_ireturn();
-void exec_jvm_lreturn();
-void exec_jvm_freturn();
-void exec_jvm_dreturn();
-void exec_jvm_areturn();
-void exec_jvm_return();
+void exec_jvm_ireturn();  // Ok, not tested.
+void exec_jvm_lreturn();  // Ok, not tested.
+void exec_jvm_freturn();  // Ok, not tested.
+void exec_jvm_dreturn();  // Ok, not tested.
+void exec_jvm_areturn();  // Ok, not tested.
+void exec_jvm_return(); // Ok, not tested.
 void exec_jvm_getstatic();
 void exec_jvm_putstatic();
 void exec_jvm_getfield();
