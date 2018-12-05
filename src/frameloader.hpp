@@ -178,6 +178,7 @@ void instance_frame_loader_interpreter(int indexname, int indextype, int indexcl
 	topush.PC_base = (*(Code_attribute *)&calledinfo->attributes[0]).code;
 	PC = topush.PC_base;
 	topush.PC_final = &topush.PC_base[(*(Code_attribute *)&calledinfo->attributes[0]).code_length];
+	topush.initial_stack_size=jvm_stack.size();
 	frame_stack.push(topush);
 	
 	DDprintf("debug fl9\n");
@@ -281,6 +282,7 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 	topush.PC_base = (*(Code_attribute *)&calledinfo->attributes[0]).code;
 	PC = topush.PC_base;
 	topush.PC_final = &topush.PC_base[(*(Code_attribute *)&calledinfo->attributes[0]).code_length];
+	topush.initial_stack_size=jvm_stack.size();
 	frame_stack.push(topush);
 	
 	DDprintf("debug fl9\n");

@@ -39,8 +39,8 @@ static void _return() {
 	Frame_type * frame = &frame_stack.top();	// Variavel auxiliar
 	PC = frame->PC_retorno;	// restaura pc para funcao que o chamou
 	size_t remove_qtd = jvm_stack.size() - frame->initial_stack_size;	
-	printf("Se deu segfault logo apohs essa linha, faltou inicializar o valor initial_stac_size do frame corrente :/\n");
-	printf("Esta mensagem se encontra no arquivo instr8.cpp\n");
+	Dprintf("Se deu segfault logo apohs essa linha, faltou inicializar o valor initial_stac_size do frame corrente :/\n");
+	Dprintf("Esta mensagem se encontra no arquivo instr8.cpp\n");
 	for(int i = 0; i < remove_qtd; i++) jvm_stack.pop();
 	if(PC==NULL)Dprintf("debug null pointer return\n");
 	frame_stack.pop();
