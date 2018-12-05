@@ -32,7 +32,58 @@ void exec_jvm_tableswitch(){
     PC = instr_pc + PC[index - low_val];
 }
 void exec_jvm_lookupswitch(){
-
+	u1 * pcaux = PC;
+  int padnum = ((u8)pcaux) - ((u8)frame_stack.top().PC_base);
+  if (padnum%4 == 0){
+    pcaux = &(pcaux[4]);
+  }
+  else if (padnum%4 == 1){
+    pcaux = &(pcaux[3]);
+  }
+  else if (padnum%4 == 2){
+    pcaux = &(pcaux[2]);
+  }
+  else if (padnum%4 == 3){
+    pcaux = &(pcaux[1]);
+  }
+  int32_t defa;
+  u4 npairs;
+  ((u1 *)&defa)[3] = pcaux[0];
+  ((u1 *)&defa)[2] = pcaux[1];
+  ((u1 *)&defa)[1] = pcaux[2];
+  ((u1 *)&defa)[0] = pcaux[3];
+  pcaux = &(pcaux[4]);
+  ((u1 *)&npairs)[3] = pcaux[0];
+  ((u1 *)&npairs)[2] = pcaux[1];
+  ((u1 *)&npairs)[1] = pcaux[2];
+  ((u1 *)&npairs)[0] = pcaux[3];
+  pcaux = &(pcaux[4]);
+  int32_t match[npairs];
+  int32_t offset[npairs];
+  for(int i = 0;i < npairs;i++){
+    ((u1 *)&match[i])[3] = pcaux[0];
+    ((u1 *)&match[i])[2] = pcaux[1];
+    ((u1 *)&match[i])[1] = pcaux[2];
+    ((u1 *)&match[i])[0] = pcaux[3];
+    pcaux = &(pcaux[4]);
+    ((u1 *)&offset[i])[3] = pcaux[0];
+    ((u1 *)&offset[i])[2] = pcaux[1];
+    ((u1 *)&offset[i])[1] = pcaux[2];
+    ((u1 *)&offset[i])[0] = pcaux[3];
+    pcaux = &(pcaux[4]);
+  }
+  u4 keyaux = popcat1();
+  int32_t key = *((int32_t *)(&keyaux));
+  for(int i=0;i<npairs;i++){
+  	if(key==match[i]){
+  		u8 pcnew = ((u8)PC)+offset[i];
+  		PC = *((u1**)(&pcnew));
+  		return;
+  	}
+  }
+	u8 pcnew = ((u8)PC)+defa;
+  	PC = *((u1**)(&pcnew));
+  	return;
 }
 
 static void _return() {
