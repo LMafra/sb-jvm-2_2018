@@ -21,20 +21,26 @@ void setup() {
 
 int main(int argc, char ** argv ) {
   setup();
-  if (argc != 2){
+  if (argc < 2){
     std::cout << "Voce esqueceu de digitar o nome do arquivo" << std::endl;
     return -1;
   }
   char * arquivo = argv[1];
   printf("file path :: %s\n", arquivo);
   ClassFile * cf;
+
   try {
     cf = ClassLoader::load_classfile(arquivo);
     cf = ClassLoader::load_classfile(arquivo);
   }catch(const char * e){
     return std::cerr << e << std::endl, -1;
   }
-  Exibidor exib(*cf);
-  exib.show();
-  interpret(cf);
+
+  if(argc < 3) {
+    printf("Exibidor!");
+    Exibidor exib(*cf);
+    exib.show();
+  }
+  else
+    interpret(cf);
 }

@@ -28,8 +28,9 @@ void exec_jvm_arraylength() {
   push_cat1( array_ref->size );
   incpc(1+1);
 }
-void exec_jvm_athrow() { 
 
+void exec_jvm_athrow() { 
+  void * ref = pop_reference();
 }
 void exec_jvm_checkcast() { 
 
