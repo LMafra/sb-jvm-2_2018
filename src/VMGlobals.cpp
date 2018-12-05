@@ -48,14 +48,16 @@ u8 pop_cat2() {
 
 	return buffer;
 }
-
-void push_cat1(u4 val) {
-	cat1 cat; cat.val = val;
+template <typename T>
+void push_cat1(T val) {
+	cat1 cat; memcpy(&cat.val,&val,sizeof(u4));
 	jvm_stack.push( cat );
 }
 
-void push_cat2(u8 val) {
-	u4 low = val, high = val >> 32;
+template <typename T>
+void push_cat2(T val) {
+	u8 _val; memcpy(&_val, &val, sizeof(u8));
+	u4 low = _val, high = _val >> 32;
 	push_cat1(high); push_cat1( low );
 }
 
@@ -88,9 +90,15 @@ int32_t offset32_from_instr(int add = 0) {
 
 
 template <typename T>
-void jvm_push(T val) {
-	cat1 top; top.val = *(u4*)&val;
-	jvm_stack.push( top );
+void jvm_push_u4(T val) {
+	u4 content; memcpy(&content, &val, sizeof(u8));
+	push_cat1( val );
+}
+
+template <typename T>
+void jvm_push_u8(T val) {
+	u8 content; memcpy(&content, &val, sizeof(u8));
+	push_cat1( val );
 }
 
 template <typename T>

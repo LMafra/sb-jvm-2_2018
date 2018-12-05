@@ -85,14 +85,21 @@ void increment_pc(int);
 cat1 pop_cat1raw();
 u4 pop_cat1();
 u8 pop_cat2();
-void push_cat1(u4);
-void push_cat2(u8);
+
+template <typename T>
+void push_cat1(T);
+
+template <typename T>
+void push_cat2(T);
+
 void * pop_reference();
 int16_t offset16_from_stack();int32_t offset32_from_stack();
 int16_t offset16_from_instr(int);int32_t offset32_from_instr(int);
 
 template <class T>
-void jvm_push(T val);
+void jvm_push_u4(T val);
+template <class T>
+void jvm_push_u8(T val);
 
 template <class T>
 void push_reference(T * val);

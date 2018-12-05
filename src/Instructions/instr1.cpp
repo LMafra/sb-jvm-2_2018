@@ -13,14 +13,16 @@ static void ldc_X(u2 index) {
   u1 tag = ((CONSTANT_Class_info*)cp_entry)->tag;
   switch (tag) {
     case enum_cp_tags::CONSTANT_Integer:
-      jvm_push( ((CONSTANT_Integer_info*)cp_entry)->bytes ); break;
+      push_cat1( ((CONSTANT_Integer_info*)cp_entry)->bytes ); break;
     case enum_cp_tags::CONSTANT_Float:
-      jvm_push( ((CONSTANT_Float_info*)cp_entry)->bytes ); break;
+      push_cat1( ((CONSTANT_Float_info*)cp_entry)->bytes ); break;
     case enum_cp_tags::CONSTANT_String:
       auxie.ref_val = ((CONSTANT_Utf8_info*)
         &my_class->constant_pool[((CONSTANT_String_info*)cp_entry)->string_index ] 
       )->bytes;
       jvm_stack.push(auxie); break;
+    case enum_cp_tags::CONSTANT_Class:
+      
     default:
       throw "ERROR! where: exec_jvm_ldc";
   }
@@ -53,7 +55,7 @@ void exec_jvm_ldc2_w(){
 /// Empilha em jvm_stack a variável na N-ehsima posicao do vetor de variaveis locais.
 /// É chamada pelas instruções iload_<n> da jvm.
 inline static void iload_X(u1 N) {
-  jvm_push( frame_stack.top().variaveis_locais[N] );
+  push_cat1( frame_stack.top().variaveis_locais[N] );
 }
 void exec_jvm_iload() {
   u1 index = instrparam(1);

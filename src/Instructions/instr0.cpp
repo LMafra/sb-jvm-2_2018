@@ -17,103 +17,102 @@ void exec_jvm_aconst_null(){
 
 // Gabiel Bessa
 void exec_jvm_iconst_m1(){
-  jvm_push(-1);
+  push_cat1(-1);
   incpc(1);
 }
 
 // Gabiel Bessa
 void exec_jvm_iconst_0(){
-  jvm_push(0);
+  push_cat1(0);
   incpc(1);
 }
 
 // Gabiel Bessa
 void exec_jvm_iconst_1(){
-  jvm_push(1);
+  push_cat1(1);
   incpc(1);
 }
 
 // Gabiel Bessa
 void exec_jvm_iconst_2(){
-  jvm_push(2);
+  push_cat1(2);
   incpc(1);
 }
 
 // Gabiel Bessa
 void exec_jvm_iconst_3(){
-  jvm_push(3);
+  push_cat1(3);
   incpc(1);
 }
 
 // Gabiel Bessa
 void exec_jvm_iconst_4(){
-  jvm_push(4);
+  push_cat1(4);
   incpc(1);
 }
 
 // Gabiel Bessa
 void exec_jvm_iconst_5(){
-  jvm_push(5);
+  push_cat1(5);
   incpc(1);
 }
 
-// Gabiel Bessa
+// Gabiel Bessa [fixed maffei]
 void exec_jvm_lconst_0(){
-  jvm_push((long)0);
+  push_cat2((long)0);
   incpc(1);
 }
 
-// Gabiel Bessa
+// Gabiel Bessa [fixed maffei]
 void exec_jvm_lconst_1(){
-  jvm_push((long)1);
+  jvm_push_u8((long)1);
   incpc(1);
 }
 
-// Gabiel Bessa
+// Gabiel Bessa [fixed maffei]
 void exec_jvm_fconst_0(){
-  jvm_push((float)0.0);
+  push_cat2((float)0.0);
   incpc(1);
 }
 
-// Gabiel Bessa
+// Gabiel Bessa 
 void exec_jvm_fconst_1(){
-  jvm_push((float)1.0);
+  push_cat1((float)1.0);
   incpc(1);
 }
 
 // Gabiel Bessa
 void exec_jvm_fconst_2(){
-  jvm_push((float)2.0);
+  push_cat1((float)2.0);
   incpc(1);
 }
 
 // Gabiel Bessa [fixed maffei]
 void exec_jvm_dconst_0(){
-  double zero = 0.0;
-  push_cat2(zero);
+  push_cat2((double)0.0);
   incpc(1);
 }
 
 // Gabiel Bessa
 void exec_jvm_dconst_1(){
-  jvm_push((double)1.0);
+  push_cat1((double)1.0);
   incpc(1);
 }
 
 // Gabiel Bessa [fixed maffei]
 void exec_jvm_bipush(){
   u1 par = instrparam(1);
-  int32_t intt = (int16_t)par;
-  jvm_push(intt);
+  int32_t par_extended =(int16_t)par ;
+  push_cat1(par_extended);
   incpc(1 + 1);
 }
 
 // Gabiel Bessa [fixed maffei]
 void exec_jvm_sipush(){
   u1 b1 = instrparam(1), b2 = instrparam(2);
-  u2 intermediate = b1;
-  intermediate = intermediate << 8 | b2;
-  int32_t result = (int16_t)intermediate;
-  jvm_push(result);
+  u2 aux = b1;
+  aux = aux << 8 | b2;
+  int32_t result = (int16_t)aux;
+  push_cat1(result);
   incpc(1 + 2);
 }
