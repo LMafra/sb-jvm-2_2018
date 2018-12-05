@@ -148,15 +148,15 @@ void exec_jvm_aastore();  // Ok, not tested.
 void exec_jvm_bastore();  // Ok, not tested.
 void exec_jvm_castore();  // Ok, not tested.
 void exec_jvm_sastore();  // Ok, not tested.
-void exec_jvm_pop();
-void exec_jvm_pop2();
-void exec_jvm_dup();
-void exec_jvm_dup_x1();
-void exec_jvm_dup_x2();
-void exec_jvm_dup2();
-void exec_jvm_dup2_x1();
-void exec_jvm_dup2_x2();
-void exec_jvm_swap();
+void exec_jvm_pop();  // Ok, not tested.
+void exec_jvm_pop2(); // Ok, not tested.
+void exec_jvm_dup();  // Ok, not tested.
+void exec_jvm_dup_x1(); // Ok, not tested.
+void exec_jvm_dup_x2(); // Ok, not tested.
+void exec_jvm_dup2(); // Ok, not tested.
+void exec_jvm_dup2_x1();  // Ok, not tested.
+void exec_jvm_dup2_x2();  // Ok, not tested.
+void exec_jvm_swap(); // Ok, not tested.
 #include "instr4.cpp"
 
 // 5 math_instructions

@@ -47,57 +47,72 @@ static void _astore(Type t) {
 }
 
 // maffei
-void exec_jvm_iastore(){_astore(Type::INT);}  // ok
-void exec_jvm_lastore(){_astore(Type::LONG);}
-void exec_jvm_fastore(){_astore(Type::FLOAT);}
-void exec_jvm_dastore(){_astore(Type::DOUBLE);}
-void exec_jvm_aastore(){_astore(Type::REFERENCE);}
-void exec_jvm_bastore(){_astore(Type::BYTE);}
-void exec_jvm_castore(){_astore(Type::CHAR);}
-void exec_jvm_sastore(){_astore(Type::SHORT);}
+void exec_jvm_iastore(){_astore(Type::INT);incpc(1);}  // ok
+void exec_jvm_lastore(){_astore(Type::LONG);incpc(1);}
+void exec_jvm_fastore(){_astore(Type::FLOAT);incpc(1);}
+void exec_jvm_dastore(){_astore(Type::DOUBLE);incpc(1);}
+void exec_jvm_aastore(){_astore(Type::REFERENCE);incpc(1);}
+void exec_jvm_bastore(){_astore(Type::BYTE);incpc(1);}
+void exec_jvm_castore(){_astore(Type::CHAR);incpc(1);}
+void exec_jvm_sastore(){_astore(Type::SHORT);incpc(1);}
 
+// maffei
+void exec_jvm_pop(){jvm_stack.pop();incpc(1);}
 
-void exec_jvm_pop(){
+// maffei
+void exec_jvm_pop2(){jvm_stack.pop();jvm_stack.pop();incpc(1);}
 
-}
-
-
-void exec_jvm_pop2(){
-
-}
-
-
+// maffei
+// Duplicate the top operand stack value
 void exec_jvm_dup(){
-
+	u4 value = pop_cat1();
+	push_cat1(value);	push_cat1(value); incpc(1);
 }
 
-
+// Duplicate the top operand stack value and insert two values down
+// Maffei
 void exec_jvm_dup_x1(){
-
+	u4 value1 = pop_cat1(); u4 value2 = pop_cat1();
+	push_cat1(value1);
+	push_cat1(value2);	push_cat1(value1);incpc(1);
 }
 
 
+// Maffei
 void exec_jvm_dup_x2(){
-
+	u4 value1 = pop_cat1(); u4 value2 = pop_cat1(); u4 value3 = pop_cat1();
+	push_cat1(value1);
+	push_cat1(value3);push_cat1(value2);push_cat1(value1);incpc(1);
 }
 
 
+// Maffei
 void exec_jvm_dup2(){
-
+	u4 value1 = pop_cat1(); u4 value2 = pop_cat1();
+	push_cat1(value2);push_cat1(value1);
+	push_cat1(value2);push_cat1(value1);incpc(1);
 }
 
 
+// Maffei
 void exec_jvm_dup2_x1(){
-
+	u4 value1 = pop_cat1(); u4 value2 = pop_cat1(); u4 value3 = pop_cat1();
+	push_cat1(value2);push_cat1(value1);
+	push_cat1(value3);push_cat1(value2);push_cat1(value1);incpc(1);
 }
 
 
+// Maffei
 void exec_jvm_dup2_x2(){
-
+	u4 value1 = pop_cat1(); u4 value2 = pop_cat1();
+	u4 value3 = pop_cat1(); u4 value4 = pop_cat1();
+	push_cat1(value2);push_cat1(value1);
+	push_cat1(value4);push_cat1(value3);push_cat1(value2);push_cat1(value1);incpc(1);
 }
 
-
+// Maffei
 void exec_jvm_swap(){
-
+	u4 value1 = pop_cat1(); u4 value2 = pop_cat1();
+	push_cat1(value1); push_cat1(value2);incpc(1);
 }
 

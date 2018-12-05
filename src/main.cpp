@@ -25,7 +25,7 @@ int main(int argc, char ** argv ) {
     std::cout << "Voce esqueceu de digitar o nome do arquivo" << std::endl;
     return -1;
   }
-  char * arquivo = argv[1];
+  const char * arquivo = argv[1];
   setup( arquivo );
   Dprintf("file path :: %s\n", arquivo);
   ClassFile * cf;
