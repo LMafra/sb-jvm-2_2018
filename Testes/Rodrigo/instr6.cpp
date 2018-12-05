@@ -6,6 +6,8 @@
 #include <memory>
 #include <string>
 #include <cstdlib>
+#include <math.h>
+#include <limits.h>
 
 template <class T>
 std::string
@@ -38,7 +40,7 @@ type_name()
 #include <iostream>
 using namespace std;
 
-int vetor[2] = {1,2};
+float vetor[2] = {-3.14,2};
 
 double vetor2[2] = {1,2};
 int pc = 0;
@@ -125,13 +127,37 @@ void exec_jvm_l2d(){
 }
 
 // Rodrigo
+
 void exec_jvm_f2i(){
-	u4 aux = popcat1();
+
+	auto x = popcat1();
+	float ff = *(float*)&x;
+	printf("it works !! => %f\n", ff);
+}
+
+void exec_jvm_f2i2(){
+	
+	u4 aux = float(-3.14);//popcat1();
+	float aux2 = *(float *)&aux;
+	cout <<  type_name<decltype(aux2)>() << ": " <<aux2 << endl;////////////////////////////////////////
+	//memcpy(&aux2,&aux,sizeof(u4));
+	int result = aux2;
+	cout <<  type_name<decltype(result)>() << ": " <<result << endl;////////////////////////////////////////
+/*
+	u4 f = popcat1();
 	float aux2;
-	memcpy(&aux2,&aux,sizeof(u4));
-	u4 result = aux;
+	memcpy(&aux2,&f,sizeof(u4));
+	int result = int(aux2);
+	*//*
+	if( isnormal(f) ) result = (int)f;
+	else if (isnan(f)) result = 0;
+	else if( !signbit(f)) result = INT_MAX;
+	else result = INT_MIN;
+	*/
+	cout <<  type_name<decltype(result)>() << ": " <<result << endl;////////////////////////////////////////
 	pushcat1(result);
 	incpc(1);
+	
 }
 
 // Rodrigo
@@ -218,7 +244,8 @@ void exec_jvm_i2s(){
 }
 
 int main(){
-	exec_jvm_d2i();
+	exec_jvm_f2i();
+	//exec_jvm_d2i();
 	return 0;
 
 }
