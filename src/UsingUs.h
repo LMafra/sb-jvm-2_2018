@@ -9,7 +9,7 @@ void inline _(const char * x, ...)noexcept{}
 #ifdef DEBUG
   #ifndef DDEBUG_PRINT
     #define DDEBUG_PRINT
-    auto DDprintf = printf;
+    auto Dprintf = printf;
   #endif
 #else
   #define Dprintf _
@@ -19,7 +19,7 @@ void inline _(const char * x, ...)noexcept{}
 #if DEBUG
   #ifndef DEBUG_PRINT
     #define DEBUG_PRINT
-    auto Dprintf = printf;
+    auto DDprintf = printf;
   #endif
 #else
   #define DDprintf _
