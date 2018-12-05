@@ -173,6 +173,41 @@ void exec_jvm_invokespecial(){
 	instance_frame_loader(index, objectref, argstopass);
 }
 void exec_jvm_invokestatic(){
+	Dprintf("debug invokestatic\n");
+	u1 indexbyte1 = instrparam(1);
+	u1 indexbyte2 = instrparam(2);
+	u2 index;
+	((u1*)&index)[0]=indexbyte2;
+	((u1*)&index)[1]=indexbyte1;
+
+	CONSTANT_Methodref_info * methodcalled = (CONSTANT_Methodref_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[index]);
+	CONSTANT_NameAndType_info * methodnat = (CONSTANT_NameAndType_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[methodcalled->name_and_type_index]);
+	CONSTANT_Utf8_info * methodtype = (CONSTANT_Utf8_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[methodnat->descriptor_index]);
+  	
+  	CONSTANT_Class_info * classcalled = (CONSTANT_Class_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[methodcalled->class_index]);
+
+  	CONSTANT_Utf8_info * classcalledname = (CONSTANT_Utf8_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[classcalled->name_index]);
+
+	char classname[classcalledname->length+1];
+	for(int i=0;i<classcalledname->length;i++){
+		classname[i]=classcalledname->bytes[i];
+	}
+	classname[classcalledname->length]='\0';
+
+  	ClassFile * cf;
+    cf = ClassLoader::load_classfile(classname);
+    Instance * inst = (Instance *)malloc(sizeof(Instance));
+    inst->my_class_ptr = cf;
+    inst->my_attributes = NULL;
+	char mettype[methodtype->length+1];
+	for(int i=0;i<methodtype->length;i++){
+		mettype[i]=methodtype->bytes[i];
+	}
+	mettype[methodtype->length]='\0';
+
+	cat1 * argstopass = argument_prepare(mettype);
+	incpc(3);
+	instance_frame_loader(index, inst, argstopass);
 }
 void exec_jvm_invokeinterface(){
 
