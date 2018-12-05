@@ -20,7 +20,13 @@ void set_path(const char * path) {
     std::string s(path);
     if( s.find_first_of("/") ) {
       s = s.substr( 0, s.find_last_of("/")+1 ).c_str();
-      Path.path = s.c_str();
+      Dprintf("debug set_path, %s %d",s.c_str(),s.size());
+      int dfix = s.size()+1;
+      char * sfix = (char*)malloc(dfix * sizeof(char));
+      for (int i=0;i<dfix;i++){
+        sfix[i]=s.c_str()[i];
+      }
+      Path.path = sfix;
     }
     else
       Path.path = "";

@@ -35,32 +35,17 @@ void interpret(ClassFile * firstclass){
 	Frame_type firstframe;
 	Instance firstinstance;
 	firstinstance.my_class_ptr=firstclass;
+	firstinstance.my_attributes=NULL;
 	firstframe.inst=&firstinstance;
-	frame_stack.push(firstframe);
-	Instance * executed_object = Instance::instance_allocator(firstclass->this_class);
-	frame_stack.pop();
-	firstframe.inst=executed_object;
+  	firstframe.initial_stack_size=jvm_stack.size();
+	firstframe.PC_retorno=NULL;
+	firstframe.PC_base=NULL;
+	firstframe.variaveis_locais=NULL;
+	firstframe.PC_final=NULL;
 	frame_stack.push(firstframe);
 	#if DEBUG
 	printf("debug int3\n");
 	#endif
-	{
-		char metname[7] = "<init>";
-		Dprintf("debug int4\n");
-		int index = 0;
-		while(namescomp(*(CONSTANT_Utf8_info *)&executed_object->my_class_ptr->constant_pool[executed_object->my_class_ptr->methods[index].name_index],metname)==false && index<executed_object->my_class_ptr->methods_count-1){
-			index++;
-		}
-		Dprintf("debug int5\n");
-		if (namescomp(*(CONSTANT_Utf8_info *)&executed_object->my_class_ptr->constant_pool[executed_object->my_class_ptr->methods[index].name_index],metname)==false){
-			return;
-		}
-		Dprintf("debug int6\n");
-		instance_frame_loader_interpreter(executed_object->my_class_ptr->methods[index].name_index, executed_object->my_class_ptr->methods[index].descriptor_index, executed_object->my_class_ptr->this_class,executed_object,NULL);
-		Dprintf("debug int7\n");
-		instructions_Loop();
-		Dprintf("debug int8\n");
-	}
 	#ifdef DEBUG
 	printf("debug int1\n");
 	#endif
@@ -69,13 +54,13 @@ void interpret(ClassFile * firstclass){
 		cat1 * params =  (cat1*)malloc(sizeof(cat1));
 		params[0].ref_val=metname;
 		int index = 0;
-		while(namescomp(*(CONSTANT_Utf8_info *)&executed_object->my_class_ptr->constant_pool[executed_object->my_class_ptr->methods[index].name_index],metname)==false && index<executed_object->my_class_ptr->methods_count-1){
+		while(namescomp(*(CONSTANT_Utf8_info *)&(&firstinstance)->my_class_ptr->constant_pool[(&firstinstance)->my_class_ptr->methods[index].name_index],metname)==false && index<(&firstinstance)->my_class_ptr->methods_count-1){
 			index++;
 		}
-		if (namescomp(*(CONSTANT_Utf8_info *)&executed_object->my_class_ptr->constant_pool[executed_object->my_class_ptr->methods[index].name_index],metname)==false){
+		if (namescomp(*(CONSTANT_Utf8_info *)&(&firstinstance)->my_class_ptr->constant_pool[(&firstinstance)->my_class_ptr->methods[index].name_index],metname)==false){
 			return;
 		}
-		instance_frame_loader_interpreter(executed_object->my_class_ptr->methods[index].name_index, executed_object->my_class_ptr->methods[index].descriptor_index, executed_object->my_class_ptr->this_class,executed_object,params);
+		instance_frame_loader_interpreter((&firstinstance)->my_class_ptr->methods[index].name_index, (&firstinstance)->my_class_ptr->methods[index].descriptor_index, (&firstinstance)->my_class_ptr->this_class,(&firstinstance),params);
 		instructions_Loop();
 	}
 	

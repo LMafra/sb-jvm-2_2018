@@ -33,14 +33,14 @@ int main(int argc, char ** argv ) {
   try {
     cf = ClassLoader::load_classfile(arquivo);
     Dprintf("file path :: %s\n", arquivo);
-    cf = ClassLoader::load_classfile(arquivo);
-    cf = ClassLoader::load_classfile(arquivo);
+    //cf = ClassLoader::load_classfile(arquivo);
+    //cf = ClassLoader::load_classfile(arquivo);
   }catch(const char * e){
     return std::cerr << e << std::endl, -1;
   }
-  return 0;
+  //return 0;
   if(argc < 3) {
-    printf("Exibidor!\n");
+    Dprintf("Exibidor!\n");
     Exibidor exib(*cf);
     exib.show();
   }
