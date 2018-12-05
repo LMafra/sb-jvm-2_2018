@@ -84,13 +84,22 @@ void exec_jvm_getstatic(){
   jvm_push_reference((void*)NULL);
   incpc(1 + 2);
 }
+
 void exec_jvm_putstatic(){
 
+	
 }
 void exec_jvm_getfield(){
 
 }
 void exec_jvm_putfield(){
+	cp_info * cp = frame_stack.top().inst->my_class_ptr->constant_pool;
+	u2 index = offset16_from_instr();
+	CONSTANT_Fieldref_info * field_ref = 
+		(CONSTANT_Fieldref_info *) &cp[index];
+	u2 class_index = field_ref->class_index;
+	CONSTANT_Utf8_info * utf8_info = 
+		(CONSTANT_Utf8_info *) &cp[class_index];
 
 }
 // arthur

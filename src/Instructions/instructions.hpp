@@ -46,6 +46,9 @@ void store_32(Helper, cat1 * );
 auto store_16 = store_32;
 auto store_8 = store_32;
 
+void _resolve_class_name(CONSTANT_Class_info * class_info) {
+
+}
 
 #include "instructions.cpp"
 
@@ -254,7 +257,7 @@ void exec_jvm_return(); // Ok, not tested.
 void exec_jvm_getstatic();  // TO FIX
 void exec_jvm_putstatic();
 void exec_jvm_getfield();
-void exec_jvm_putfield();
+void exec_jvm_putfield(); // Doing...
 void exec_jvm_invokevirtual();
 void exec_jvm_invokespecial();
 void exec_jvm_invokestatic();

@@ -6,6 +6,7 @@ void exec_jvm_new() {
   u2 index = (u2)offset16_from_stack();
   void * ref = (void*)Instance::instance_allocator(index);
   push_reference(ref);
+  incpc(1);
 }
 void exec_jvm_newarray() { 
   u1 count = popcat1();
@@ -18,6 +19,7 @@ void exec_jvm_anewarray() {
   u1 count = pop_cat1();
   u2 index = offset16_from_instr();
   void * new_array = new Array_ref_instance(count);
+  cp_info * symbolic_reference = &frame_stack.top().inst->my_class_ptr->constant_pool[index];
   // for(int i = 0; i < count; i++) new_array->data[i] = calloc(1, tamanho_da_classe);
   // resolver : alocar espaço, em cada elemento de new_array->data, para a classe
   jvm_push_reference(new_array);
