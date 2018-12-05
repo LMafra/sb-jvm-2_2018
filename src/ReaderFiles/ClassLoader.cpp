@@ -8,7 +8,28 @@
 #include "read_us.hpp"
 #include "../VMGlobals.hpp"
 #define ff first 
-#define ss second 
+#define ss second
+
+struct{
+  bool path_set = false;
+  const char * path;
+} Path;
+
+void set_path(const char * path) {
+  if (!Path.path_set) {
+    std::string s(path);
+    if( s.find_first_of("/") ) {
+      s = s.substr( 0, s.find_last_of("/")+1 ).c_str();
+      Path.path = s.c_str();
+    }
+    else
+      Path.path = "";
+    Dprintf("global_path set to ==> %s\n", Path.path);
+    Path.path_set = true;
+  }
+  return;
+}
+
 att_name_result ClassLoader :: which_att(CONSTANT_Utf8_info & name){
   int size = name.length+1;
   int i;
@@ -194,28 +215,26 @@ void ClassLoader :: load_attribute(FILE *f, ClassFile * cf, attribute_info * atr
   }
 }
 
-ClassFile * ClassLoader :: load_classfile(const char * path="./double_aritmetica.class") {
-
-  string spath(path);  // variavel auxiliar, do tipo string, para facilitar operacoes
-  FILE* f = fopen( path , "rb");
-  printf("opened file\n");
-  cout << spath << endl;
-  const char * class_name = (spath.find('/') != string::npos ? spath.substr( spath.rfind('/') ) : spath).c_str();
-
-  if ( *jvm_loaded_classes.find( "double_aritmetica" )) {
-    int idx = jvm_class_method_area_index["double_aritmetica"];
-    printf("Already loaded at index ... %d\n", idx);
+ClassFile * ClassLoader :: load_classfile(const char * nome ="double_aritmetica.class") {
+  std::string spath(Path.path); spath += nome;
+  
+  FILE* f = fopen(  spath.c_str() , "rb");
+  Dprintf("opened file %s\n", spath.c_str());
+  
+  if ( *jvm_loaded_classes.find( nome )) {
+    int idx = jvm_class_method_area_index[nome];
+    DDprintf("Already loaded at index ... %d\n", idx);
     #if DEBUG
       printf("Tecle ENTER  para continuar... [REMOVER DA VERSÃO FINAL!]\n"); getchar();
+      getchar();
     #endif
     return method_area[ idx ];
   }
+  jvm_loaded_classes.insert( nome );
+  jvm_class_method_area_index[nome] = class_counter;
 
   method_area[class_counter] = (ClassFile*)calloc(1, sizeof(ClassFile));
   ClassFile * cf = method_area[class_counter]; 
-
-  jvm_loaded_classes.insert( class_name );
-  jvm_class_method_area_index[class_name] = class_counter;
 
   // cf vai apontar para o endereço do próximo ClassFile
   class_counter++;

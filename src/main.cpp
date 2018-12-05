@@ -9,9 +9,10 @@
 unsigned int only_ones32(int x) {
   return (unsigned int)(-1) >> (32 - x);
 }
-
-void setup() {
+/// Aloca espaço na method_area e seta o caminho global uasdo para busca de outros .class.
+void setup(const char * first_path) {
   static bool flag = false;
+  set_path( first_path );
   flag = flag ? throw "called setup twice" : true; 
   method_area = (ClassFile**)calloc(100, sizeof(ClassFile*));
 }
@@ -20,24 +21,26 @@ void setup() {
 /// ou lança excessão caso erro algum ocorra.
 
 int main(int argc, char ** argv ) {
-  setup();
   if (argc < 2){
     std::cout << "Voce esqueceu de digitar o nome do arquivo" << std::endl;
     return -1;
   }
   char * arquivo = argv[1];
-  printf("file path :: %s\n", arquivo);
+  setup( arquivo );
+  Dprintf("file path :: %s\n", arquivo);
   ClassFile * cf;
 
   try {
+    cf = ClassLoader::load_classfile(arquivo);
+    Dprintf("file path :: %s\n", arquivo);
     cf = ClassLoader::load_classfile(arquivo);
     cf = ClassLoader::load_classfile(arquivo);
   }catch(const char * e){
     return std::cerr << e << std::endl, -1;
   }
-
+  return 0;
   if(argc < 3) {
-    printf("Exibidor!");
+    printf("Exibidor!\n");
     Exibidor exib(*cf);
     exib.show();
   }
