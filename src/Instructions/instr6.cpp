@@ -7,7 +7,7 @@
 // Rodrigo
 void exec_jvm_i2l(){
 	u8 result = popcat1();
-	dprintf("Result: %ld\n",result);
+	Dprintf("Result: %ld\n",result);
 	pushcat2(result);
 	incpc(1);
 }
@@ -18,7 +18,7 @@ void exec_jvm_i2f(){
 	float result;
 	int ff = *(int*)&x;
 	result = (float)ff;
-	dprintf("Result: %f\n",result);
+	Dprintf("Result: %f\n",result);
 	pushcat1(result);
 	incpc(1);
 }
@@ -31,7 +31,7 @@ void exec_jvm_i2d(){
 	double result;
 	int ff = *(int*)&x;
 	result = (double)ff;
-	dprintf("Result: %lf\n",result);
+	Dprintf("Result: %lf\n",result);
 	pushcat2(result);
 	incpc(1);
 }
@@ -39,7 +39,7 @@ void exec_jvm_i2d(){
 // Rodrigo
 void exec_jvm_l2i(){
 	u4 result = popcat2();
-	dprintf("Result: %d\n",result);
+	Dprintf("Result: %d\n",result);
 	pushcat1(result);
 	incpc(1);
 }
@@ -50,7 +50,7 @@ void exec_jvm_l2f(){
 	long ff = *(long*)&x;
 	float result;
 	result = (float)ff;
-	dprintf("Result: %f\n",result);
+	Dprintf("Result: %f\n",result);
 	pushcat1(result);
 	incpc(1);
 }
@@ -62,7 +62,7 @@ void exec_jvm_l2d(){
 	long ff = *(long*)&x;
 	double result;
 	result = (double)ff;
-	dprintf("Result: %lf\n",result);
+	Dprintf("Result: %lf\n",result);
 	pushcat2(result);
 	incpc(1);
 }
@@ -77,7 +77,7 @@ void exec_jvm_f2i(){
 	else if (isnan(ff)) result = 0;
 	else if( !signbit(ff)) result = INT_MAX;
 	else result = INT_MIN;	
-	dprintf("Result: %d\n",result);
+	Dprintf("Result: %d\n",result);
 	pushcat1(result);
 	incpc(1);
 }
@@ -92,7 +92,7 @@ void exec_jvm_f2l(){
 	else if (isnan(ff)) result = 0;
 	else if( !signbit(ff)) result = LONG_MAX;
 	else result = LONG_MIN;	
-	dprintf("Result: %ld\n",result);
+	Dprintf("Result: %ld\n",result);
 	pushcat2(result);
 	incpc(1);
 }
@@ -104,7 +104,7 @@ void exec_jvm_f2d(){
 	float ff = *(float*)&x;
 	double result;
 	result = (double)ff;
-	dprintf("Result: %lf\n",result);
+	Dprintf("Result: %lf\n",result);
 	pushcat2(result);
 	incpc(1);
 }
@@ -120,7 +120,7 @@ void exec_jvm_d2i(){
 	else if (isnan(ff)) result = 0;
 	else if( !signbit(ff)) result = INT_MAX;
 	else result = INT_MIN;
-	dprintf("Result: %d\n",result);
+	Dprintf("Result: %d\n",result);
 	pushcat1(result);
 	incpc(1);
 }
@@ -134,7 +134,7 @@ void exec_jvm_d2l(){
 	else if (isnan(ff)) result = 0;
 	else if( !signbit(ff)) result = LONG_MAX;
 	else result = LONG_MIN;	
-	dprintf("Result: %ld\n",result);
+	Dprintf("Result: %ld\n",result);
 	pushcat1(result);
 	incpc(1);
 }
@@ -148,7 +148,7 @@ void exec_jvm_d2f(){
 	else if (isnan(ff)) result = 0;
 	else if( !signbit(ff)) result = INFINITY;
 	else result = -INFINITY;	
-	dprintf("Result: %f\n",result);
+	Dprintf("Result: %f\n",result);
 	pushcat1(result);
 	incpc(1);
 }
