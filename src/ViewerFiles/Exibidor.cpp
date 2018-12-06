@@ -997,7 +997,7 @@ void Exibidor::print_jvm_ldc2_w(){
 	u2 aux;
 	((u1 *)&aux)[0] = PC[2];
 	((u1 *)&aux)[1] = PC[1];
-	printf(" #%d ", (int)aux);
+	printf(" #%d ", aux);
 	printparamcat2value(aux);
 	PC = &(PC[3]);
 }
@@ -1005,35 +1005,35 @@ void Exibidor::print_jvm_iload(){
 	std::cout << "iload";
   u1 aux;
   ((u1 *)&aux)[0] = PC[1];
-  printf(" #%d", (int)aux);
+  printf(" %d", aux);
   PC = &(PC[2]);
 }
 void Exibidor::print_jvm_lload(){
 	std::cout << "lload";
   u1 aux;
   ((u1 *)&aux)[0] = PC[1];
-  printf(" #%d", (int)aux);
+  printf(" %d", aux);
   PC = &(PC[2]);
 }
 void Exibidor::print_jvm_fload(){
 	std::cout << "fload";
   u1 aux;
   ((u1 *)&aux)[0] = PC[1];
-  printf(" #%d", (int)aux);
+  printf(" %d", aux);
   PC = &(PC[2]);
 }
 void Exibidor::print_jvm_dload(){
 	std::cout << "dload";
   u1 aux;
   ((u1 *)&aux)[0] = PC[1];
-  printf(" #%d", (int)aux);
+  printf(" %d", aux);
   PC = &(PC[2]);
 }
 void Exibidor::print_jvm_aload(){
 	std::cout << "aload";
   u1 aux;
   ((u1 *)&aux)[0] = PC[1];
-  printf(" #%d", (int)aux);
+  printf(" %d", aux);
   PC = &(PC[2]);
 }
 void Exibidor::print_jvm_iload_0(){
@@ -1474,10 +1474,10 @@ void Exibidor::print_jvm_lxor(){
 void Exibidor::print_jvm_iinc(){
 	std::cout << "iinc";
   u1 aux;
-  u1 aux1;
+  int8_t aux1;
   ((u1 *)&aux1)[0] = PC[2];
   ((u1 *)&aux)[0] = PC[1];
-  printf(" #%d %d", (int)aux, (int)aux1);
+  printf(" %d by %d", (int)aux, (int)aux1);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_i2l(){
@@ -1610,50 +1610,80 @@ void Exibidor::print_jvm_ifle(){
 }
 void Exibidor::print_jvm_if_icmpeq(){
 	std::cout << "if_icmpeq";
-  u2 aux;
+  int padnum = ((u8)PC) - ((u8)PCpadhelp);
+  int16_t aux;
   ((u1 *)&aux)[0] = PC[2];
   ((u1 *)&aux)[1] = PC[1];
-  printf(" %d ", (int)aux);
+  printf(" %d (", padnum+aux);
+  if(aux>0){
+    printf("+");
+  }
+  printf("%d)", aux);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmpne(){
 	std::cout << "if_icmpne";
-  u2 aux;
+  int padnum = ((u8)PC) - ((u8)PCpadhelp);
+  int16_t aux;
   ((u1 *)&aux)[0] = PC[2];
   ((u1 *)&aux)[1] = PC[1];
-  printf(" %d ", (int)aux);
+  printf(" %d (", padnum+aux);
+  if(aux>0){
+    printf("+");
+  }
+  printf("%d)", aux);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmplt(){
 	std::cout << "if_icmplt";
-  u2 aux;
+  int padnum = ((u8)PC) - ((u8)PCpadhelp);
+  int16_t aux;
   ((u1 *)&aux)[0] = PC[2];
   ((u1 *)&aux)[1] = PC[1];
-  printf(" %d ", (int)aux);
+  printf(" %d (", padnum+aux);
+  if(aux>0){
+    printf("+");
+  }
+  printf("%d)", aux);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmpge(){
 	std::cout << "if_icmpge";
-  u2 aux;
+  int padnum = ((u8)PC) - ((u8)PCpadhelp);
+  int16_t aux;
   ((u1 *)&aux)[0] = PC[2];
   ((u1 *)&aux)[1] = PC[1];
-  printf(" %d ", (int)aux);
+  printf(" %d (", padnum+aux);
+  if(aux>0){
+    printf("+");
+  }
+  printf("%d)", aux);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmpgt(){
 	std::cout << "if_icmpgt";
-  u2 aux;
+  int padnum = ((u8)PC) - ((u8)PCpadhelp);
+  int16_t aux;
   ((u1 *)&aux)[0] = PC[2];
   ((u1 *)&aux)[1] = PC[1];
-  printf(" %d ", (int)aux);
+  printf(" %d (", padnum+aux);
+  if(aux>0){
+    printf("+");
+  }
+  printf("%d)", aux);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_icmple(){
 	std::cout << "if_icmple";
-  u2 aux;
+  int padnum = ((u8)PC) - ((u8)PCpadhelp);
+  int16_t aux;
   ((u1 *)&aux)[0] = PC[2];
   ((u1 *)&aux)[1] = PC[1];
-  printf(" %d ", (int)aux);
+  printf(" %d (", padnum+aux);
+  if(aux>0){
+    printf("+");
+  }
+  printf("%d)", aux);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_if_acmpeq(){
@@ -1674,10 +1704,15 @@ void Exibidor::print_jvm_if_acmpne(){
 }
 void Exibidor::print_jvm_goto(){
 	std::cout << "goto";
-  u2 aux;
+  int padnum = ((u8)PC) - ((u8)PCpadhelp);
+  int16_t aux;
   ((u1 *)&aux)[0] = PC[2];
   ((u1 *)&aux)[1] = PC[1];
-  printf(" %d ", (int)aux);
+  printf(" %d (", padnum+aux);
+  if(aux>0){
+    printf("+");
+  }
+  printf("%d)", aux);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_jsr(){
@@ -1781,7 +1816,11 @@ void Exibidor::print_jvm_lookupswitch(){
     ((u1 *)&aux)[1] = PC[2];
     ((u1 *)&aux)[0] = PC[3];
     PC = &(PC[4]);
-    printf(": %d (+%d)", padnum+aux,aux);
+    printf(": %d (",padnum+aux);
+    if(aux>0){
+      printf("+");
+    }
+    printf("%d)", aux);
   }
   printf("\n       default: %d (+%d)",padnum+defa,defa);
 }
