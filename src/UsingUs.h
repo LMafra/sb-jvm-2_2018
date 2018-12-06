@@ -3,7 +3,7 @@
 #pragma once
 #include <stdint.h>
 #include <stdio.h>
-void inline _(const char * x, ...)noexcept{}
+void inline _(const char * x = "", ...)noexcept{}
 
 
 #ifdef DEBUG

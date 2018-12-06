@@ -58,8 +58,7 @@ inline static void iload_X(u1 N) {
   push_cat1( frame_stack.top().variaveis_locais[N] );
 }
 void exec_jvm_iload() {
-  u1 index = instrparam(1);
-  iload_X(index);
+  u1 index = instrparam(1);iload_X(index);
   incpc(1 + 1);
 }
 void exec_jvm_iload_0() {iload_X((u1)0);incpc(1);}
@@ -72,6 +71,7 @@ void exec_jvm_iload_3() {iload_X((u1)3);incpc(1);}
 inline static void exec_jvm_lload_X(u1 N) {iload_X(N); iload_X(N+1);}
 
 void exec_jvm_lload() {
+  u1 index=instrparam(1);exec_jvm_lload_X(index);incpc(1+1);
 }
 void exec_jvm_lload_0(){exec_jvm_lload_X((u1)0);incpc(1);}
 void exec_jvm_lload_1(){exec_jvm_lload_X((u1)1);incpc(1);}
@@ -82,7 +82,7 @@ void exec_jvm_lload_3(){exec_jvm_lload_X((u1)3);incpc(1);}
 /// empilha um float do vetor de variaveis locais
 inline static void exec_jvm_fload_X(u1 N) {iload_X(N);}
 void exec_jvm_fload() {
-
+  exec_jvm_iload();
 }
 void exec_jvm_fload_0() {exec_jvm_fload_X(0);incpc(1);}
 void exec_jvm_fload_1() {exec_jvm_fload_X(1);incpc(1);}

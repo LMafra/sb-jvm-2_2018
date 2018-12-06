@@ -1,4 +1,5 @@
 #pragma once
+#include "ClassLoader.hpp"
 #include <set>
 #include <cstdio>
 #include <cstring>
