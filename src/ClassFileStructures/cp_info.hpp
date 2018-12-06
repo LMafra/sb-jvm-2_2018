@@ -18,80 +18,80 @@ using namespace std;
 #define DOUBLE_FREE "error: DOUBLE FREE AT "
 
 class CONSTANT_Class_info {public:
-  u1 tag;
-  u2 name_index;
-  void fill_from(FILE* f);
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u2 name_index; /**< indice dentro do constant pool*/
+  void fill_from(FILE* f); 
 };
 
 class CONSTANT_Fieldref_info {public:
-  u1 tag;
-  u2 class_index;
-  u2 name_and_type_index;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u2 class_index; /**< Indice dentro da constant pool que referencia as classes do tipo CONSTANT_class_info */
+  u2 name_and_type_index; /**< Define o tipo e o nome do indice dentro da tabela da constant pool */
   void fill_from(FILE* f);
 };
 
 class CONSTANT_Methodref_info {public:
-  u1 tag;
-  u2 class_index;
-  u2 name_and_type_index;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u2 class_index; /**< Indice dentro da constant pool que referencia as classes do tipo CONSTANT_class_info */
+  u2 name_and_type_index; /**< Define o tipo e o nome do indice dentro da tabela da constant pool */
   void fill_from(FILE* f);
 };
 
 class CONSTANT_InterfaceMethodref_info {public:
-  u1 tag;
-  u2 class_index;
-  u2 name_and_type_index;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u2 class_index; /**< Indice dentro da constant pool que referencia as classes do tipo CONSTANT_class_info */
+  u2 name_and_type_index; /**< Define o tipo e o nome do indice dentro da tabela da constant pool */
   void fill_from(FILE* f);
 };
 
 class CONSTANT_String_info {public:
-  u1 tag;
-  u2 string_index;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u2 string_index; /**< Essa variavel define o indice da string dessa constante */
   void fill_from(FILE* f);
 };
 
 class CONSTANT_Integer_info {public:
-  u1 tag;
-  u4 bytes;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u4 bytes; /**< Numero de bytes que representam um numero inteiro dessa constante */
   void fill_from(FILE* f);
 };
 
 class CONSTANT_Float_info {public:
-  u1 tag;
-  u4 bytes;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */ 
+  u4 bytes; /**< Numero de bytes que representam um numero em ponto flutuante dessa constante */
   void fill_from(FILE* f);
 };
 
 class CONSTANT_Long_info {public:
-  u1 tag;
-  u4 high_bytes;
-  u4 low_bytes;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u4 high_bytes; /**< Representa a primeira parte do numero que esta em big-endian */
+  u4 low_bytes; /**< Representa a ultima parte do numero que esta em big-endian */
   void fill_from(FILE* f);
 };
 
 class CONSTANT_Double_info {public:
-  u1 tag;
-  u4 high_bytes;
-  u4 low_bytes;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u4 high_bytes; /**< Representa a primeira parte do numero que esta em big-endian */
+  u4 low_bytes; /**< Representa a ultima parte do numero que esta em big-endian */
   void fill_from(FILE* f);
 };
 
 class CONSTANT_NameAndType_info {public:
-  u1 tag;
-  u2 name_index;
-  u2 descriptor_index;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u2 name_index; /**< indice dentro do constant pool*/
+  u2 descriptor_index; /**< Indice de dentro da constant pool com a descrição */
   void fill_from(FILE* f);
 };
 
 class CONSTANT_Utf8_info {public:
-  u1 tag;
-  u2 length;
-  u1 * bytes;
+  u1 tag; /**< Essa variavel tem o valor da respectiva constant */
+  u2 length; /**< Representa o numero de bytes no vetor de bytes */
+  u1 * bytes; /**< Array de bytes */
   void fill_from(FILE* f);
 };
 
 class cp_info{public:
-  u8 padding1;
+  u8 padding1; 
   u8 padding2;
 };
 
