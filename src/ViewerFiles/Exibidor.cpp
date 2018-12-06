@@ -971,7 +971,17 @@ void Exibidor::print_jvm_ldc(){
 	std::cout << "ldc";
   u1 aux;
   ((u1 *)&aux)[0] = PC[1];
-  printf(" #%d", (int)aux);
+  printf(" #%d", aux);
+  if (((CONSTANT_String_info*)&viewobj.constant_pool[aux])->tag == CONSTANT_String){
+    std::cout << " ";
+    displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[((CONSTANT_String_info*)&viewobj.constant_pool[aux])->string_index]);
+  }
+  if (((CONSTANT_Integer_info*)&viewobj.constant_pool[aux])->tag == CONSTANT_Integer){
+    printf(" <%d>\n",*(int*)&(((CONSTANT_Integer_info*)&viewobj.constant_pool[aux])->bytes));
+  }
+  if (((CONSTANT_Float_info*)&viewobj.constant_pool[aux])->tag == CONSTANT_Float){
+    printf(" <%f>\n",*(float*)&(((CONSTANT_Integer_info*)&viewobj.constant_pool[aux])->bytes));
+  }
   PC = &(PC[2]);
 }
 void Exibidor::print_jvm_ldc_w(){
@@ -979,7 +989,7 @@ void Exibidor::print_jvm_ldc_w(){
   u2 aux;
   ((u1 *)&aux)[0] = PC[2];
   ((u1 *)&aux)[1] = PC[1];
-  printf(" #%d", (int)aux);
+  printf(" #%d", aux);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ldc2_w(){
