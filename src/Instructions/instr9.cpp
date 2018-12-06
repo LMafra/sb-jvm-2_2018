@@ -65,7 +65,7 @@ void exec_jvm_instanceof() {
       resolve_class_name(current_class->constant_pool, current_class->super_class);
 
     
-    if( curr_class_name == ref_name || ref_name == curr_super_class );
+    //if( curr_class_name == ref_name || ref_name == curr_super_class );
     
       // yes is instance
   }
