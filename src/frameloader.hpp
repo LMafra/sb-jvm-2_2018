@@ -241,15 +241,38 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 	metname[3]='\0';*/
 	Dprintf("%s\n", metname);
 	if (condnotprintln(metname)==false){
-		double auxing;
-		DDprintf("debug fl11\n");
-		((u4*)(&auxing))[0]=args[1].val;
-		DDprintf("debug fl12\n");
-		((u4*)(&auxing))[1]=args[0].val;
-		DDprintf("debug fl13\n");
-		printf("%lf\n", auxing);
-		DDprintf("debug fl14\n");
-		return;
+		if(mettype[1]== 'D'){
+			double auxing;
+			DDprintf("debug fl11\n");
+			((u4*)(&auxing))[0]=args[1].val;
+			DDprintf("debug fl12\n");
+			((u4*)(&auxing))[1]=args[0].val;
+			DDprintf("debug fl13\n");
+			printf("%lf\n", auxing);
+			DDprintf("debug fl14\n");
+			return;
+		}
+		if(mettype[1]== 'J'){
+			int64_t auxing;
+			DDprintf("debug fl11\n");
+			((u4*)(&auxing))[0]=args[1].val;
+			DDprintf("debug fl12\n");
+			((u4*)(&auxing))[1]=args[0].val;
+			DDprintf("debug fl13\n");
+			printf("%lli\n", auxing);
+			DDprintf("debug fl14\n");
+			return;
+		}
+		if(mettype[1]== 'I'){
+			int32_t auxing;
+			DDprintf("debug fl11\n");
+			((u4*)(&auxing))[0]=args[0].val;
+			DDprintf("debug fl12\n");
+			DDprintf("debug fl13\n");
+			printf("%d\n", auxing);
+			DDprintf("debug fl14\n");
+			return;
+		}
 	}
 	
 	DDprintf("debug fl6\n");
