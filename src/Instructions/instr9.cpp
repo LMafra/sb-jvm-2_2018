@@ -30,15 +30,48 @@ void exec_jvm_arraylength() {
   push_cat1( array_ref->size );
   incpc(1+1);
 }
+static std::string resolve_class_name(cp_info*cp, int index = -1) {
+  if (index == 0) return std::string("object");
+  // The unsigned indexbyte1 and indexbyte2 are 
+  // used to construct an index into the run-time constant pool of the
+  // current class
+  if(index < 0) index = offset16_from_instr();
+
+  CONSTANT_Class_info * class_info = 
+    (CONSTANT_Class_info *) &cp[index];
+  u2 name_index = class_info->name_index;
+  CONSTANT_Utf8_info * utf8_info = 
+    (CONSTANT_Utf8_info *)&cp[name_index];
+  // obs: se sizeof(char) != sizeof(u1), lascou xD
+  return std::string((char*)utf8_info->bytes, utf8_info->length);
+}
 
 void exec_jvm_athrow() { 
   void * ref = pop_reference();
 }
 void exec_jvm_checkcast() { 
-
 }
 void exec_jvm_instanceof() { 
+  Instance * ref = (Instance *)pop_reference();
+  if  (!ref){
+    std::string ref_name = resolve_class_name(ref->my_class_ptr->constant_pool);
+    
+    ClassFile * current_class  = frame_stack.top().inst->my_class_ptr;
+    std::string curr_class_name = 
+      resolve_class_name(current_class->constant_pool,
+        current_class->this_class);
 
+    std::string curr_super_class = 
+      resolve_class_name(current_class->constant_pool, current_class->super_class);
+
+    
+    if( curr_class_name == ref_name || ref_name == curr_super_class );
+    
+      // yes is instance
+  }
+  else
+    push_cat1((int)0);
+  incpc(1+2);
 }
 void exec_jvm_monitorenter() { 
 
