@@ -11,5 +11,6 @@ int main() {
   printf("%f\n", f);  printf("%x\n", f);
   printf("\n\n");
 
+  printf("%x\n", f);  printf("%u\n", f);
   printf("%x\n", uu);  printf("%u\n", uu);
 }

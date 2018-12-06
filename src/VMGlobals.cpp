@@ -50,13 +50,13 @@ u8 pop_cat2() {
 }
 template <typename T>
 void push_cat1(T val) {
-	cat1 cat; memcpy(&cat.val,&val,sizeof(u4));
+	cat1 cat; cat.val = *(u4*)&val;
 	jvm_stack.push( cat );
 }
 
 template <typename T>
 void push_cat2(T val) {
-	u8 _val; memcpy(&_val, &val, sizeof(u8));
+	u8 _val; _val = *(u8*)&val;
 	u4 low = _val, high = _val >> 32;
 	push_cat1(high); push_cat1( low );
 }

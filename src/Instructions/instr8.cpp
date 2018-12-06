@@ -190,9 +190,12 @@ void exec_jvm_invokevirtual(){
 	((u1*)&index)[0]=indexbyte2;
 	((u1*)&index)[1]=indexbyte1;
 
-	CONSTANT_Methodref_info * methodcalled = (CONSTANT_Methodref_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[index]);
-	CONSTANT_NameAndType_info * methodnat = (CONSTANT_NameAndType_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[methodcalled->name_and_type_index]);
-	CONSTANT_Utf8_info * methodtype = (CONSTANT_Utf8_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[methodnat->descriptor_index]);
+	CONSTANT_Methodref_info * methodcalled = 
+		(CONSTANT_Methodref_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[index]);
+	CONSTANT_NameAndType_info * methodnat = 
+		(CONSTANT_NameAndType_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[methodcalled->name_and_type_index]);
+	CONSTANT_Utf8_info * methodtype = 
+		(CONSTANT_Utf8_info *)&(frame_stack.top().inst->my_class_ptr->constant_pool[methodnat->descriptor_index]);
 	char mettype[methodtype->length+1];
 
 	memcpy( mettype, methodtype->bytes,  sizeof(char) * methodtype->length);

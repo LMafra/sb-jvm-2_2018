@@ -39,11 +39,9 @@ void exec_jvm_l2i(){
 // Rodrigo
 void exec_jvm_l2f(){
 	u8 aux = popcat2();
-	double aux2;
-	memcpy(&aux2,&aux,sizeof(u8));
-	float aux3 = (float) aux2;
+	float aux2 = (float) aux;
 	u4 result;
-	memcpy(&result,&aux3,sizeof(u4));
+	memcpy(&result,&aux2,sizeof(u4));
 	pushcat1(result);
 	incpc(1);
 }
@@ -68,25 +66,19 @@ void exec_jvm_f2i(){
 	incpc(1);
 }
 
-// Rodrigo
+// Rodrigo \ maffei
 void exec_jvm_f2l(){
-	u4 aux = popcat1();
-	float aux2;
-	memcpy(&aux2,&aux,sizeof(u4));
-	u8 result = aux2;
+	float aux = popcat1();
+	long result = aux;
 	pushcat2(result);
 	incpc(1);
 }
 
-// Rodrigo
+// Rodrigo \ maffei
 void exec_jvm_f2d(){
-	u4 aux = popcat1();
-	float aux2;
-	memcpy(&aux2,&aux,sizeof(u4));
-	double aux3 = aux2;
-	u8 result;
-	memcpy(&result,&aux3,sizeof(u8));
-	pushcat2(result);
+	float f = popcat1();
+	double d = f;
+	pushcat2(d);
 	incpc(1);
 }
 
