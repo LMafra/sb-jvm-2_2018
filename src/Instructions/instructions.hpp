@@ -34,20 +34,74 @@ void _init_atype_size_dict() {
   atype_size_dict[enum_atype::T_INT] = sizeof(u4);
   atype_size_dict[enum_atype::T_LONG] = sizeof(u8);
 }
+
+/**
+ * @brief carrega um endereço
+ * @param Helper
+ * @param cat1 *
+ */
 void load_addr(Helper, cat1 * );
+
+/**
+ * @brief carrega 64 bytes
+ * @param Helper
+ * @param cat1 *
+ */
 void load_64(Helper, cat1 * );
+
+/**
+ * @brief carrega 32 bytes
+ * @param Helper
+ * @param cat1 *
+ */
 void load_32(Helper, cat1 * );
+
+/**
+ * @brief carrega os bytes mais significativos da variavel de 32 na de 16
+ */
 auto load_16 = load_32;
+
+/**
+ * @brief carrega os bytes mais significativos da variavel de 32 na de 8
+ */
 auto load_8 = load_32;
 
+/**
+ * @brief armazena um endereço
+ * @param Helper
+ * @param cat1 *
+ */
 void store_addr(Helper, cat1 * );
+
+/**
+ * @brief armazena 64 bytes 
+ * @param Helper
+ * @param cat1 *
+ */
 void store_64(Helper, cat1 * );
+
+/**
+ * @brief armazena 32 bytes
+ * @param Helper
+ * @param cat1 *
+ */
 void store_32(Helper, cat1 * );
+
+/**
+ * @brief guarda na variavel de 16 os 16 bytes mais significativos da de 32
+ */
 auto store_16 = store_32;
+
+/**
+ * @brief guarda na variavel de 8 os 8 bytes mais significativos da de 32
+ */
 auto store_8 = store_32;
 
+/**
+ * @brief 
+ * @param CONSTANT_Class_info * class_info
+ */
 void _resolve_class_name(CONSTANT_Class_info * class_info) {
-
 }
 
 #include "instructions.cpp"

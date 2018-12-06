@@ -1,7 +1,10 @@
 #pragma once
 #include "instructions.hpp"
 void (*exec_vet[256])();
-
+/**
+ * @brief cria um vetor pra chamada das instruções
+ *
+ */
  void set_exec_vet(){
    exec_vet[0] = exec_jvm_nop;
    exec_vet[1] = exec_jvm_aconst_null;

@@ -1,6 +1,11 @@
 #pragma once
 
 void (*print_vet[256]);
+
+/**
+ * @brief Seta os vetores para printar as respectivas instruções
+ * 
+ */
 void set_print_vet(){
   print_vet[0] = print_jvm_nop;
   print_vet[1] = print_jvm_aconst_null;
