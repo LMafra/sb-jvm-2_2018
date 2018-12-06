@@ -460,6 +460,14 @@ void Exibidor::displayConstantValueAtt(ConstantValue_attribute & theatt, int ind
 	std::cout << "Value: cp_info# " << theatt.constantvalue_index << std::endl;
 	std::cout << std::endl;
 }
+u8 numchar(u8 input){
+  int count =1;
+  while (input>=10){
+    count++;
+    input=input/10;
+  }
+  return count;
+}
 void Exibidor::displayInstructions(u1 * instructions, u4 length){
 	PC = instructions;
   PCpadhelp = instructions;
@@ -468,10 +476,15 @@ void Exibidor::displayInstructions(u1 * instructions, u4 length){
 	}*/
   std::cout << "     Instructions:";
   std::cout << "\n";
+  int numspacemax = numchar(length);
 	while(((long long int)(&instructions[length-1]))>=((long long int)(&PC[0]))){
 		u1 aux = PC[0];
 		//std::cout << "\n" << (int)aux << "\n";
-    std::cout << "     ";
+    std::cout << "     " << ((u8)PC - (u8)PCpadhelp);
+    int numspace = numspacemax - numchar(((u8)PC - (u8)PCpadhelp));
+    for (int i=0;i<=numspace;i++){
+      printf(" ");
+    }
 		((*this).*(print_vet[aux]))();
     std::cout << "\n";
 		//std::cout << "\n" << (int)aux << "\n";
@@ -958,7 +971,17 @@ void Exibidor::print_jvm_ldc(){
 	std::cout << "ldc";
   u1 aux;
   ((u1 *)&aux)[0] = PC[1];
-  printf(" #%d", (int)aux);
+  printf(" #%d", aux);
+  if (((CONSTANT_String_info*)&viewobj.constant_pool[aux])->tag == CONSTANT_String){
+    std::cout << " ";
+    displayUtf8InfoString(*(CONSTANT_Utf8_info *)&viewobj.constant_pool[((CONSTANT_String_info*)&viewobj.constant_pool[aux])->string_index]);
+  }
+  if (((CONSTANT_Integer_info*)&viewobj.constant_pool[aux])->tag == CONSTANT_Integer){
+    printf(" <%d>\n",*(int*)&(((CONSTANT_Integer_info*)&viewobj.constant_pool[aux])->bytes));
+  }
+  if (((CONSTANT_Float_info*)&viewobj.constant_pool[aux])->tag == CONSTANT_Float){
+    printf(" <%f>\n",*(float*)&(((CONSTANT_Integer_info*)&viewobj.constant_pool[aux])->bytes));
+  }
   PC = &(PC[2]);
 }
 void Exibidor::print_jvm_ldc_w(){
@@ -966,7 +989,7 @@ void Exibidor::print_jvm_ldc_w(){
   u2 aux;
   ((u1 *)&aux)[0] = PC[2];
   ((u1 *)&aux)[1] = PC[1];
-  printf(" #%d", (int)aux);
+  printf(" #%d", aux);
   PC = &(PC[3]);
 }
 void Exibidor::print_jvm_ldc2_w(){
@@ -1732,9 +1755,9 @@ void Exibidor::print_jvm_lookupswitch(){
   else if (padnum%4 == 3){
     PC = &(PC[1]);
   }
-  u4 defa;
-  u4 npairs;
-  u4 aux;
+  int32_t defa;
+  int32_t npairs;
+  int32_t aux;
   ((u1 *)&defa)[3] = PC[0];
   ((u1 *)&defa)[2] = PC[1];
   ((u1 *)&defa)[1] = PC[2];
@@ -1745,22 +1768,22 @@ void Exibidor::print_jvm_lookupswitch(){
   ((u1 *)&npairs)[1] = PC[2];
   ((u1 *)&npairs)[0] = PC[3];
   PC = &(PC[4]);
-  printf(" %d", (int)npairs);
+  printf(" %d", npairs);
   for(int i = 0;i < npairs;i++){
     ((u1 *)&aux)[3] = PC[0];
     ((u1 *)&aux)[2] = PC[1];
     ((u1 *)&aux)[1] = PC[2];
     ((u1 *)&aux)[0] = PC[3];
     PC = &(PC[4]);
-    printf("\n       %d",(int)aux);
+    printf("\n       %d",aux);
     ((u1 *)&aux)[3] = PC[0];
     ((u1 *)&aux)[2] = PC[1];
     ((u1 *)&aux)[1] = PC[2];
     ((u1 *)&aux)[0] = PC[3];
     PC = &(PC[4]);
-    printf(": %d",(int)aux);
+    printf(": %d (+%d)", padnum+aux,aux);
   }
-  printf("\n       default: %d",(int)defa);
+  printf("\n       default: %d (+%d)",padnum+defa,defa);
 }
 void Exibidor::print_jvm_ireturn(){
 	std::cout << "ireturn";

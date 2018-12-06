@@ -61,7 +61,7 @@ void exec_jvm_f2i(){
 	u4 aux = popcat1();
 	float aux2;
 	memcpy(&aux2,&aux,sizeof(u4));
-	u4 result = aux;
+	u4 result = aux2;
 	pushcat1(result);
 	incpc(1);
 }
