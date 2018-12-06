@@ -11,7 +11,7 @@ enum Helper{
   NOT_WIDE = 4,
   WIDE = 5
 };
-
+/// enum usado para decidir o tipo de variavel
 enum Type {
 	BYTE=0, CHAR, SHORT, INT,	FLOAT,	DOUBLE, LONG, REFERENCE
 };
