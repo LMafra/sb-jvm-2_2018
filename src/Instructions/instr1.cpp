@@ -82,7 +82,7 @@ void exec_jvm_lload_3(){exec_jvm_lload_X((u1)3);incpc(1);}
 /// empilha um float do vetor de variaveis locais
 inline static void exec_jvm_fload_X(u1 N) {iload_X(N);}
 void exec_jvm_fload() {
-
+  exec_jvm_iload();
 }
 void exec_jvm_fload_0() {exec_jvm_fload_X(0);incpc(1);}
 void exec_jvm_fload_1() {exec_jvm_fload_X(1);incpc(1);}
