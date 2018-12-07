@@ -62,8 +62,7 @@ void push_cat2(T val) {
 }
 
 void * pop_reference() {
-	cat1 c1 = pop_cat1raw();
-	void * addr = c1.ref_val;	jvm_stack.pop();
+	void * addr = jvm_stack.top().ref_val;	jvm_stack.pop();
 	return addr;
 }
 
@@ -89,6 +88,18 @@ int32_t offset32_from_instr(int add = 0) {
   // return instrparam(1)<<24|instrparam(1)<<16|instrparam(2)<<8|instrparam(4);
 }
 
+
+template <typename T>
+void jvm_push_u4(T val) {
+	u4 content; memcpy(&content, &val, sizeof(u8));
+	push_cat1( val );
+}
+
+template <typename T>
+void jvm_push_u8(T val) {
+	u8 content; memcpy(&content, &val, sizeof(u8));
+	push_cat1( val );
+}
 
 template <typename T>
 void push_reference(T * ref_val) {

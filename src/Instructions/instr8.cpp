@@ -8,7 +8,6 @@ void exec_jvm_goto(){
 // maffei
 void exec_jvm_jsr(){
   int index = (int)offset16_from_instr();
-	DDprintf("at exec_jvm_jsr\n");
   jvm_push_reference( &PC[3] );
   increment_pc( index );
 }
@@ -110,7 +109,6 @@ void exec_jvm_lreturn(){_return64();}
 void exec_jvm_freturn(){_return32();}
 void exec_jvm_dreturn(){_return64();}
 void exec_jvm_areturn(){
-	DDprintf("at exec_jvm_areturn\n");
 	void * ref = pop_reference();	_return();push_reference(ref);
 }
 void exec_jvm_return(){_return();}
@@ -134,8 +132,7 @@ void exec_jvm_getstatic(){
   CONSTANT_Utf8_info * utf8_info = (CONSTANT_Utf8_info *)&cp[name_index];
 
   // gambiarra pq essa porcaria tá mal descrita e bem ruim de entender
-  DDprintf("at exec_jvm_getstatic\n");
-	jvm_push_reference((void*)NULL);
+  jvm_push_reference((void*)NULL);
   incpc(1 + 2);
 }
 
@@ -186,7 +183,7 @@ cat1 * argument_prepare(char * descriptor){
 }
 // arthur
 void exec_jvm_invokevirtual(){
-	printf("debug invokevirtual\n");
+	Dprintf("debug invokespecial\n");
 	u1 indexbyte1 = instrparam(1);
 	u1 indexbyte2 = instrparam(2);
 	u2 index;

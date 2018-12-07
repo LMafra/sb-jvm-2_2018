@@ -33,11 +33,11 @@ void interpret(ClassFile * firstclass){
 	set_exec_vet();
 	PC=NULL;
 	Frame_type firstframe;
-	Instance * firstinstance = (Instance*)calloc(1,sizeof(Instance));
-	firstinstance->my_class_ptr=firstclass;
-	firstinstance->my_attributes=NULL;
-	firstframe.inst=firstinstance;
-  firstframe.initial_stack_size=jvm_stack.size();
+	Instance firstinstance;
+	firstinstance.my_class_ptr=firstclass;
+	firstinstance.my_attributes=NULL;
+	firstframe.inst=&firstinstance;
+  	firstframe.initial_stack_size=jvm_stack.size();
 	firstframe.PC_retorno=NULL;
 	firstframe.PC_base=NULL;
 	firstframe.variaveis_locais=NULL;
@@ -54,24 +54,16 @@ void interpret(ClassFile * firstclass){
 		cat1 * params =  (cat1*)malloc(sizeof(cat1));
 		params[0].ref_val=metname;
 		int index = 0;
-		while(namescomp(*(CONSTANT_Utf8_info *)&(firstinstance)->my_class_ptr->constant_pool[(firstinstance)->my_class_ptr->methods[index].name_index],metname)==false
-				&& index<(firstinstance)->my_class_ptr->methods_count-1){
+		while(namescomp(*(CONSTANT_Utf8_info *)&(&firstinstance)->my_class_ptr->constant_pool[(&firstinstance)->my_class_ptr->methods[index].name_index],metname)==false && index<(&firstinstance)->my_class_ptr->methods_count-1){
 			index++;
 		}
-		if (namescomp(*(CONSTANT_Utf8_info *)&(firstinstance)->my_class_ptr->constant_pool
-												[(firstinstance)->my_class_ptr->methods[index].name_index],metname)==false){
+		if (namescomp(*(CONSTANT_Utf8_info *)&(&firstinstance)->my_class_ptr->constant_pool[(&firstinstance)->my_class_ptr->methods[index].name_index],metname)==false){
 			return;
 		}
-		_();
-		_();
-		instance_frame_loader_interpreter((firstinstance)->my_class_ptr->methods[index].name_index, 
-																			(firstinstance)->my_class_ptr->methods[index].descriptor_index,
-																			(firstinstance)->my_class_ptr->this_class,
-																			(firstinstance),
-																			params);
+		instance_frame_loader_interpreter((&firstinstance)->my_class_ptr->methods[index].name_index, (&firstinstance)->my_class_ptr->methods[index].descriptor_index, (&firstinstance)->my_class_ptr->this_class,(&firstinstance),params);
 		instructions_Loop();
-		// free(params);
 	}
+	
 	Dprintf("debug int2\n");
 	
 }

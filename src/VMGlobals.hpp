@@ -19,9 +19,6 @@
 #define jvm_pop_address pop_reference 
 #define pop_address pop_reference
 #define jvm_push_reference push_reference
-#define jvm_push_u4 push_cat1
-#define jvm_push_u8 push_cat2
-#define jvm_push_reference push_reference
 const double NaN = nan("");
 // extern class Instance;
 class Array_instance {public:
@@ -99,10 +96,10 @@ void * pop_reference();
 int16_t offset16_from_stack();int32_t offset32_from_stack();
 int16_t offset16_from_instr(int);int32_t offset32_from_instr(int);
 
-// template <class T>
-// void jvm_push_u4(T val);
-// template <class T>
-// void jvm_push_u8(T val);
+template <class T>
+void jvm_push_u4(T val);
+template <class T>
+void jvm_push_u8(T val);
 
 template <class T>
 void push_reference(T * val);

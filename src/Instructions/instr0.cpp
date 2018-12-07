@@ -11,8 +11,7 @@ void exec_jvm_nop(){
 // Gabiel Bessa [fixed maffei] [detected arthur]
 void exec_jvm_aconst_null(){
   void * p = NULL;
-  DDprintf("at exec_jvm_aconst_null\n");
-  push_reference(p);
+  jvm_push_reference(p);
   incpc(1);
 }
 

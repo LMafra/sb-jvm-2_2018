@@ -16,7 +16,6 @@ static u2 get_index(Helper _wide) {
 void load_addr(Helper _wide = Helper::NOT_WIDE, cat1 * locais = frame_stack.top().variaveis_locais) {
   u2 index = get_index(_wide);
   void * ref = locais[index].ref_val;
-  DDprintf("at load_addr\n");
   push_reference(ref);
 }
 void load_64(Helper _wide = Helper::NOT_WIDE, cat1 * locais = frame_stack.top().variaveis_locais) {
