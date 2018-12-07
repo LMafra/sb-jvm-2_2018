@@ -293,6 +293,16 @@ ClassFile * ClassLoader :: load_classfile(const char * nome ="double_aritmetica.
   cf->attributes = (attribute_info*)malloc( cf->attributes_count * sizeof( attribute_info ) );
   ClassLoader :: load_attribute(f, cf, cf->attributes, cf->attributes_count);
 
-  fclose(f);
+  fclose(f); int iii = 0;
+  CONSTANT_Class_info * aux = (CONSTANT_Class_info *)(&cf->constant_pool[cf->this_class]);
+  CONSTANT_Utf8_info * aux2 = (CONSTANT_Utf8_info *)(&cf->constant_pool[ aux->name_index ]);
+  // Checa consitencia de nome do arquivo com o nome da classe
+  for(int iii = 0; iii <   aux2->length; iii++) {
+    if( aux2->bytes[iii]  != nome[iii])  {
+      printf("NAO FOI POSSIVEL CARREGAR O .class: o nome do .classe da classe diferem\n");
+      printf("%d-esimo bytes: %x %x \n", iii, aux2->bytes, nome[iii]);
+      return NULL;
+    }
+  }
   return cf;
 }
