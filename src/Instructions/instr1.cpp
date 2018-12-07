@@ -22,7 +22,7 @@ static void ldc_X(u2 index) {
       );
       jvm_stack.push(auxie); break;
     case enum_cp_tags::CONSTANT_Class:
-      
+      push_reference((void*)NULL);
     default:
       throw "ERROR! where: exec_jvm_ldc";
   }

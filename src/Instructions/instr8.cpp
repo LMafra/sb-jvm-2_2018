@@ -146,11 +146,15 @@ void exec_jvm_getfield(){
 void exec_jvm_putfield(){
 	cp_info * cp = frame_stack.top().inst->my_class_ptr->constant_pool;
 	u2 index = offset16_from_instr();
+	// The run-time constant pool item at that index must be a symbolic
+	// reference to a field (§5.1)
 	CONSTANT_Fieldref_info * field_ref = 
 		(CONSTANT_Fieldref_info *) &cp[index];
+
 	u2 class_index = field_ref->class_index;
 	CONSTANT_Utf8_info * utf8_info = 
 		(CONSTANT_Utf8_info *) &cp[class_index];
+	
 
 }
 // arthur
