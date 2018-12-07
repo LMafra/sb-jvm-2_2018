@@ -221,9 +221,13 @@ void ClassLoader :: load_attribute(FILE *f, ClassFile * cf, attribute_info * atr
   }
 }
 
-ClassFile * ClassLoader :: load_classfile(const char * nome ="double_aritmetica.class") {
+ClassFile * ClassLoader :: load_classfile(const char * _nome ="double_aritmetica.class") {
+  std:: string exxtreme(_nome);
+  if(exxtreme.find(".class") == std::string::npos) exxtreme = exxtreme+".class";
+  const char * nome = exxtreme.c_str();
+
   std::string spath(Path.path); spath += nome;
-  
+  std::cout << spath << endl;
   FILE* f = fopen(  spath.c_str() , "rb");
   Dprintf("opened file %s\n", spath.c_str());
   
@@ -304,5 +308,6 @@ ClassFile * ClassLoader :: load_classfile(const char * nome ="double_aritmetica.
       return NULL;
     }
   }
+  if(nome)
   return cf;
 }
