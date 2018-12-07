@@ -1,5 +1,7 @@
 #include "../VMGlobals.hpp"
 #include "instructions.hpp"
+#include <limits.h>
+
 /// Funcao auxiliar para obter o indice do vaetor de 
 /// variáveis locais; demultiplexador na prática
 static u2 get_index(Helper _wide) {
@@ -56,4 +58,39 @@ void store_32(Helper _wide = Helper::NOT_WIDE, cat1 * locais = frame_stack.top()
 	u4 value1;
 	value1 = pop_cat1();
   locais[index].val = value1;
+}
+
+int _f2i(float ff) {
+  int result;
+	if( isnormal(ff) ) result = (int)ff;
+	else if (isnan(ff)) result = 0;
+	else if( !signbit(ff)) result = INT_MAX;
+	else result = INT_MIN;
+  return result;
+}
+
+long _f2l(float ff) {
+  long result;
+	if( isnormal(ff) ) result = (long)ff;
+	else if (isnan(ff)) result = 0;
+	else if( !signbit(ff)) result = LONG_MAX;
+	else result = LONG_MIN;
+  return result;
+}
+int _d2i(double ff) {
+  int result;
+	if( isnormal(ff) ) result = (int)ff;
+	else if (isnan(ff)) result = 0;
+	else if( !signbit(ff)) result = INT_MAX;
+	else result = INT_MIN;
+  return result;
+}
+
+long _d2l(double ff) {
+  long result;
+	if( isnormal(ff) ) result = (long)ff;
+	else if (isnan(ff)) result = 0;
+	else if( !signbit(ff)) result = LONG_MAX;
+	else result = LONG_MIN;
+  return result;
 }

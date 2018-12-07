@@ -4,21 +4,17 @@
 
 // Rodrigo
 void exec_jvm_lcmp(){
-	int64_t value2 = popcat2();
-	int64_t value1 = popcat2();
+	u8 value2 = popcat2();
+	u8 value1 = popcat2();
 	u4 result = 0;
 	if(value1 == value2){
-		pushcat1(result);
-		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
-		pushcat1(result);
-		incpc(1);
 	}else{
 		result = -1;
-		pushcat1(result);
-		incpc(1);
 	}
+	pushcat1(result);
+	incpc(1);
 }
 
 // Rodrigo
@@ -30,17 +26,13 @@ void exec_jvm_fcmpl(){
 	memcpy(&value1, &f1, sizeof(u4));
 	memcpy(&value2, &f2, sizeof(u4));
 	if(value1 == value2){
-		pushcat1(result);
-		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
-		pushcat1(result);
-		incpc(1);
 	}else{
 		result = -1;
-		pushcat1(result);
-		incpc(1);
 	}
+	pushcat1(result);
+	incpc(1);
 }
 
 // Rodrigo
@@ -52,21 +44,13 @@ void exec_jvm_fcmpg(){
 	memcpy(&value1, &f1, sizeof(u4));
 	memcpy(&value2, &f2, sizeof(u4));
 	if(value1 == value2){
-		pushcat1(result);
-		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
-		pushcat1(result);
-		incpc(1);
-	}else if(value1 < value2){
-		result = -1;
-		pushcat1(result);
-		incpc(1);
 	}else{
 		result = -1;
-		pushcat1(result);
-		incpc(1);
 	}
+	pushcat1(result);
+	incpc(1);
 }
 
 // Rodrigo
@@ -78,17 +62,13 @@ void exec_jvm_dcmpl(){
 	memcpy(&value1, &f1, sizeof(u8));
 	memcpy(&value2, &f2, sizeof(u8));
 	if(value1 == value2){
-		pushcat1(result);
-		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
-		pushcat1(result);
-		incpc(1);
 	}else{
 		result = -1;
-		pushcat1(result);
-		incpc(1);
 	}
+	pushcat1(result);
+	incpc(1);
 }
 
 // Rodrigo
@@ -100,21 +80,13 @@ void exec_jvm_dcmpg(){
 	memcpy(&value1, &f1, sizeof(u8));
 	memcpy(&value2, &f2, sizeof(u8));
 	if(value1 == value2){
-		pushcat1(result);
-		incpc(1);
 	}else if(value1 > value2){
 		result = 1;
-		pushcat1(result);
-		incpc(1);
-	}else if(value1 < value2){
-		result = -1;
-		pushcat1(result);
-		incpc(1);
 	}else{
 		result = -1;
-		pushcat1(result);
-		incpc(1);
 	}
+	pushcat1(result);
+	incpc(1);
 }
 
 // Rodrigo

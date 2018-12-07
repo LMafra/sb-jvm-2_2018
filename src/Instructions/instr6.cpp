@@ -2,7 +2,6 @@
 #include "../VMGlobals.hpp"
 #include <string.h>
 #include <math.h>
-#include <limits.h>
 
 // Rodrigo
 void exec_jvm_i2l(){
@@ -72,11 +71,7 @@ void exec_jvm_l2d(){
 void exec_jvm_f2i(){
 	auto x = popcat1();
 	float ff = *(float*)&x;
-	int result;
-	if( isnormal(ff) ) result = (int)ff;
-	else if (isnan(ff)) result = 0;
-	else if( !signbit(ff)) result = INT_MAX;
-	else result = INT_MIN;	
+	int result = _f2i(ff);
 	Dprintf("Result: %d\n",result);
 	pushcat1(result);
 	incpc(1);
@@ -87,11 +82,7 @@ void exec_jvm_f2i(){
 void exec_jvm_f2l(){
 	auto x = popcat1();
 	float ff = *(float*)&x;
-	long result;
-	if( isnormal(ff) ) result = (long)ff;
-	else if (isnan(ff)) result = 0;
-	else if( !signbit(ff)) result = LONG_MAX;
-	else result = LONG_MIN;	
+	long result = _f2l(ff);
 	Dprintf("Result: %ld\n",result);
 	pushcat2(result);
 	incpc(1);
@@ -115,11 +106,7 @@ void exec_jvm_d2i(){
 	auto x = popcat2();
 	double ff = *(double*)&x;
 	printf("Result: %f\n", ff);
-	int result;
-	if( isnormal(ff) ) result = (int)ff;
-	else if (isnan(ff)) result = 0;
-	else if( !signbit(ff)) result = INT_MAX;
-	else result = INT_MIN;
+	int result = _d2i(ff);
 	Dprintf("Result: %d\n",result);
 	pushcat1(result);
 	incpc(1);
@@ -129,25 +116,21 @@ void exec_jvm_d2i(){
 void exec_jvm_d2l(){
 	auto x = popcat2();
 	double ff = *(double*)&x;
-	long result;
-	if( isnormal(ff) ) result = (long)ff;
-	else if (isnan(ff)) result = 0;
-	else if( !signbit(ff)) result = LONG_MAX;
-	else result = LONG_MIN;	
+	long result = _d2l();	
 	Dprintf("Result: %ld\n",result);
 	pushcat2(result);
 	incpc(1);
 }
 
-// Rodrigo
+// Rodrigo [nso sei se estah correta 100%]
 void exec_jvm_d2f(){
 	auto x = popcat2();
 	double ff = *(double*)&x;
 	float result;
 	if( isnormal(ff) ) result = (float)ff;
-	else if (isnan(ff)) result = 0;
+	else if (isnan(ff)) result = NaN;	// nan do tipo float
 	else if( !signbit(ff)) result = INFINITY;
-	else result = -INFINITY;	
+	else result = -INFINITY;
 	Dprintf("Result: %f\n",result);
 	pushcat1(result);
 	incpc(1);
@@ -157,17 +140,19 @@ void exec_jvm_d2f(){
 void exec_jvm_i2b(){
 	u4 aux = popcat1();
 	u1 aux2 = (u1)aux;
-	u4 result = aux2;
-	pushcat1(result);
+	// u4 result = aux2;
+	pushcat1(aux2);
 	incpc(1);
 }
 
 // Rodrigo
 void exec_jvm_i2c(){
 	u4 aux =  popcat1();
-	u2 aux2 = (u2)aux;
-	u4 result = aux2;
-	pushcat1(result);
+	aux = aux & 0x11;
+	// u2 aux2 = (u2)aux;
+	// u4 result = aux2;
+	// pushcat1(result);
+	pushcat1(aux);
 	incpc(1);
 }
 

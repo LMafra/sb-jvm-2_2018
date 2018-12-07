@@ -7,6 +7,13 @@ void foo(int x){
 
 int main() {
   u2 u= 0xFFFF;
+  u4 menos1 = -1;
+  int less1 = menos1;
+  printf("%u\n", menos1);
+  printf("%d\n", less1);
+
+
+return;
   short i = u;
   int x = u;
   printf("u2 u= 0xFFFF;\n");

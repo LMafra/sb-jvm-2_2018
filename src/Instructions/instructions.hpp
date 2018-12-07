@@ -46,6 +46,11 @@ void store_32(Helper, cat1 * );
 auto store_16 = store_32;
 auto store_8 = store_32;
 
+int _f2i(float ff);
+long _f2l(float ff);
+int _d2i(double ff);
+long _d2l(double ff);
+
 void _resolve_class_name(CONSTANT_Class_info * class_info) {
 
 }
