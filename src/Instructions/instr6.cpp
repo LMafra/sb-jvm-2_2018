@@ -116,7 +116,7 @@ void exec_jvm_d2i(){
 void exec_jvm_d2l(){
 	auto x = popcat2();
 	double ff = *(double*)&x;
-	long result = _d2l();	
+	long result = _d2l(ff);	
 	Dprintf("Result: %ld\n",result);
 	pushcat2(result);
 	incpc(1);
