@@ -69,9 +69,9 @@ void exec_jvm_lconst_1(){
   incpc(1);
 }
 
-// Gabiel Bessa [fixed maffei]
+// Gabiel Bessa [fixed maffei][fixed arthur]
 void exec_jvm_fconst_0(){
-  push_cat2((float)0.0);
+  push_cat1((float)0.0);
   incpc(1);
 }
 
