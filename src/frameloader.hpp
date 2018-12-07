@@ -284,6 +284,7 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 				printf("%c", auxing->bytes[j]);
 			}
 			DDprintf("debug fl14\n");
+			printf("\n");
 			return;
 		}
 	}
