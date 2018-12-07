@@ -323,17 +323,24 @@ void exec_jvm_i2s(); // Ok, not tested.
 #include "instr6.cpp"
 
 // 7
+/// \brief Compara dois longs
 void exec_jvm_lcmp(); // Ok, not tested.
+/// \brief Compara dois floats
 void exec_jvm_fcmpl();  // Ok, not tested.
+/// \brief Compara dois floats
 void exec_jvm_fcmpg();  // Ok, not tested.
+/// \brief Compara dois doubles
 void exec_jvm_dcmpl();  // Ok, not tested.
+/// \brief Compara dois doubles
 void exec_jvm_dcmpg();  // Ok, not tested.
+/// \brief Todas instruções do if realizam um branch de acordo com a sua especificação na comparação de um int com o zero
 void exec_jvm_ifeq(); // Ok, not tested.
 void exec_jvm_ifne(); // Ok, not tested.
 void exec_jvm_iflt(); // Ok, not tested.
 void exec_jvm_ifge(); // Ok, not tested.
 void exec_jvm_ifgt(); // Ok, not tested.
 void exec_jvm_ifle(); // Ok, not tested.
+/// \brief Todas instruções do if realizam um branch de acordo com a sua especificação na comparação de um int com outro int
 void exec_jvm_if_icmpeq();  // Ok, not tested.
 void exec_jvm_if_icmpne();  // Ok, not tested.
 void exec_jvm_if_icmplt();  // Ok, not tested.
@@ -345,44 +352,78 @@ void exec_jvm_if_acmpne();  // Ok, not tested.
 #include "instr7.cpp"
 
 // 8
+/// \brief Sempre realiza um branch
 void exec_jvm_goto(); // Ok, not tested
+/// \brief Pula uma subrotina
 void exec_jvm_jsr();  // Ok, not tested
+/// \brief Retorna de uma subrotina
 void exec_jvm_ret();  // Ok, not tested
+/// \brief Acessa o jump table por indice e realiza um jump
 void exec_jvm_tableswitch();  // TO FINISH
+/// \brief Acessa o jump table por chave e realiza um jump
 void exec_jvm_lookupswitch();
+/// \brief Retorna um int de um metodo
 void exec_jvm_ireturn();  // Ok, not tested.
+/// \brief Retorna um long de um metodo
 void exec_jvm_lreturn();  // Ok, not tested.
+/// \brief Retorna um float de um metodo
 void exec_jvm_freturn();  // Ok, not tested.
+/// \brief Retorna um double de um metodo
 void exec_jvm_dreturn();  // Ok, not tested.
+/// \brief Retorna uma referencia de um metodo
 void exec_jvm_areturn();  // Ok, not tested.
+/// \brief Retorna void de um metodo
 void exec_jvm_return(); // Ok, not tested.
+/// \brief Pega o field estático do class
 void exec_jvm_getstatic();  // TO FIX
+/// \brief Seta o field estático no class
 void exec_jvm_putstatic();
+/// \brief Pega o field do objeto
 void exec_jvm_getfield();
+/// \brief Seta o field no objeto
 void exec_jvm_putfield(); // Doing...
+/// \brief Invoca um método de instância
 void exec_jvm_invokevirtual();
+/// \brief Invoca um método de instância para tratar classes com metodos de superclasse, privados, invocações e instancialização
 void exec_jvm_invokespecial();
+/// \brief Invoca um método estático
 void exec_jvm_invokestatic();
+/// \brief Invoca um método de interface
 void exec_jvm_invokeinterface();
+/// \brief Invoca um método dinâmico
 void exec_jvm_invokedynamic();  // nao precisa fazer
 #include "instr8.cpp"
 
 // 9
+/// \brief Cria um objeto novo
 void exec_jvm_new();  // Ok, not tested
+/// \brief Cria um array novo
 void exec_jvm_newarray(); // Ok, not tested.
+/// \brief Cria um array de referencias novo
 void exec_jvm_anewarray();  // TO FINISH.
+/// \brief Checa o tamanho do array
 void exec_jvm_arraylength();  // Ok, not tested.
+/// \brief Joga erro ou exceção
 void exec_jvm_athrow();
+/// \brief Checa de que tipo é o objeto fornecido
 void exec_jvm_checkcast();
+/// \brief Checa se o objeto é instancia de alguma classe
 void exec_jvm_instanceof();
 void exec_jvm_monitorenter();  // nao precisa fazer
 void exec_jvm_monitorexit();  // nao precisa fazer
+/// \brief Estende o índice da variavel local com bytes adicionais
 void exec_jvm_wide();
+/// \brief Cria um array multidimensional
 void exec_jvm_multianewarray();
+/// \brief Faz um branch se a referencia for nula
 void exec_jvm_ifnull(); // Ok, not tested
+/// \brief Faz um branch se a referencia não for nula
 void exec_jvm_ifnonnull();  // Ok, not tested
+/// \brief Sempre faz um branch(wide index)
 void exec_jvm_goto_w(); // Ok, not tested
+/// \brief Pula uma subrotina(wide index)
 void exec_jvm_jsr_w();  // Ok, not tested
+/// \brief Seta um breakpoint no debugger
 void exec_jvm_breakpoint(); // Reservado
 void exec_jvm_impdep1();  // Reservado
 void exec_jvm_impdep2();  // Reservado
