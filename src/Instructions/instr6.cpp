@@ -176,7 +176,6 @@ void exec_jvm_i2s(){
 	int32_t aux =  popcat1();
 	aux = (short)aux;
 	int32_t result = (int32_t)aux;
-	u4 result = aux2;
 	pushcat1(result);
 	incpc(1);
 }

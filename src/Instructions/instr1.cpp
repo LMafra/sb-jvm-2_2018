@@ -69,13 +69,13 @@ void exec_jvm_iload_3() {iload_X((u1)3);incpc(1);}
 
 // maffei
 /// empilha um long do vetor de variaveis locais
-inline static void exec_jvm_lload_X(u1 N) {iload_X(N); iload_X(N+1);}
+inline static void lload_X(u1 N) {iload_X(N); iload_X(N+1);}
 
 void exec_jvm_lload() {u1 index = instrparam(1);lload_X(index);incpc(1 + 1);}
-void exec_jvm_lload_0(){exec_jvm_lload_X((u1)0);incpc(1);}
-void exec_jvm_lload_1(){exec_jvm_lload_X((u1)1);incpc(1);}
-void exec_jvm_lload_2(){exec_jvm_lload_X((u1)2);incpc(1);}
-void exec_jvm_lload_3(){exec_jvm_lload_X((u1)3);incpc(1);}
+void exec_jvm_lload_0(){lload_X((u1)0);incpc(1);}
+void exec_jvm_lload_1(){lload_X((u1)1);incpc(1);}
+void exec_jvm_lload_2(){lload_X((u1)2);incpc(1);}
+void exec_jvm_lload_3(){lload_X((u1)3);incpc(1);}
 
 // maffei
 /// empilha um float do vetor de variaveis locais

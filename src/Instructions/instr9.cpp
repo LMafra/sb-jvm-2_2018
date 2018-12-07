@@ -69,7 +69,7 @@ void exec_jvm_checkcast() {
 void exec_jvm_instanceof() { 
   Instance * ref = (Instance *)pop_reference();
   if  (!ref){
-    std::string ref_name = resolve_class_name(ref->my_class_ptr->constant_pool);
+    // std::string ref_name = resolve_class_name(ref->my_class_ptr->constant_pool);
     
     ClassFile * current_class  = frame_stack.top().inst->my_class_ptr;
     std::string curr_class_name = 
