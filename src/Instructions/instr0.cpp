@@ -93,9 +93,9 @@ void exec_jvm_dconst_0(){
   incpc(1);
 }
 
-// Gabiel Bessa
+// Gabiel Bessa [fixed arthur]
 void exec_jvm_dconst_1(){
-  push_cat1((double)1.0);
+  push_cat2((double)1.0);
   incpc(1);
 }
 

@@ -14,7 +14,9 @@ void instructions_Loop(){
 		printf("%lli\n", (long long int)PC);
 		#endif
 		#if DEBUG
+		printf("debug instropcode line %llu\n", (int64_t)PC-(int64_t)frame_stack.top().PC_base);
 		printf("debug instropcode %d\n", aux);
+		printf("debug instr stack size %lu\n", jvm_stack.size());
 		#endif
 		(*(exec_vet[aux]))();
 	}
