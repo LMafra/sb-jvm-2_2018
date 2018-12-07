@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <math.h>
 #include <limits.h>
-#define dprintf printf
+
 template <class T>
 std::string
 type_name()
@@ -40,20 +40,17 @@ type_name()
 #include <iostream>
 using namespace std;
 
-int vetor[2] = {-3,300};
+float vetor[2] = {-3.14,2};
 
-double vetor2[2] = {-3.14,2};
+double vetor2[2] = {1,2};
 int pc = 0;
 
-uint32_t popcat1() {
-	return vetor[1];
-	//return 0xC048F5C3;
-	 //return 0x41430A3D;
+u4 popcat1(){
+	return vetor[0];
 }
 
-uint64_t popcat2(){
-	//return vetor2[0];
-	return 0xC0091EB851EB851F;
+u8 popcat2(){
+	return vetor2[1];
 }
 
 void pushcat1(int result){
@@ -75,31 +72,26 @@ int instrparam(int i){
 // Rodrigo
 void exec_jvm_i2l(){
 	u8 result = popcat1();
-	dprintf("Result: %ld\n",result);
 	pushcat2(result);
 	incpc(1);
 }
 
 // Rodrigo
 void exec_jvm_i2f(){
-	auto x = popcat1();
-	float result;
-	int ff = *(int*)&x;
-	result = (float)ff;
-	dprintf("Result: %f\n",result);
+	u4 aux = popcat1();
+	float aux2 = (float)aux;
+	u4 result;
+	memcpy(&result,&aux2,sizeof(u4));
 	pushcat1(result);
 	incpc(1);
 }
 
-
 // Rodrigo
 void exec_jvm_i2d(){
-
-	auto x = popcat1();
-	double result;
-	int ff = *(int*)&x;
-	result = (double)ff;
-	dprintf("Result: %lf\n",result);
+	u4 aux = popcat1();
+	double aux2 = (double)aux;
+	u8 result;
+	memcpy(&result,&aux2,sizeof(u8));
 	pushcat2(result);
 	incpc(1);
 }
@@ -107,116 +99,119 @@ void exec_jvm_i2d(){
 // Rodrigo
 void exec_jvm_l2i(){
 	u4 result = popcat2();
-	dprintf("Result: %d\n",result);
 	pushcat1(result);
 	incpc(1);
 }
 
 // Rodrigo
 void exec_jvm_l2f(){
-	auto x = popcat2();
-	long ff = *(long*)&x;
-	float result;
-	result = (float)ff;
-	dprintf("Result: %f\n",result);
+	u8 aux = popcat2();
+	double aux2;
+	memcpy(&aux2,&aux,sizeof(u8));
+	float aux3 = (float) aux2;
+	u4 result;
+	memcpy(&result,&aux3,sizeof(u4));
 	pushcat1(result);
 	incpc(1);
 }
-
 
 // Rodrigo
 void exec_jvm_l2d(){
-	auto x = popcat2();
-	long ff = *(long*)&x;
-	double result;
-	result = (double)ff;
-	dprintf("Result: %lf\n",result);
+	u8 aux = popcat2();
+	double aux2 = (double) aux;
+	u8 result;
+	memcpy(&result,&aux2,sizeof(u8));
+	cout <<  type_name<decltype(result)>() << endl;////////////////////////////////////////
 	pushcat2(result);
 	incpc(1);
 }
 
-
 // Rodrigo
+
 void exec_jvm_f2i(){
+
 	auto x = popcat1();
 	float ff = *(float*)&x;
-	int result;
-	if( isnormal(ff) ) result = (int)ff;
-	else if (isnan(ff)) result = 0;
-	else if( !signbit(ff)) result = INT_MAX;
-	else result = INT_MIN;	
-	dprintf("Result: %d\n",result);
-	pushcat1(result);
-	incpc(1);
+	printf("it works !! => %f\n", ff);
 }
 
+void exec_jvm_f2i2(){
+	
+	u4 aux = float(-3.14);//popcat1();
+	float aux2 = *(float *)&aux;
+	cout <<  type_name<decltype(aux2)>() << ": " <<aux2 << endl;////////////////////////////////////////
+	//memcpy(&aux2,&aux,sizeof(u4));
+	int result = aux2;
+	cout <<  type_name<decltype(result)>() << ": " <<result << endl;////////////////////////////////////////
+/*
+	u4 f = popcat1();
+	float aux2;
+	memcpy(&aux2,&f,sizeof(u4));
+	int result = int(aux2);
+	*//*
+	if( isnormal(f) ) result = (int)f;
+	else if (isnan(f)) result = 0;
+	else if( !signbit(f)) result = INT_MAX;
+	else result = INT_MIN;
+	*/
+	cout <<  type_name<decltype(result)>() << ": " <<result << endl;////////////////////////////////////////
+	pushcat1(result);
+	incpc(1);
+	
+}
 
 // Rodrigo
 void exec_jvm_f2l(){
-	auto x = popcat1();
-	float ff = *(float*)&x;
-	long result;
-	if( isnormal(ff) ) result = (long)ff;
-	else if (isnan(ff)) result = 0;
-	else if( !signbit(ff)) result = LONG_MAX;
-	else result = LONG_MIN;	
-	dprintf("Result: %ld\n",result);
+	u4 aux = popcat1();
+	float aux2;
+	memcpy(&aux2,&aux,sizeof(u4));
+	u8 result = aux2;
 	pushcat2(result);
 	incpc(1);
 }
-
 
 // Rodrigo
 void exec_jvm_f2d(){
-	auto x = popcat1();
-	float ff = *(float*)&x;
-	double result;
-	result = (double)ff;
-	dprintf("Result: %lf\n",result);
+	u4 aux = popcat1();
+	float aux2;
+	memcpy(&aux2,&aux,sizeof(u4));
+	double aux3 = aux2;
+	u8 result;
+	memcpy(&result,&aux3,sizeof(u8));
 	pushcat2(result);
 	incpc(1);
 }
 
-
 // Rodrigo
 void exec_jvm_d2i(){
-	auto x = popcat2();
-	double ff = *(double*)&x;
-	printf("Result: %f\n", ff);
-	int result;
-	if( isnormal(ff) ) result = (int)ff;
-	else if (isnan(ff)) result = 0;
-	else if( !signbit(ff)) result = INT_MAX;
-	else result = INT_MIN;
-	dprintf("Result: %d\n",result);
+	u8 aux = popcat2();
+	cout <<  type_name<decltype(aux)>() << ": " <<aux << endl;////////////////////////////////////////
+	double aux2;
+	/*memcpy(&aux2,&aux,sizeof(u8));
+	cout <<  type_name<decltype(aux2)>() << ": " <<aux2 << endl;////////////////////////////////////////
+	*/u4 result = int(aux2);
+	cout <<  type_name<decltype(result)>() << ": " <<result << endl;////////////////////////////////////////
 	pushcat1(result);
+	cout <<  type_name<decltype(vetor[0])>() << ": " <<vetor[0] << endl;////////////////////////////////////////
 	incpc(1);
 }
 
 // Rodrigo
 void exec_jvm_d2l(){
-	auto x = popcat2();
-	double ff = *(double*)&x;
-	long result;
-	if( isnormal(ff) ) result = (long)ff;
-	else if (isnan(ff)) result = 0;
-	else if( !signbit(ff)) result = LONG_MAX;
-	else result = LONG_MIN;	
-	dprintf("Result: %ld\n",result);
-	pushcat1(result);
+	u8 aux = popcat2();
+	double aux2;
+	memcpy(&aux2,&aux,sizeof(u8));
+	u8 result = aux2;
+	pushcat2(result);
 	incpc(1);
 }
 
 // Rodrigo
 void exec_jvm_d2f(){
-	auto x = popcat2();
-	double ff = *(double*)&x;
-	float result;
-	if( isnormal(ff) ) result = (float)ff;
-	else if (isnan(ff)) result = 0;
-	else if( !signbit(ff)) result = INFINITY;
-	else result = -INFINITY;	
-	dprintf("Result: %f\n",result);
+	double aux = popcat2();
+	float aux2 = aux;
+	u4 result;
+	memcpy(&result,&aux2,sizeof(u4));
 	pushcat1(result);
 	incpc(1);
 }
@@ -249,8 +244,7 @@ void exec_jvm_i2s(){
 }
 
 int main(){
-	//exec_jvm_f2i();
-	exec_jvm_i2d();
+	exec_jvm_f2i();
 	//exec_jvm_d2i();
 	return 0;
 
