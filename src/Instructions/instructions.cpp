@@ -37,10 +37,19 @@ void store_addr(Helper _wide = Helper::NOT_WIDE, cat1 * locais = frame_stack.top
   locais[index].ref_val = ref;
 }
 void store_64(Helper _wide = Helper::NOT_WIDE, cat1 * locais = frame_stack.top().variaveis_locais) {
+  Dprintf("EXTREME DEBUG S64\n");
+  Dprintf("%d %d, %lli\n",frame_stack.size(),_wide,(int64_t)locais);
+  Dprintf("EXTREME DEBUG S64\n");
   u2 index = get_index(_wide);
+  Dprintf("EXTREME DEBUG S64\n");
 	u4 value1;	u4 value2;
-	value2 = pop_cat1();	value1 = pop_cat1();
+  Dprintf("EXTREME DEBUG S64 %d\n",jvm_stack.size());
+	value2 = pop_cat1();
+  Dprintf("EXTREME DEBUG S64 %d\n",jvm_stack.size());
+  value1 = pop_cat1();
+  Dprintf("EXTREME DEBUG S64\n");
   locais[index].val = value1;  locais[index+1].val = value2;
+  Dprintf("EXTREME DEBUG S64\n");
 }
 void store_32(Helper _wide = Helper::NOT_WIDE, cat1 * locais = frame_stack.top().variaveis_locais) {
   u2 index = get_index(_wide);
