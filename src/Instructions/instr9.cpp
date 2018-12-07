@@ -30,12 +30,12 @@ void exec_jvm_arraylength() {
   push_cat1( array_ref->size );
   incpc(1+1);
 }
-static std::string resolve_class_name(cp_info*cp, int index = -1) {
+static std::string resolve_class_name(cp_info*cp, int index) {
   if (index == 0) return std::string("object");
   // The unsigned indexbyte1 and indexbyte2 are 
   // used to construct an index into the run-time constant pool of the
   // current class
-  if(index < 0) index = offset16_from_instr();
+  if(index < 0) throw "NEGATIVE INDEX PASSED TO resolve_class_name"; //offset16_from_instr();  // nunca deve entrar aqui
 
   CONSTANT_Class_info * class_info = 
     (CONSTANT_Class_info *) &cp[index];
@@ -46,8 +46,23 @@ static std::string resolve_class_name(cp_info*cp, int index = -1) {
   return std::string((char*)utf8_info->bytes, utf8_info->length);
 }
 
+static bool is_instance_of_class(std::string S, std::string T) {
+  bool res = false;
+  // If S is an ORDINARY (NONARRAY) class, then:
+  //   ◆ If T is a class type, then S must be the same class as T , or S
+  //   must be a subclass of T ;
+  //   ◆ If T is an interface type, then S must implement interface T .
+  if(S[0] != '[') {
+    // If T is a class type, then S must be the same class as T , or S must be a subclass of T ;
+    
+  }
+  return res;
+}
+
+
 void exec_jvm_athrow() { 
   void * ref = pop_reference();
+  incpc(1);
 }
 void exec_jvm_checkcast() { 
 }

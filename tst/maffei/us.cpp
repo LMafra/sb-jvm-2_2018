@@ -10,9 +10,14 @@ using u8 = uint64_t;
 
 int main() {
 	u8 tst = 0x8888888811111111;
-	u4 x = tst;
-	u4 h = tst>>32;
+	u4 low = tst;
+	u4 high = tst>>32;
+	u8 resembled;
+	((u4*)&resembled) [0] = low;
+	((u4*)&resembled) [1] = high;
+
 	cout << hex << tst << endl;
-	cout << "high =>" << hex << h << endl;
-	cout << "low  =>" << hex << x << endl;
+	cout << "high =>" << hex << high << endl;
+	cout << "low  =>" << hex << low << endl;
+	cout << hex << resembled << endl;
 }

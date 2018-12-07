@@ -135,7 +135,7 @@ void exec_jvm_d2l(){
 	else if( !signbit(ff)) result = LONG_MAX;
 	else result = LONG_MIN;	
 	Dprintf("Result: %ld\n",result);
-	pushcat1(result);
+	pushcat2(result);
 	incpc(1);
 }
 
@@ -173,8 +173,9 @@ void exec_jvm_i2c(){
 
 // Rodrigo
 void exec_jvm_i2s(){
-	u4 aux =  popcat1();
-	u2 aux2 = (u2)aux;
+	int32_t aux =  popcat1();
+	aux = (short)aux;
+	int32_t result = (int32_t)aux;
 	u4 result = aux2;
 	pushcat1(result);
 	incpc(1);
