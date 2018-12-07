@@ -1,7 +1,7 @@
 #pragma once
 #include "../UsingUs.h"
 #include "attribute_info.hpp"
-
+/// \brief classe que define os atributos que serao chamados dentro das instrucoes
 class method_info {public:
   u2 access_flags;
   u2 name_index;

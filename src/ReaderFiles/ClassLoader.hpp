@@ -1,6 +1,6 @@
 #pragma once
 #include "../ClassFileStructures/ClassFile.hpp"
-
+/// \brief Clase que tem a funcao de carregar os arquivos .class
 class ClassLoader{public:
   static att_name_result which_att(CONSTANT_Utf8_info&);
   static void load_constant_pool(FILE*, ClassFile*);
