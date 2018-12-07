@@ -154,10 +154,24 @@ void exec_jvm_putfield(){
 		(CONSTANT_Fieldref_info *) &cp[index];
 
 	u2 class_index = field_ref->class_index;
+	
 	CONSTANT_Utf8_info * utf8_info = 
 		(CONSTANT_Utf8_info *) &cp[class_index];
-	
+	CONSTANT_NameAndType_info * name_and_type =
+		(CONSTANT_NameAndType_info*)&cp[field_ref->name_and_type_index];
 
+	
+	CONSTANT_Utf8_info * field_descriptor = 
+		(CONSTANT_Utf8_info *)&cp[name_and_type->descriptor_index];
+	CONSTANT_Utf8_info * field_name = (CONSTANT_Utf8_info *)&cp[name_and_type->name_index];
+	
+	std::string string_field_descriptor((char*)field_descriptor->bytes, field_descriptor->length);
+	std::string string_name_field((char*)field_name->bytes, field_name->length);
+
+	printf("exec_jvm_putfield gonna loop FOREVER ! \n");
+	for(int i = 0; ; i++){
+		if(  );
+	}
 }
 // arthur
 cat1 * argument_prepare(char * descriptor){
