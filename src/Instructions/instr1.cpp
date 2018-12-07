@@ -19,7 +19,7 @@ static void ldc_X(u2 index) {
     case enum_cp_tags::CONSTANT_String:
       auxie.ref_val = ((CONSTANT_Utf8_info*)
         &my_class->constant_pool[((CONSTANT_String_info*)cp_entry)->string_index ] 
-      )->bytes;
+      );
       jvm_stack.push(auxie); break;
     case enum_cp_tags::CONSTANT_Class:
       

@@ -273,6 +273,19 @@ void instance_frame_loader(int index, Instance * inst, cat1 * args){
 			DDprintf("debug fl14\n");
 			return;
 		}
+		if(mettype[1]== 'L'){
+			CONSTANT_Utf8_info * auxing;
+			DDprintf("debug fl11\n");
+			auxing=(CONSTANT_Utf8_info *)args[0].ref_val;
+			DDprintf("debug fl12\n");
+			DDprintf("debug fl13\n");
+			for (int j=0;j<auxing->length;j++){
+				Dprintf("%d %d\n", j, auxing->length);
+				printf("%c", auxing->bytes[j]);
+			}
+			DDprintf("debug fl14\n");
+			return;
+		}
 	}
 	
 	DDprintf("debug fl6\n");
