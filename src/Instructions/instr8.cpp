@@ -142,9 +142,116 @@ void exec_jvm_putstatic(){
 
 	
 }
+
+int findfieldinclass(Instance * inst,char* metname){
+	int index = 0;
+	while(namescomp(*(CONSTANT_Utf8_info *)&(inst->my_class_ptr->constant_pool[inst->my_class_ptr->fields[index].name_index]),metname)==false && index<inst->my_class_ptr->fields_count-1){
+		index++;
+		DDprintf("debug find field didnt find at %d, will look at %d\n", index-1, index);
+	}
+	if (namescomp(*(CONSTANT_Utf8_info *)&(inst->my_class_ptr->constant_pool[inst->my_class_ptr->fields[index].name_index]),metname)==true){
+		DDprintf("debug find field found at %d\n", index);
+		return index;
+	}
+	
+	Dprintf("debug find field didnt find anything\n");
+	return 0;
+}
 void exec_jvm_getfield(){
+	cp_info * cp = frame_stack.top().inst->my_class_ptr->constant_pool;
+	u2 index = offset16_from_instr();
+	// The run-time constant pool item at that index must be a symbolic
+	// reference to a field (§5.1)
+	CONSTANT_Fieldref_info * field_ref = 
+		(CONSTANT_Fieldref_info *) &cp[index];
+
+	u2 class_index = field_ref->class_index;
+	
+	CONSTANT_Utf8_info * utf8_info = 
+		(CONSTANT_Utf8_info *) &cp[class_index];
+	CONSTANT_NameAndType_info * name_and_type =
+		(CONSTANT_NameAndType_info*)&cp[field_ref->name_and_type_index];
+
+	
+	CONSTANT_Utf8_info * field_descriptor = 
+		(CONSTANT_Utf8_info *)&cp[name_and_type->descriptor_index];
+	CONSTANT_Utf8_info * field_name = (CONSTANT_Utf8_info *)&cp[name_and_type->name_index];
+	
+	std::string string_field_descriptor((char*)field_descriptor->bytes, field_descriptor->length);
+	char string_name_field[field_name->length+1];
+	for(int i=0;i<field_name->length;i++){
+		Dprintf("%d %c\n", i,field_name->bytes[i]);
+		string_name_field[i]=field_name->bytes[i];
+	}
+	string_name_field[field_name->length]='\0';
+
+	Dprintf("exec_jvm_putfield gonna loop FOREVER ! \n");
+	if(string_field_descriptor[0] == 'I'){
+		Instance * objectref = (Instance *)pop_reference();
+		int32_t aux = ((int32_t*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0];
+		pushcat1(aux);
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'B'){
+		Instance * objectref = (Instance *)pop_reference();
+		int8_t aux = ((int8_t*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0];
+		pushcat1((int32_t)aux);
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'C'){
+		Instance * objectref = (Instance *)pop_reference();
+		u8 aux = ((u8*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0];
+		pushcat2(aux);
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'D'){
+		Instance * objectref = (Instance *)pop_reference();
+		double aux = ((double*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0];
+		pushcat2(aux);
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'F'){
+		Instance * objectref = (Instance *)pop_reference();
+		u4 aux = ((u4*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0];
+		pushcat1(aux);
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'J'){
+		Instance * objectref = (Instance *)pop_reference();
+		int64_t aux = ((int64_t*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0];
+		pushcat2(aux);
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'L'){
+		Instance * objectref = (Instance *)pop_reference();
+		void * aux = ((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)];
+		push_reference(aux);
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'S'){
+		Instance * objectref = (Instance *)pop_reference();
+		int16_t aux = ((int16_t*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0];
+		pushcat1((int32_t)aux);
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == '['){
+		Instance * objectref = (Instance *)pop_reference();
+		void * aux = ((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)];
+		push_reference(aux);
+		incpc(3);
+		return;
+	}
 
 }
+
 void exec_jvm_putfield(){
 	cp_info * cp = frame_stack.top().inst->my_class_ptr->constant_pool;
 	u2 index = offset16_from_instr();
@@ -166,11 +273,76 @@ void exec_jvm_putfield(){
 	CONSTANT_Utf8_info * field_name = (CONSTANT_Utf8_info *)&cp[name_and_type->name_index];
 	
 	std::string string_field_descriptor((char*)field_descriptor->bytes, field_descriptor->length);
-	std::string string_name_field((char*)field_name->bytes, field_name->length);
+	char string_name_field[field_name->length+1];
+	for(int i=0;i<field_name->length;i++){
+		Dprintf("%d %c\n", i,field_name->bytes[i]);
+		string_name_field[i]=field_name->bytes[i];
+	}
+	string_name_field[field_name->length]='\0';
 
-	printf("exec_jvm_putfield gonna loop FOREVER ! \n");
-	for(int i = 0; ; i++){
-		if(  );
+	Dprintf("exec_jvm_putfield gonna loop FOREVER ! \n");
+	if(string_field_descriptor[0] == 'I'){
+		int32_t aux = popcat1();
+		Instance * objectref = (Instance *)pop_reference();
+		((int32_t*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0]=aux;
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'B'){
+		int8_t aux = popcat1();
+		Instance * objectref = (Instance *)pop_reference();
+		((int8_t*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0]=aux;
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'C'){
+		u8 aux = popcat2();
+		Instance * objectref = (Instance *)pop_reference();
+		((u8*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0]=aux;
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'D'){
+		double aux = popcat2();
+		Instance * objectref = (Instance *)pop_reference();
+		((double*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0]=aux;
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'F'){
+		u4 aux = popcat1();
+		Instance * objectref = (Instance *)pop_reference();
+		((u4*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0]=aux;
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'J'){
+		int64_t aux = popcat2();
+		Instance * objectref = (Instance *)pop_reference();
+		((int64_t*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0]=aux;
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'L'){
+		void * aux = pop_reference();
+		Instance * objectref = (Instance *)pop_reference();
+		((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]=aux;
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == 'S'){
+		int16_t aux = popcat1();
+		Instance * objectref = (Instance *)pop_reference();
+		((int16_t*)(((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]))[0]=aux;
+		incpc(3);
+		return;
+	}
+	if(string_field_descriptor[0] == '['){
+		void * aux = pop_reference();
+		Instance * objectref = (Instance *)pop_reference();
+		((void **)(objectref->my_attributes))[findfieldinclass(objectref,string_name_field)]=aux;
+		incpc(3);
+		return;
 	}
 }
 // arthur
