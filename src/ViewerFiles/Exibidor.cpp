@@ -872,17 +872,20 @@ void Exibidor::printparamcat2value(u2 index){
 			std::memcpy(&buff[1], &thelonginfo.high_bytes, sizeof(thelonginfo.high_bytes));
 			std::memcpy(&buff[0], &thelonginfo.low_bytes, sizeof(thelonginfo.low_bytes));
 			std::cout << "<";
-			std::cout << *((uint64_t*)buff);
+			std::cout << *((int64_t*)buff);
 			std::cout << ">";
 		}
+    break;
     	case enum_cp_tags::CONSTANT_Double:{
     		CONSTANT_Double_info & thedoubleinfo = *(CONSTANT_Double_info *)&viewobj.constant_pool[index];
 			std::memcpy(&buff[1], &thedoubleinfo.high_bytes, sizeof(thedoubleinfo.high_bytes));
 			std::memcpy(&buff[0], &thedoubleinfo.low_bytes, sizeof(thedoubleinfo.low_bytes));
+      double auxpistola = *((double*)buff);
 			std::cout << "<";
-			std::cout << *((double*)buff);
+			printf("%lf",auxpistola);
 			std::cout << ">";
 		}
+    break;
     	default:
     		break;
     }
