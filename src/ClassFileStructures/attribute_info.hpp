@@ -7,7 +7,7 @@ using namespace std;
 /// Code_attribute structures of the class file format.
 
 // 4.7.2
-
+/// \brief enum com os nomes e respectivos codigos dos atributos
 enum att_name_result{
   ATT_CONSTANTVALUE=0,
   ATT_CODE,
@@ -20,7 +20,7 @@ enum att_name_result{
   ATT_SYNTHETIC,
   ATT_INVALID
 };
-
+/// \brief classe com os atributos
 class attribute_info {
   u8 pad1;
   u8 pad2;
@@ -30,13 +30,14 @@ class attribute_info {
   u8 pad6;
   u8 pad7;
 };
-
+/// \brief Classe que define o valor dos atributos
 class ConstantValue_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;
   u2 constantvalue_index;
   void fill_from(FILE*f);
 };
+/// \brief Classe da tabela de exceções
 class Exception_Table{public:    
   u2 start_pc;
   u2 end_pc;
@@ -45,6 +46,7 @@ class Exception_Table{public:
   void fill_from(FILE*f);
 };
 // 4.7.3
+/// \brief Classe da tabela de códigos
 class Code_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;
@@ -60,6 +62,7 @@ class Code_attribute {public:
 };
 
 // 4.7.15
+/// \brief Classe da tabela de atributos
 class Deprecated_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;
@@ -69,7 +72,7 @@ class Deprecated_attribute {public:
 // 4.7.4
 // require "attribute_info_aux.hpp" cause of stack_map_frame
 
-// Exceptions Attributes
+/// \brief Classe dos atributos de exceções
 class Exceptions_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;
@@ -77,7 +80,6 @@ class Exceptions_attribute {public:
   u2 * exception_index_table;
   void fill_from(FILE*f);
 };
-
 class Classes{public:
   u2 inner_class_info_index;
   u2 outer_class_info_index;
@@ -85,7 +87,7 @@ class Classes{public:
   u2 inner_class_access_flags;
   void fill_from(FILE*f);
 };
-
+/// \brief Classe que representa o tamanho dos atributos dentro do ClassFile
 class InnerClasses_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;
@@ -95,6 +97,7 @@ class InnerClasses_attribute {public:
 };
 
 // 4.7.10
+/// \brief Classe que representa um tamanho fixo opcional dos atributos dentro do ClassFile
 class SourceFile_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;
@@ -103,13 +106,13 @@ class SourceFile_attribute {public:
 };
 
 // 4.7.12
-
+/// \brief 
 class Line_number_table {public:
   u2 start_pc;
   u2 line_number;
   void fill_from(FILE*f);
 };
-
+/// \brief Classe que é usada por debugger para determinar qual parte da array de códigos que corresponde a linha de chamada no programa principal
 class LineNumberTable_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;
@@ -117,7 +120,7 @@ class LineNumberTable_attribute {public:
   Line_number_table * line_number_table;
   void fill_from(FILE*f);
 };
-
+/// \brief Classe que representa os atributos que estão dentro da tabela de código dos mesmos. Pode ser usada por debugger para verificar o valor de uma variavel local durante a execução de um metodo
 class Local_variable_table {public:
   u2 start_pc;
   u2 length;
@@ -126,7 +129,7 @@ class Local_variable_table {public:
   u2 index;
   void fill_from(FILE*f);
 };
-
+/// \brief Classe que representa os atributos que estão dentro da tabela de código dos mesmos. Pode ser usada por debugger para verificar o valor de uma variavel local durante a execução de um metodo
 class LocalVariableTable_attribute {public:
   u2 attribute_name_index;
   u4 attribute_length;
@@ -134,7 +137,7 @@ class LocalVariableTable_attribute {public:
   Local_variable_table * local_variable_table; // local_variable_table[local_variable_table_length]
   void fill_from(FILE*f);
 };
-
+/// \brief enum utilizado para mostrar os modificadores de propriedades da classe. Definindo-os como constantes em hexadecimal
 enum enum_inner_class_access_flags {
   ACC_PUBLIC = 0x0001,// Marked or implicitly public in source.
   ACC_PRIVATE = 0x0002,// Marked private in source.
