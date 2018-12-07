@@ -69,9 +69,9 @@ void exec_jvm_lconst_1(){
   incpc(1);
 }
 
-// Gabiel Bessa [fixed maffei]
+// Gabiel Bessa [fixed maffei][fixed arthur]
 void exec_jvm_fconst_0(){
-  push_cat2((float)0.0);
+  push_cat1((float)0.0);
   incpc(1);
 }
 
@@ -99,12 +99,13 @@ void exec_jvm_dconst_1(){
   incpc(1);
 }
 
-// Gabiel Bessa [fixed maffei]
-void exec_jvm_bipush(){
-  u1 par = instrparam(1);
-  int32_t par_extended =(int16_t)par ;
-  push_cat1(par_extended);
-  incpc(1 + 1);
+ // Gabiel Bessa [fixed maffei][fixed arthur]
+ void exec_jvm_bipush(){
+   u1 helper = instrparam(1);
+   int8_t par = *(int8_t*)&helper;
+   int32_t par_extended =(int16_t)par ;
+   push_cat1(par_extended);
+   incpc(1 + 1);
 }
 
 // Gabiel Bessa [fixed maffei]
