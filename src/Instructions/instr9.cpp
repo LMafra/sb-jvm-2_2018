@@ -3,10 +3,10 @@
 #include "instructions.hpp"
 
 void exec_jvm_new() { 
-  u2 index = (u2)offset16_from_stack();
+  u2 index = (u2)offset16_from_instr();
   void * ref = (void*)Instance::instance_allocator(index);
   push_reference(ref);
-  incpc(1);
+  incpc(1+2);
 }
 void exec_jvm_newarray() { 
   u1 count = popcat1();
