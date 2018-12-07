@@ -19,6 +19,9 @@ void instructions_Loop(){
 		printf("debug instr stack size %lu\n", jvm_stack.size());
 		#endif
 		(*(exec_vet[aux]))();
+		#ifdef DEBUGLINES
+		getchar();
+		#endif
 	}
 	#ifdef DEBUG
 	if (PC==NULL){
