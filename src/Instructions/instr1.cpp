@@ -35,8 +35,8 @@ void exec_jvm_ldc(){
 }
 
 void exec_jvm_ldc_w(){
-  u2 index = instrparam(1);
-  index = index << 8 | instrparam(2);
+  u2 index =offset16_from_instr();
+  // index = instrparam(1);  index = index << 8 | instrparam(2);
   ldc_X(index);
   incpc(1+2);
 }
