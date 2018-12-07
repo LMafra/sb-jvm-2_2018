@@ -47,7 +47,7 @@ void exec_jvm_lookupswitch(){
     pcaux = &(pcaux[1]);
   }
   int32_t defa;
-  u4 npairs;
+  int32_t npairs;
   ((u1 *)&defa)[3] = pcaux[0];
   ((u1 *)&defa)[2] = pcaux[1];
   ((u1 *)&defa)[1] = pcaux[2];
@@ -74,16 +74,18 @@ void exec_jvm_lookupswitch(){
   }
   u4 keyaux = popcat1();
   int32_t key = *((int32_t *)(&keyaux));
-  for(int i=0;i<npairs;i++){
-  	if(key==match[i]){
-  		u8 pcnew = ((u8)PC)+offset[i];
-  		PC = *((u1**)(&pcnew));
-  		return;
-  	}
-  }
-	u8 pcnew = ((u8)PC)+defa;
-  	PC = *((u1**)(&pcnew));
-  	return;
+   for(int i=0;i<npairs;i++){
+   	if(key==match[i]){
+   		Dprintf("debug lookupswitch %d %d: %d\n", key,match[i],offset[i]);
+   		u8 pcnew = ((u8)PC)+offset[i];
+   		PC = *((u1**)(&pcnew));
+   		return;
+   	}
+   }
+   		Dprintf("debug lookupswitch %d %d: %d\n", key,defa,defa);
+ 	u8 pcnew = ((u8)PC)+defa;
+   	PC = *((u1**)(&pcnew));
+   	return;
 }
 
 static void _return() {
