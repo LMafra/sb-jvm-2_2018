@@ -5,20 +5,15 @@
 O trabalho final do curso Software Básico consiste na criação da **Máquina Virtual Java**(JVM). 
 
 ## Grupo:
-Lucas Mafra Chagas - 12/0126443
-
-Rodrigo Doria Vilaça - 14/0031111
-
 Arthur da Silveira Couto - 16/0002575
+Gabriel Cunha Bessa Vieira - 16/0120811
+Leonardo Maffei da Silva - 16/0033811
+Lucas Mafra Chagas - 12/0126443
+Rodrigo Doria Vilaça - 14/0031111
 
 ## Funcionamento
 
 ## Estruturação
-
-#### Cada pasta pode possuir seu próprio README.md
-
-Isso devido às regras bem específicas que podem haver para
-a codificação, documentação, testes, etc. Acreditamos que essas informações são relevantes o bastantepara estarem no projeto, mas não neste documento.
 
 + **src**
   * Pasta contendo todos os fontes que devem ser entregues
@@ -30,15 +25,6 @@ a codificação, documentação, testes, etc. Acreditamos que essas informaçõe
 ## Referências
 
 [Documentação JVM Oracle](https://docs.oracle.com/javase/specs/jvms/se7/html/)
-
-## TODO
-- [ ] **Padronizar nomenclatura das variáveis.**
-- [ ] **Decidir a cada quanto tempo iremos integrar o que foi feito.**
-- [ ] Decidir as ferramentas de debug
-- [ ] Decidir IDE a ser utilizada, se alguma
-- [ ] Mínima padronização dos *testes unitários*.
-- [ ] Colocar na pasta *doc/example* exemplos de utlização do *doxygen*
-- [ ] *Makefike* que funcione com essa organização *flat*.
 
 ## Algumas Regras
 
